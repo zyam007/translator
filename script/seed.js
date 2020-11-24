@@ -36,7 +36,8 @@ async function seed() {
   //   userId: 2,
   //   // chatRoomId: 1
   // })
-
+  const message2 = await Message.createMessage('i dont like', user2, user1)
+  const message3 = await Message.createMessage('I like', user1, user2)
   // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }

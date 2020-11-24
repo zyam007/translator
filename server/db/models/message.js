@@ -28,9 +28,16 @@ Message.createMessage = async (text, sender, receiver) => {
     sender.id,
     receiver.id
   )
+  // const conversation = await Conversation.findOrCreate({
+  //   where: {
+  //     user1Id: sender.id,
+  //     user2Id: receiver.id
+  //   }
+  // })
   // console.log('convo proto', Object.keys(conversation.__proto__), 'message proto', Object.keys(message.__proto__))
   // conversation.dataValue.id
-  // await message.setConversation(conversation1)
+  console.log(conversation1[0].dataValues.id)
+  await message.setConversation(conversation1[0].dataValues.id)
   // console.log('conversation ', conversation1)
 }
 module.exports = Message
