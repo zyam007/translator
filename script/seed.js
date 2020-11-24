@@ -2,17 +2,42 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
+const Conversation = require('../server/db/models/conversation')
+const Message = require('../server/db/models/message')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  let user1 = User.create({email: 'cody@email.com', password: '123'})
+  let user2 = User.create({email: 'murphy@email.com', password: '123'})
+  let user3 = User.create({
+    email: 'Yanna@email.com',
+    password: '123',
+    nativeLanguage: 'RUS',
+    role: 'ADMIN'
+  })
+  let user4 = User.create({
+    email: 'Jenna@email.com',
+    password: '123',
+    nativeLanguage: 'CHI',
+    role: 'ADMIN'
+  })
+  let user5 = User.create({
+    email: 'Josephine@email.com',
+    password: '123',
+    nativeLanguage: 'ENG',
+    role: 'ADMIN'
+  })
 
-  console.log(`seeded ${users.length} users`)
+  const message1 = Message.createMessage('I like', user1, user2)
+  // const message2 = await Message.create({
+  //   content: 'Hello',
+  //   userId: 2,
+  //   // chatRoomId: 1
+  // })
+
+  // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 

@@ -2,6 +2,9 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+// need to add native language: enum default to english
+// block array : [userId, userId]
+// role: enum admin / regular user
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
@@ -15,6 +18,18 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('password')
     }
+  },
+  profilePicture: {
+    type: Sequelize.STRING,
+    defaultValue: 'placeholder.jpg'
+  },
+  nativeLaguage: {
+    type: Sequelize.ENUM('ENG', 'CHI', 'RUS'),
+    defaultValue: 'ENG'
+  },
+  role: {
+    type: Sequelize.ENUM('USER', 'ADMIN'),
+    defaultValue: 'USER'
   },
   salt: {
     type: Sequelize.STRING,
@@ -30,6 +45,12 @@ const User = db.define('user', {
 })
 
 module.exports = User
+
+//CHECK IF ADMIN
+User.isAdmin = async function(id) {
+  const user = await User.findByPk(id)
+  return user.role === 'Admin'
+}
 
 /**
  * instanceMethods
