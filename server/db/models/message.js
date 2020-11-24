@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 const User = require('./user')
+const Conversation = require('./conversation')
 
 const Message = db.define('message', {
   text: Sequelize.STRING,
@@ -13,18 +14,23 @@ const Message = db.define('message', {
   // }
 })
 
-Message.createMessage = (text, sender, receiver) => {
-  return Promise.all([
-    Message.create({
-      text,
-      userId: sender.id,
-      recerverId: receiver.id
-      // user: {
-      //   _id: sender.id,
-      //   email: sender.email
-      // }
-    }),
-    db.models.conversation.findOrCreateConversation(sender.id, receiver.id)
-  ]).then(([message, conversation]) => message.setConversation(conversation))
+Message.createMessage = async (text, sender, receiver) => {
+  const message = await Message.create({
+    text,
+    userId: sender.id,
+    recerverId: receiver.id
+    // user: {
+    //   _id: sender.id,
+    //   email: sender.email
+    // }
+  })
+  const conversation1 = await Conversation.findOrCreateConversation(
+    sender.id,
+    receiver.id
+  )
+  // console.log('convo proto', Object.keys(conversation.__proto__), 'message proto', Object.keys(message.__proto__))
+  // conversation.dataValue.id
+  // await message.setConversation(conversation1)
+  // console.log('conversation ', conversation1)
 }
 module.exports = Message
