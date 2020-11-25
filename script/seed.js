@@ -7,23 +7,34 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  let user1 = await User.create({email: 'cody@email.com', password: '123456'})
-  let user2 = await User.create({email: 'murphy@email.com', password: '123456'})
+  let user1 = await User.create({
+    email: 'cody@email.com',
+    password: '123456',
+    userName: 'Cody'
+  })
+  let user2 = await User.create({
+    email: 'murphy@email.com',
+    password: '123456',
+    userName: 'Murphy'
+  })
   let user3 = await User.create({
     email: 'Yanna@email.com',
     password: '123456',
+    userName: 'Yanna',
     language: 'RUS',
     isAdmin: true
   })
   let user4 = await User.create({
     email: 'Jenna@email.com',
     password: '123456',
+    userName: 'Jenna',
     language: 'CHI',
     isAdmin: true
   })
   let user5 = await User.create({
     email: 'Josephine@email.com',
     password: '123456',
+    userName: 'Josephine',
     language: 'ENG',
     isAdmin: true
   })
