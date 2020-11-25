@@ -23,6 +23,11 @@ const User = db.define('user', {
       return () => this.getDataValue('password')
     }
   },
+  userName: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false
+  },
   profilePicture: {
     type: Sequelize.STRING,
     defaultValue: 'placeholder.jpg'
