@@ -13,7 +13,7 @@ Message.createMessage = async (text, sender, receiver) => {
   const message = await Message.create({
     text,
     userId: sender.id,
-    recerverId: receiver.id
+    receiverId: receiver.id
   })
   const conversation1 = await Conversation.findOrCreateConversation(
     sender.id,
