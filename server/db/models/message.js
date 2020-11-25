@@ -6,7 +6,7 @@ const Conversation = require('./conversation')
 const Message = db.define('message', {
   text: Sequelize.STRING,
   userId: Sequelize.INTEGER,
-  recerverId: Sequelize.INTEGER
+  receiverId: Sequelize.INTEGER
 })
 
 Message.createMessage = async (text, sender, receiver) => {

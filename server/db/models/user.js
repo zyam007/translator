@@ -9,12 +9,18 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
+    validate: {
+      len: [6, 10]
+    },
     get() {
       return () => this.getDataValue('password')
     }
@@ -23,13 +29,13 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     defaultValue: 'placeholder.jpg'
   },
-  nativeLaguage: {
+  language: {
     type: Sequelize.ENUM('ENG', 'CHI', 'RUS'),
     defaultValue: 'ENG'
   },
-  role: {
-    type: Sequelize.ENUM('USER', 'ADMIN'),
-    defaultValue: 'USER'
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   },
   salt: {
     type: Sequelize.STRING,
@@ -45,12 +51,6 @@ const User = db.define('user', {
 })
 
 module.exports = User
-
-//CHECK IF ADMIN
-User.isAdmin = async function(id) {
-  const user = await User.findByPk(id)
-  return user.role === 'Admin'
-}
 
 /**
  * instanceMethods
