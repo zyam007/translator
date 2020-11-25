@@ -2,19 +2,40 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+// need to add native language: enum default to english
+// block array : [userId, userId]
+// role: enum admin / regular user
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
+    validate: {
+      len: [6, 10]
+    },
     get() {
       return () => this.getDataValue('password')
     }
+  },
+  profilePicture: {
+    type: Sequelize.STRING,
+    defaultValue: 'placeholder.jpg'
+  },
+  language: {
+    type: Sequelize.ENUM('ENG', 'CHI', 'RUS'),
+    defaultValue: 'ENG'
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   },
   salt: {
     type: Sequelize.STRING,

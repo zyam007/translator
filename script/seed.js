@@ -1,18 +1,51 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Friendship, Conversation, Message} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  let user1 = await User.create({email: 'cody@email.com', password: '123456'})
+  let user2 = await User.create({email: 'murphy@email.com', password: '123456'})
+  let user3 = await User.create({
+    email: 'Yanna@email.com',
+    password: '123456',
+    language: 'RUS',
+    isAdmin: true
+  })
+  let user4 = await User.create({
+    email: 'Jenna@email.com',
+    password: '123456',
+    language: 'CHI',
+    isAdmin: true
+  })
+  let user5 = await User.create({
+    email: 'Josephine@email.com',
+    password: '123456',
+    language: 'ENG',
+    isAdmin: true
+  })
 
-  console.log(`seeded ${users.length} users`)
+  const message1 = await Message.createMessage('I like', user1, user2)
+  const message2 = await Message.createMessage('i dont like', user2, user1)
+  const message3 = await Message.createMessage('I like', user1, user2)
+  const friendship1 = await Friendship.create({
+    senderId: 1,
+    receiverId: 2,
+    status: 'requested',
+    intro: 'I would like to be your friend.'
+  })
+  const friendship2 = await Friendship.create({
+    senderId: 2,
+    receiverId: 1,
+    status: 'requested',
+    intro: 'I would like to be more than your friend.'
+  })
+  await friendship1.confirm()
+  await friendship2.deny()
+  // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 
