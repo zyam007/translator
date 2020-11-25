@@ -1,9 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
-const Conversation = require('../server/db/models/conversation')
-const Message = require('../server/db/models/message')
+const {User, Friendship, Conversation, Message} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -31,13 +29,22 @@ async function seed() {
   })
 
   const message1 = await Message.createMessage('I like', user1, user2)
-  // const message2 = await Message.create({
-  //   content: 'Hello',
-  //   userId: 2,
-  //   // chatRoomId: 1
-  // })
   const message2 = await Message.createMessage('i dont like', user2, user1)
   const message3 = await Message.createMessage('I like', user1, user2)
+  const friendship1 = await Friendship.create({
+    senderId: 1,
+    receiverId: 2,
+    status: 'requested',
+    intro: 'I would like to be your friend.'
+  })
+  const friendship2 = await Friendship.create({
+    senderId: 2,
+    receiverId: 1,
+    status: 'requested',
+    intro: 'I would like to be more than your friend.'
+  })
+  await friendship1.confirm()
+  await friendship2.deny()
   // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
