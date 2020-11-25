@@ -1,0 +1,19 @@
+.convo {
+  padding-right: 15px;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  display: flex;
+  flex-basis: auto;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  min-width: 0;
+}
+.convo-container {
+  font-size: 100%;
+  vertical-align: initial;
+  outline: none;
+  cursor: pointer;
+}

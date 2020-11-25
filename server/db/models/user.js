@@ -1,10 +1,8 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Conversation = require('./conversation')
 
-// need to add native language: enum default to english
-// block array : [userId, userId]
-// role: enum admin / regular user
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
@@ -59,6 +57,37 @@ User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
 
+User.prototype.getConvos = async function() {
+  console.log('id', this.id)
+  const part1 = await Conversation.findAll({
+    where: {
+      user1Id: this.id
+    }
+    // order by asc/dsc column
+  })
+  console.log('part1', part1[0].dataValues)
+  // console.log('--------------p1--------------', part1['0'].dataValues.user2Id)
+  const part2 = await Conversation.findAll({
+    where: {
+      user2Id: this.dataValues.id
+    }
+  })
+  // include: {
+  //   model: Tool,
+  //   as: 'Instruments'
+  //   where: {
+  //     size: {
+  //       [Op.ne]: 'small'
+  //     }
+  //   }
+  // }
+  // console.log('--------------p2--------------', part2['0'].dataValues.user1Id)
+  let result = {
+    conversations: part1.concat(part2)
+  }
+  // console.log(result)
+  return result
+}
 /**
  * classMethods
  */

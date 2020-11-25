@@ -31,6 +31,7 @@ async function seed() {
   const message1 = await Message.createMessage('I like', user1, user2)
   const message2 = await Message.createMessage('i dont like', user2, user1)
   const message3 = await Message.createMessage('I like', user1, user2)
+  const message4 = await Message.createMessage('I like', user3, user1)
   const friendship1 = await Friendship.create({
     senderId: 1,
     receiverId: 2,
@@ -45,6 +46,7 @@ async function seed() {
   })
   await friendship1.confirm()
   await friendship2.deny()
+  await user1.getConvos()
   // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
