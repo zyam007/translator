@@ -19,3 +19,31 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.nav-name {
+  color: grey;
+  font-weight: bold;
+}
+
+.nav-name:hover {
+  color: #a94ae8;
+  text-decoration: none;
+}
+
+.center {
+  align-self: center;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
