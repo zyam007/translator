@@ -102,8 +102,19 @@ const mapSignup = state => {
     error: state.user.error
   }
 }
+const mapDispatchL = dispatch => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const formName = evt.target.name
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      dispatch(auth(email, password, formName))
+    }
+  }
+}
 
-const mapDispatch = dispatch => {
+const mapDispatchS = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
@@ -117,8 +128,8 @@ const mapDispatch = dispatch => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Login = connect(mapLogin, mapDispatchL)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatchS)(AuthForm)
 
 /**
  * PROP TYPES

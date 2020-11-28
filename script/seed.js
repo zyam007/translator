@@ -39,11 +39,15 @@ async function seed() {
     isAdmin: true
   })
 
-  const message1 = await Message.createMessage('I like', user1, user2)
-  const message2 = await Message.createMessage('i dont like', user2, user1)
-  const message3 = await Message.createMessage('I like', user1, user2)
-  const message4 = await Message.createMessage('I like', user3, user1)
-  const message5 = await Message.createMessage('I ok', user4, user1)
+  const message1 = await Message.createMessage('I like', user1.id, user2.id)
+  const message2 = await Message.createMessage(
+    'i dont like',
+    user2.id,
+    user1.id
+  )
+  const message3 = await Message.createMessage('I like', user1.id, user2.id)
+  const message4 = await Message.createMessage('I like', user3.id, user1.id)
+  const message5 = await Message.createMessage('I ok', user4.id, user1.id)
   const friendship1 = await Friendship.create({
     senderId: 1,
     receiverId: 2,

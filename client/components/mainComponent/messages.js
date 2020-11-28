@@ -1,38 +1,10 @@
 import React from 'react'
 import Input from './input'
 import './message.css'
-const message1 = {
-  id: 1,
-  text: 'I dont think so',
-  userId: 1,
-  receiverId: 2,
-  conversationId: 1
-}
-const message2 = {
-  id: 2,
-  text: 'wait',
-  userId: 2,
-  receiverId: 1,
-  conversationId: 1
-}
-const message3 = {
-  id: 3,
-  text: 'ok I agree',
-  userId: 1,
-  receiverId: 2,
-  conversationId: 1
-}
-const message4 = {
-  id: 4,
-  text: 'YOLO',
-  userId: 2,
-  receiverId: 1,
-  conversationId: 1
-}
-const user = {
-  id: 1,
-  userName: 'Jamie'
-}
+import {getAllMessages, postAMessage} from '../../store/message'
+import {connect} from 'react-redux'
+import Loader from 'react-loader-spinner'
+
 class Messages extends React.Component {
   constructor(props) {
     super(props)
@@ -41,32 +13,58 @@ class Messages extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  componentDidMount() {
+    let selected = this.props.selected
+    this.props.getAllMessages(this.props.userId, selected)
+  }
+  componentDidUpdate(prevProps) {
+    console.log('prevProps', prevProps)
+    if (this.props.selected !== prevProps.selected) {
+      this.props.getAllMessages(this.props.userId, this.props.selected)
+    }
+  }
   handleChange(event) {
     this.setState({value: event.target.value})
   }
 
   handleSubmit(event) {
-    alert('A message was submitted: ' + this.state.value)
     event.preventDefault()
+    console.log(
+      'message',
+      this.state.value,
+      'is type of',
+      typeof this.state.value,
+      'sender',
+      this.props.userId,
+      'receiver',
+      this.props.selected
+    )
+    this.props.postAMessage(
+      this.state.value,
+      this.props.userId,
+      this.props.selected
+    )
   }
   render() {
-    const messages = [message1, message2, message3, message4]
-    console.log(
-      'is it true',
-      messages[0].receiverId == user.id,
-      messages[1].receiverId == user.id
-    )
+    if (this.props.loading == true) {
+      return (
+        <div>
+          <p>Loading messages...Please wait</p>
+          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+        </div>
+      )
+    }
     return (
       <ul className="list">
-        {// ={"btn-group pull-right " + (this.props.showBulkActions ? 'show' : 'hidden')}
-        messages.map(message => {
+        {this.props.messages.map(message => {
           return (
             <li
               key={message.id}
               className={
                 'messages' +
-                (message.receiverId == user.id ? 'receiver' : 'sender')
+                (message.receiverId == this.props.userId
+                  ? 'receiver'
+                  : 'sender')
               }
             >
               {message.text}
@@ -84,5 +82,19 @@ class Messages extends React.Component {
     )
   }
 }
+const mapState = state => {
+  return {
+    userId: state.user.id,
+    messages: state.message.messages,
+    loading: state.message.loading
+  }
+}
 
-export default Messages
+const mapDispatch = dispatch => {
+  return {
+    getAllMessages: (id, otherId) => dispatch(getAllMessages(id, otherId)),
+    postAMessage: (text, senderId, receiverId) =>
+      dispatch(postAMessage(text, senderId, receiverId))
+  }
+}
+export default connect(mapState, mapDispatch)(Messages)

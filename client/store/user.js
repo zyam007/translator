@@ -51,7 +51,8 @@ export const auth = (
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    console.log('what is the res data printed out in user store', res.data)
+    history.push('/main')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

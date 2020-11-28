@@ -1,24 +1,19 @@
 import React from 'react'
+
 import './convo.css'
-const user1 = {
-  id: 1,
-  userName: 'Jamie'
-}
-const user2 = {
-  id: 2,
-  userName: 'Jenna'
-}
-const user3 = {
-  id: 3,
-  userName: 'Jason'
-}
-const users = [user1, user2, user3]
-function conversation(props) {
+
+function Conversation(props) {
+  console.log('---!in convo', props)
   return (
     <ul className="convo-container">
-      {users.map(user => {
+      {props.otherInChat.map(user => {
         return (
-          <li key={user.id} className="convo">
+          <li
+            key={user.id}
+            className="convo"
+            value={user.id}
+            onClick={props.handleClick}
+          >
             {user.userName}
           </li>
         )
@@ -27,4 +22,4 @@ function conversation(props) {
   )
 }
 
-export default conversation
+export default Conversation

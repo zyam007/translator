@@ -63,7 +63,6 @@ User.prototype.correctPassword = function(candidatePwd) {
 }
 
 User.prototype.getConvos = async function() {
-  console.log('id', this.id)
   const part1 = await Conversation.findAll({
     where: {
       user1Id: this.id
@@ -71,7 +70,6 @@ User.prototype.getConvos = async function() {
     // order by asc/dsc column
   })
   const otherInChatP1 = part1.map(user => {
-    console.log('user', user.dataValues.user2Id)
     return user.dataValues.user2Id
   })
   const part2 = await Conversation.findAll({
@@ -80,14 +78,12 @@ User.prototype.getConvos = async function() {
     }
   })
   const otherInChatP2 = part2.map(user => {
-    console.log('user', user.dataValues.user1Id)
     return user.dataValues.user1Id
   })
   let result = {
     conversations: part1.concat(part2),
     friends: otherInChatP1.concat(otherInChatP2)
   }
-  console.log(result)
   return result
 }
 /**
