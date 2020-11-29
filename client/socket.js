@@ -6,8 +6,10 @@ const socket = io(window.location.origin)
 socket.on('connect', () => {
   console.log('Connected!')
   socket.on('new-message', message => {
-    console.log('i am in socket client, whats the message', message)
-    store.dispatch(postMessage(message))
+    let state = store.getState()
+    if (state.user.id == message.receiverId) {
+      store.dispatch(postMessage(message))
+    }
   })
 })
 

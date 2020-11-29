@@ -7,7 +7,7 @@ const GET_MESSAGES = 'GET_MESSAGES'
 const POST_MESSAGE = 'POST_MESSAGE'
 // ACTION CREATER
 const getMessages = messages => ({type: GET_MESSAGES, messages})
-const postMessage = message => ({type: POST_MESSAGE, message})
+export const postMessage = message => ({type: POST_MESSAGE, message})
 
 export const getAllMessages = (id, otherId) => async dispatch => {
   try {
@@ -27,13 +27,8 @@ export const postAMessage = (text, id, otherId) => async dispatch => {
     const res = await axios.post(`/api/messages/${id}/${otherId}`, {
       text: text
     })
-    console.log(res.data)
     dispatch(postMessage(res.data))
-    socket.emit('new-message', {
-      message: text,
-      senderId: id,
-      receiverId: otherId
-    })
+    socket.emit('new-message', res.data)
   } catch (err) {
     console.error(err.message, err.response)
   }
