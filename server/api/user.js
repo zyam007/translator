@@ -27,33 +27,20 @@ router.get('/:email', async (req, res, next) => {
         email: req.params.email
       }
     })
-    console.dir(req.params)
     res.json(findUser)
   } catch (err) {
     next(err)
   }
 })
 
-//need senderId, receiverId, note
-//add create new in friendship model
-// export const fetchAddFriend = (email, userId, note) => async dispatch => {
-//   try {
-//     const {data} = await axios.get(`/api/user/${userId}/${email}/${note}`)
-//     dispatch(addFriend(data))
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
-router.get('/:userId/:email/:note', async (req, res, next) => {
+router.post('/addFriend', async (req, res, next) => {
   try {
-    const findUser = await User.findOne({
-      where: {
-        email: req.params.email
-      }
+    const friendship = await Friendship.create({
+      senderId: req.body.senderId,
+      receiverId: req.body.receiverId,
+      intro: req.body.intro
     })
-    console.dir(req.params)
-    res.json(findUser)
+    res.json(friendship)
   } catch (err) {
     next(err)
   }

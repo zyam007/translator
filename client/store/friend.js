@@ -20,9 +20,9 @@ const findUser = user => ({
   user
 })
 
-const addFriend = user => ({
+const addFriend = friend => ({
   type: ADD_FRIEND,
-  user
+  friend
 })
 
 /**
@@ -37,11 +37,18 @@ export const fetchUser = email => async dispatch => {
   }
 }
 
-//need senderId, receiverId, note
-//add create new in friendship model
-export const fetchAddFriend = (email, userId, note) => async dispatch => {
+export const fetchAddFriend = (
+  senderId,
+  receiverId,
+  intro
+) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/user/${email}/${userId}/${note}`)
+    const friendRequest = {
+      senderId: senderId,
+      receiverId: receiverId,
+      intro: intro
+    }
+    const {data} = await axios.post('/api/user/addFriend', friendRequest)
     dispatch(addFriend(data))
   } catch (err) {
     console.error(err)
@@ -56,7 +63,7 @@ export default function(state = defaultUser, action) {
     case FIND_USER:
       return action.user
     case ADD_FRIEND:
-      return action.user
+      return defaultUser
     default:
       return state
   }

@@ -17,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, userId}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to={`/${userId}/addFriend`}>Add New Friends</Link>
+          <Link to="/addFriend">Add New Friends</Link>
         </div>
       ) : (
         <div>{/* The navbar will show these links before you log in */}</div>
@@ -33,7 +33,7 @@ const Navbar = ({handleClick, isLoggedIn, userId}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    userId: state.user.Id
+    userId: state.user.id
   }
 }
 

@@ -5,15 +5,16 @@ import {connect} from 'react-redux'
 
 const defaultState = {
   email: '',
-  note: ''
+  intro: ''
 }
 
 class AddFriend extends Component {
   constructor(props) {
     super(props)
     this.state = defaultState
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   handleChange(event) {
@@ -22,38 +23,35 @@ class AddFriend extends Component {
     })
   }
 
-  handleSubmit(event) {
+  handleSearch(event) {
     event.preventDefault()
     try {
-      // if () {
       this.props.fetchUser(this.state.email)
-      // } else {
-      // 	this.props.fetchAddFriend(this.state.userId, this.state.email, this.state.note)
-      // }
       this.setState(defaultState)
     } catch (error) {
       console.log(error)
     }
   }
 
-  render() {
-    const {email} = this.props
+  handleAdd(event) {
+    event.preventDefault()
+    try {
+      this.props.fetchAddFriend(
+        this.props.userId,
+        this.props.friend.id,
+        this.state.intro
+      )
+      alert('Friend request sent')
+      this.setState(defaultState)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  render(props) {
+    const {userName, email, profilePicture, language} = this.props.friend || ''
     return (
-      // { (!email) ? (
-      // 	<form id="findFriend" onSubmit={this.handleSubmit}>
-      // <div>
-      // 	<label htmlFor="email">Search by Email</label>
-      // 	<input
-      // 		type="text"
-      // 		name="email"
-      // 		value={this.state.email}
-      // 		onChange={this.handleChange}
-      // 	/>
-      // 	<button type="submit">Search</button>
-      // 	</div>
-      // </form>
-      // 	) : (
-      <form id="findFriend" onSubmit={this.handleSubmit}>
+      <form id="findFriend">
         <div>
           <label htmlFor="email">Search by Email</label>
           <input
@@ -62,40 +60,56 @@ class AddFriend extends Component {
             value={this.state.email}
             onChange={this.handleChange}
           />
-          <button type="submit">Search</button>
-          <h4>We found your friend: {this.props.userName}</h4>
-          <div>{this.props.profilePicture}</div>
-          <div>Language:{this.props.language}</div>
-          <label htmlFor="text">Add a note to introduce yourself</label>
-          <input
-            type="text"
-            name="email"
-            value={this.state.name}
-            onChange={this.handleChange}
-            style={{height: '100px'}}
-          />
-          <button type="submit">Send Friend Request</button>
+          <button type="submit" onClick={this.handleSearch}>
+            Search
+          </button>
+          {!userName && email ? (
+            <div>
+              <h4>
+                Sorry, we couldn't find your friend! Try searching another
+                email.
+              </h4>
+            </div>
+          ) : (
+            <div />
+          )}
+          {userName && email ? (
+            <div>
+              <div>We found your friend: {userName}</div>
+              <div>{profilePicture}</div>
+              <div>Language:{language}</div>
+              <label htmlFor="text">Add a note to introduce yourself</label>
+              <input
+                type="text"
+                name="intro"
+                value={this.state.name}
+                onChange={this.handleChange}
+                style={{height: '100px'}}
+              />
+              <button type="submit" onClick={this.handleAdd}>
+                Send Friend Request
+              </button>
+            </div>
+          ) : (
+            <div />
+          )}
         </div>
       </form>
-      // 			)}
     )
   }
 }
 
 const mapState = state => {
   return {
-    userId: state.user.id,
-    email: state.user.email,
-    userName: state.user.userName,
-    profilePicture: state.user.profilePicture,
-    language: state.user.language
+    friend: state.friend,
+    userId: state.user.id
   }
 }
 
 const mapDispatch = dispatch => ({
   fetchUser: email => dispatch(fetchUser(email)),
-  fetchAddFriend: (userId, email, note) =>
-    dispatch(fetchAddFriend(userId, email, note))
+  fetchAddFriend: (senderId, receiverId, intro) =>
+    dispatch(fetchAddFriend(senderId, receiverId, intro))
 })
 
-export default connect(null, mapDispatch)(AddFriend)
+export default connect(mapState, mapDispatch)(AddFriend)

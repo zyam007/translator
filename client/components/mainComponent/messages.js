@@ -18,7 +18,6 @@ class Messages extends React.Component {
     this.props.getAllMessages(this.props.userId, selected)
   }
   componentDidUpdate(prevProps) {
-    console.log('prevProps', prevProps)
     if (this.props.selected !== prevProps.selected) {
       this.props.getAllMessages(this.props.userId, this.props.selected)
     }
