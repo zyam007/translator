@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import socket from '../socket'
 
 // ACTION TYPES
 const GET_MESSAGES = 'GET_MESSAGES'
@@ -28,6 +29,11 @@ export const postAMessage = (text, id, otherId) => async dispatch => {
     })
     console.log(res.data)
     dispatch(postMessage(res.data))
+    socket.emit('new-message', {
+      message: text,
+      senderId: id,
+      receiverId: otherId
+    })
   } catch (err) {
     console.error(err.message, err.response)
   }
@@ -43,7 +49,7 @@ export default function(state = defaultMessages, action) {
       return {...state, messages: action.messages, loading: false}
     case POST_MESSAGE:
       console.log('in message store about to add it in', action.message)
-      return {...state, message: [...state.messages, action.message]}
+      return {...state, messages: [...state.messages, action.message]}
     default:
       return state
   }
