@@ -19,3 +19,16 @@ router.get('/conversations/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/', async (req, res, next) => {
+  try {
+    const findUser = await User.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+    res.json(findUser.userName)
+  } catch (err) {
+    next(err)
+  }
+})
