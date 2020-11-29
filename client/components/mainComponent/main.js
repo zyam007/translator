@@ -29,6 +29,7 @@ class Main extends React.Component {
           <Conversation
             otherInChat={this.props.otherInChat}
             handleClick={this.handleClick}
+            selected={this.state.selected}
           />
         </div>
         {this.state.selected !== '' || undefined ? (

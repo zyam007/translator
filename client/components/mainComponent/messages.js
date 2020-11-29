@@ -4,6 +4,7 @@ import './message.css'
 import {getAllMessages, postAMessage} from '../../store/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
+import socket from '../../socket'
 
 class Messages extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Messages extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    // this.socketEmit = this.socketEmit.bind(this)
   }
   componentDidMount() {
     let selected = this.props.selected
@@ -44,7 +46,17 @@ class Messages extends React.Component {
       this.props.userId,
       this.props.selected
     )
+    // this.socketEmit()
+    this.setState({
+      value: ''
+    })
   }
+  // socketEmit() {
+  //   socket.emit('chat message', {
+  //     message: this.state.value,
+  //     other: this.props.selected
+  //   })
+  // }
   render() {
     if (this.props.loading == true) {
       return (
