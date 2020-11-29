@@ -10,31 +10,36 @@ async function seed() {
   let user1 = await User.create({
     email: 'cody@email.com',
     password: '123456',
+    profilePicture: '/img/tran-pp1.jpg',
     userName: 'Cody'
   })
   let user2 = await User.create({
     email: 'murphy@email.com',
     password: '123456',
+    profilePicture: '/img/tran-pp2.jpg',
     userName: 'Murphy'
   })
   let user3 = await User.create({
-    email: 'Yanna@email.com',
+    email: 'yanna@email.com',
     password: '123456',
     userName: 'Yanna',
+    profilePicture: '/img/tran-pp3.jpeg',
     language: 'RUS',
     isAdmin: true
   })
   let user4 = await User.create({
-    email: 'Jenna@email.com',
+    email: 'jenna@email.com',
     password: '123456',
     userName: 'Jenna',
+    profilePicture: '/img/tran-pp4.jpeg',
     language: 'CHI',
     isAdmin: true
   })
   let user5 = await User.create({
-    email: 'Josephine@email.com',
+    email: 'josephine@email.com',
     password: '123456',
     userName: 'Josephine',
+    profilePicture: '/img/tran-pp5.jpg',
     language: 'ENG',
     isAdmin: true
   })

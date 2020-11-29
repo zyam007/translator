@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 import './convo.css'
 
 function Conversation(props) {
@@ -10,27 +10,36 @@ function Conversation(props) {
       </div>
     )
   }
-  console.log(
-    '---!in convo',
-    props.otherInChat[0],
-    'selected',
-    typeof props.selected
-  )
   return (
-    <ul className="convo-container">
-      {props.otherInChat.map(user => {
-        return (
-          <li
-            key={user.id}
-            className={props.selected == user.id ? 'highlight' : 'convo'}
-            value={user.id}
-            onClick={props.handleClick}
-          >
-            {user.userName}
-          </li>
-        )
-      })}
-    </ul>
+    <div className="convo-container">
+      <div className="headind_srch">
+        <div className="stylish-input-group">
+          <Link to="/">
+            <button className="button search-bar" type="button">
+              Find Friend To Chat!
+            </button>
+          </Link>
+          <div className="recent_heading">
+            <h4>Recent</h4>
+          </div>
+        </div>
+      </div>
+      <ul>
+        {props.otherInChat.map(user => {
+          return (
+            <li
+              key={user.id}
+              className={props.selected == user.id ? 'highlight' : 'convo'}
+              value={user.id}
+              onClick={props.handleClick}
+            >
+              <img src={user.profilePicture} className="img" />
+              {user.userName}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }
 

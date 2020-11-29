@@ -21,6 +21,7 @@ class Main extends React.Component {
     await this.setState({
       selected: Number(event.target.value)
     })
+    console.log('in handleclick, selected', this.state.selected)
   }
   render() {
     return (
