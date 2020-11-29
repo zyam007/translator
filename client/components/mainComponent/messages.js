@@ -29,16 +29,6 @@ class Messages extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(
-      'message',
-      this.state.value,
-      'is type of',
-      typeof this.state.value,
-      'sender',
-      this.props.userId,
-      'receiver',
-      this.props.selected
-    )
     this.props.postAMessage(
       this.state.value,
       this.props.userId,

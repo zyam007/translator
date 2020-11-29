@@ -3,7 +3,6 @@ import React from 'react'
 import './convo.css'
 
 function Conversation(props) {
-  console.log('---!in convo', props)
   return (
     <ul className="convo-container">
       {props.otherInChat.map(user => {

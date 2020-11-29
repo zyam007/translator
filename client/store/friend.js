@@ -15,14 +15,14 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const findUser = email => ({
+const findUser = user => ({
   type: FIND_USER,
-  email
+  user
 })
 
-const addFriend = () => ({
+const addFriend = user => ({
   type: ADD_FRIEND,
-  friend
+  user
 })
 
 /**
@@ -30,8 +30,19 @@ const addFriend = () => ({
  */
 export const fetchUser = email => async dispatch => {
   try {
-    const {data} = await axios.get('/user', email)
-    dispatch(findUser(data.email))
+    const {data} = await axios.get(`/api/user/${email}`)
+    dispatch(findUser(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+//need senderId, receiverId, note
+//add create new in friendship model
+export const fetchAddFriend = (email, userId, note) => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/user/${email}/${userId}/${note}`)
+    dispatch(addFriend(data))
   } catch (err) {
     console.error(err)
   }
@@ -45,7 +56,7 @@ export default function(state = defaultUser, action) {
     case FIND_USER:
       return action.user
     case ADD_FRIEND:
-      return defaultUser
+      return action.user
     default:
       return state
   }
