@@ -10,12 +10,143 @@ label {
   display: block;
 }
 
+.logo {
+  width: 10%;
+  height: 10%;
+}
+
 nav a {
   display: inline-block;
-  margin: 1em;
+  margin-right: 1em;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* NAVBAR START */
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  background-color: #d264b6;
+  animation-name: example;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+.nav-name {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.nav-name:hover {
+  color: rgb(173, 184, 30);
+  text-decoration: none;
+}
+.profile-img.nav:hover {
+  border: 2px solid rgb(173, 184, 30);
+}
+
+.right-navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.center {
+  align-self: center;
+}
+
+.nav-name.userImg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* NAVBAR END */
+
+/* MY PROFILE CSS START */
+
+.main-profile {
+  margin-top: 20px;
+}
+
+.profile-img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+.profile-photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.profile-email,
+.profile-language {
+  align-items: center;
+}
+
+.email-line,
+.language-line {
+  margin-left: 10px;
+}
+
+.btn-update {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.profile-info {
+  margin-left: 15px;
+}
+
+/* MY PROFILE CSS END */
+
+/* FRIENDS LIST */
+.friends-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+/* FRIENDS LIST END */
+
+/* NAVBAR COLOR ANIMATION */
+@keyframes example {
+  0% {
+    background-color: #d264b6;
+  }
+  25% {
+    background-color: #a480cf;
+  }
+  50% {
+    background-color: #779be7;
+  }
+  75% {
+    background-color: #49b6ff;
+  }
+  100% {
+    background-color: #d264b6;
+  }
+}
+
+/* RESPONSIVE FOR MY PROFILE */
+@media only screen and (max-width: 990px) {
+  .btn-update {
+    margin-top: 15px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+  }
+  .profile-info {
+    margin-top: 30px;
+  }
 }

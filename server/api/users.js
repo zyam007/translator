@@ -15,3 +15,32 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/', async (req, res, next) => {
+  const {id, userName, language, profilePicture} = req.body
+  try {
+    const user = await User.findByPk(id)
+    await user.update({userName, language, profilePicture})
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/friends', async (req, res, next) => {
+  const {userId} = req.body
+  try {
+    const results = await User.findOne({
+      where: {id: userId},
+      include: [
+        {
+          model: User,
+          as: 'friends'
+        }
+      ]
+    })
+    res.json(results)
+  } catch (err) {
+    next(err)
+  }
+})

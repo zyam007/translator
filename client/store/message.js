@@ -1,12 +1,13 @@
 import axios from 'axios'
 import history from '../history'
+import socket from '../socket'
 
 // ACTION TYPES
 const GET_MESSAGES = 'GET_MESSAGES'
 const POST_MESSAGE = 'POST_MESSAGE'
 // ACTION CREATER
 const getMessages = messages => ({type: GET_MESSAGES, messages})
-const postMessage = message => ({type: POST_MESSAGE, message})
+export const postMessage = message => ({type: POST_MESSAGE, message})
 
 export const getAllMessages = (id, otherId) => async dispatch => {
   try {
@@ -26,8 +27,8 @@ export const postAMessage = (text, id, otherId) => async dispatch => {
     const res = await axios.post(`/api/messages/${id}/${otherId}`, {
       text: text
     })
-    console.log(res.data)
     dispatch(postMessage(res.data))
+    socket.emit('new-message', res.data)
   } catch (err) {
     console.error(err.message, err.response)
   }
@@ -43,7 +44,7 @@ export default function(state = defaultMessages, action) {
       return {...state, messages: action.messages, loading: false}
     case POST_MESSAGE:
       console.log('in message store about to add it in', action.message)
-      return {...state, message: [...state.messages, action.message]}
+      return {...state, messages: [...state.messages, action.message]}
     default:
       return state
   }

@@ -4,6 +4,7 @@ import './message.css'
 import {getAllMessages, postAMessage} from '../../store/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
+import socket from '../../socket'
 
 class Messages extends React.Component {
   constructor(props) {
@@ -33,6 +34,9 @@ class Messages extends React.Component {
       this.props.userId,
       this.props.selected
     )
+    this.setState({
+      value: ''
+    })
   }
   render() {
     if (this.props.loading == true) {
@@ -44,30 +48,36 @@ class Messages extends React.Component {
       )
     }
     return (
-      <ul className="list">
-        {this.props.messages.map(message => {
-          return (
-            <li
-              key={message.id}
-              className={
-                'messages' +
-                (message.receiverId == this.props.userId
-                  ? 'receiver'
-                  : 'sender')
-              }
-            >
-              {message.text}
-            </li>
-          )
-        })}
-        <li>
+      <div>
+        <ul className="list" style={{minHeight: '100%', height: '100%'}}>
+          {this.props.messages.map(message => {
+            return (
+              <li
+                key={message.id}
+                className={
+                  'messages' +
+                  (message.receiverId == this.props.userId
+                    ? 'receiver'
+                    : 'sender')
+                }
+              >
+                {message.text}
+              </li>
+            )
+          })}
+        </ul>
+        <div
+          style={{
+            bottom: '0px'
+          }}
+        >
           <Input
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
             value={this.state.value}
           />
-        </li>
-      </ul>
+        </div>
+      </div>
     )
   }
 }
