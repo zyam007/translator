@@ -19,7 +19,6 @@ class Messages extends React.Component {
     this.props.getAllMessages(this.props.userId, selected)
   }
   componentDidUpdate(prevProps) {
-    console.log('prevProps', prevProps)
     if (this.props.selected !== prevProps.selected) {
       this.props.getAllMessages(this.props.userId, this.props.selected)
     }
@@ -30,16 +29,6 @@ class Messages extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(
-      'message',
-      this.state.value,
-      'is type of',
-      typeof this.state.value,
-      'sender',
-      this.props.userId,
-      'receiver',
-      this.props.selected
-    )
     this.props.postAMessage(
       this.state.value,
       this.props.userId,

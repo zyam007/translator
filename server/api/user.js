@@ -19,3 +19,29 @@ router.get('/conversations/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:email', async (req, res, next) => {
+  try {
+    const findUser = await User.findOne({
+      where: {
+        email: req.params.email
+      }
+    })
+    res.json(findUser)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/addFriend', async (req, res, next) => {
+  try {
+    const friendship = await Friendship.create({
+      senderId: req.body.senderId,
+      receiverId: req.body.receiverId,
+      intro: req.body.intro
+    })
+    res.json(friendship)
+  } catch (err) {
+    next(err)
+  }
+})

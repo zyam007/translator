@@ -12,6 +12,7 @@ import {
 } from './components'
 import {me} from './store'
 import Welcome from './components/welcome'
+import AddFriend from './components/addFriend'
 
 /**
  * COMPONENT
@@ -38,6 +39,7 @@ class Routes extends Component {
             <Route path="/myprofile" component={MyProfile} />
             <Route path="/friendlist" component={FriendList} />
             <Route path="/main" component={Main} />
+            <Route path="/addFriend" component={AddFriend} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -54,7 +56,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 

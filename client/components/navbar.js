@@ -67,6 +67,7 @@ export class NavBar extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
+    userId: state.user.id,
     user: state.user
   }
 }

@@ -6,11 +6,13 @@ import user from './user'
 import {userFriendsReducer} from './reducers'
 import convo from './convo'
 import message from './message'
+import friend from './friend'
 
 const reducer = combineReducers({
   user,
   convo,
   message,
+  friend,
   userFriends: userFriendsReducer
 })
 const middleware = composeWithDevTools(
