@@ -1,17 +1,20 @@
 //search for friend, thunk to get friend, change status(requested, confirmed, blocked, denied)
 import React, {Component} from 'react'
-import {fetchUser, fetchAddFriend} from '../store/reducers/friend'
+import {fetchUser, fetchAddFriend} from '../store/reducers/findfriend'
 import {connect} from 'react-redux'
+import Toast from 'react-bootstrap/Toast'
 
 const defaultState = {
   email: '',
-  intro: ''
+  intro: '',
+  search: false
 }
 
 class AddFriend extends Component {
   constructor(props) {
     super(props)
     this.state = defaultState
+
     this.handleSearch = this.handleSearch.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
@@ -27,7 +30,13 @@ class AddFriend extends Component {
     event.preventDefault()
     try {
       this.props.fetchUser(this.state.email)
-      this.setState(defaultState)
+      console.log(this.props.findFriend)
+      console.log(this.props.error)
+      this.setState({
+        // email: '',
+        // intro: '',
+        search: true
+      })
     } catch (error) {
       console.log(error)
     }
@@ -41,7 +50,6 @@ class AddFriend extends Component {
         this.props.friend.id,
         this.state.intro
       )
-      alert('Friend request sent')
       this.setState(defaultState)
     } catch (error) {
       console.log(error)
@@ -49,7 +57,6 @@ class AddFriend extends Component {
   }
 
   render(props) {
-    const {userName, email, profilePicture, language} = this.props.friend || ''
     return (
       <form id="findFriend">
         <div>
@@ -63,33 +70,15 @@ class AddFriend extends Component {
           <button type="submit" onClick={this.handleSearch}>
             Search
           </button>
-          {!userName && email ? (
-            <div>
-              <h4>
-                Sorry, we couldn't find your friend! Try searching another
-                email.
-              </h4>
-            </div>
-          ) : (
-            <div />
-          )}
-          {userName && email ? (
-            <div>
-              <div>We found your friend: {userName}</div>
-              <div>{profilePicture}</div>
-              <div>Language:{language}</div>
-              <label htmlFor="text">Add a note to introduce yourself</label>
-              <input
-                type="text"
-                name="intro"
-                value={this.state.name}
-                onChange={this.handleChange}
-                style={{height: '100px'}}
-              />
-              <button type="submit" onClick={this.handleAdd}>
-                Send Friend Request
-              </button>
-            </div>
+          {this.state.email && this.state.search ? (
+            <SearchFriend
+              email={this.state.email}
+              handleChange={this.handleChange}
+              handleAdd={this.handleAdd}
+              intro={this.state.intro}
+              user={this.props.findFriend}
+              error={this.props.error}
+            />
           ) : (
             <div />
           )}
@@ -101,7 +90,8 @@ class AddFriend extends Component {
 
 const mapState = state => {
   return {
-    friend: state.friend,
+    findFriend: state.findFriend.user,
+    error: state.findFriend.error,
     userId: state.user.id
   }
 }
@@ -113,3 +103,35 @@ const mapDispatch = dispatch => ({
 })
 
 export default connect(mapState, mapDispatch)(AddFriend)
+
+const SearchFriend = props => {
+  const {userName, email, profilePicture, language} = props.user || ''
+  return (
+    <div>
+      {props.error ? (
+        <div>
+          <h4>
+            Sorry, we couldn't find your friend! Try searching another email.
+          </h4>
+        </div>
+      ) : (
+        <div>
+          <div>We found your friend: {userName}</div>
+          <div>{profilePicture}</div>
+          <div>Language:{language}</div>
+          <label htmlFor="text">Add a note to introduce yourself</label>
+          <input
+            type="text"
+            name="intro"
+            value={props.intro}
+            onChange={props.handleChange}
+            style={{height: '100px'}}
+          />
+          <button type="submit" onClick={props.handleAdd}>
+            Send Friend Request
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}

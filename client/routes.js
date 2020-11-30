@@ -8,11 +8,11 @@ import {
   UserHome,
   MyProfile,
   FriendList,
-  Main
+  Main,
+  Welcome,
+  AddFriend
 } from './components'
 import {me} from './store'
-import Welcome from './components/welcome'
-import AddFriend from './components/addFriend'
 
 /**
  * COMPONENT

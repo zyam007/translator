@@ -26,7 +26,7 @@ export class NavBar extends React.Component {
                 // show links if user is logged in
                 <Nav className="right-navbar">
                   <NavItem>
-                    <Link to="/" className="nav-name">
+                    <Link to="/addFriend" className="nav-name">
                       Find Friends
                     </Link>
                   </NavItem>

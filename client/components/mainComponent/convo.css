@@ -20,6 +20,11 @@
   width: 11%;
   border-bottom: 1px solid #c4c4c4;
 }
+.overflow-wrapper {
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 .convo-container {
   font-size: 100%;
   vertical-align: initial;
