@@ -29,7 +29,6 @@ Message.createMessage = async (text, senderId, receiverId) => {
   await message.setConversation(conversation1.id)
   await message.save()
 
-  console.log(message)
   return message
 }
 module.exports = Message
