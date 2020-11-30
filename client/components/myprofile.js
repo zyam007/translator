@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom'
 import {Button, Container, Row, Col, Modal} from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEnvelope, faGlobe} from '@fortawesome/free-solid-svg-icons'
-import {updateUser} from '../store/user'
-import UpdateForm from './updateUserForm'
+import {updateUser} from '../store/reducers/user'
+import {UpdateForm} from './index.js'
 
 export class MyProfile extends Component {
   constructor() {

@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 const Conversation = require('./conversation')
+const Friendship = require('./friendship')
 
 const User = db.define('user', {
   email: {
@@ -85,6 +86,39 @@ User.prototype.getConvos = async function() {
     conversations: part1.concat(part2),
     friends: otherInChatP1.concat(otherInChatP2)
   }
+  return result
+}
+User.prototype.findFriend = async function() {
+  const part1 = await Friendship.findAll({
+    where: {
+      senderId: this.id
+    }
+  })
+  const otherFP1 = part1
+    .filter(user => {
+      return user.dataValues.status == 'confirmed'
+    })
+    .map(user => {
+      return user.dataValues.receiverId
+    })
+  const part2 = await Friendship.findAll({
+    where: {
+      receiverId: this.id
+    }
+  })
+  const otherFP2 = part2
+    .filter(user => {
+      return user.dataValues.status == 'confirmed'
+    })
+    .map(user => {
+      return user.dataValues.receiverId
+    })
+
+  let result = {
+    friendships: part1.concat(part2),
+    friends: otherFP1.concat(otherFP2)
+  }
+  console.log(result)
   return result
 }
 /**

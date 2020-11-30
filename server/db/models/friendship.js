@@ -12,6 +12,27 @@ const Friendship = db.define('friendship', {
     defaultValue: 'I would like to be your friend.'
   }
 })
+Friendship.createFriendship = async (senderId, receiverId, intro) => {
+  let friendship = await Friendship.findOne({
+    where: {
+      senderId: {
+        [Sequelize.Op.or]: [senderId, receiverId]
+      },
+      receiverId: {
+        [Sequelize.Op.or]: [senderId, receiverId]
+      }
+    }
+  })
+  if (!friendship) {
+    friendship = await Friendship.create({
+      senderId: senderId,
+      receiverId: receiverId,
+      status: 'requested',
+      intro: intro
+    })
+  }
+  return friendship
+}
 Friendship.prototype.confirm = async function() {
   this.status = 'confirmed'
   await this.save()

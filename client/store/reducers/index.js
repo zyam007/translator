@@ -1,1 +1,5 @@
-export {default as userFriendsReducer} from './userFriends'
+export {default as userFriends} from './userFriends'
+export {default as convo} from './convo.js'
+export {default as message} from './message.js'
+export {default as user} from './user.js'
+export {default as friend} from './friend.js'

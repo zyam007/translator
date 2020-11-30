@@ -3,7 +3,7 @@ import Messages from './messages'
 import Conversation from './conversation'
 import './main.css'
 import {Link} from 'react-router-dom'
-import {getConvo} from '../../store/convo'
+import {getConvo} from '../../store/reducers/convo'
 import {connect} from 'react-redux'
 
 class Main extends React.Component {

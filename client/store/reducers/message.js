@@ -1,6 +1,6 @@
 import axios from 'axios'
-import history from '../history'
-import socket from '../socket'
+import history from '../../history'
+import socket from '../../socket'
 
 // ACTION TYPES
 const GET_MESSAGES = 'GET_MESSAGES'
