@@ -10,38 +10,49 @@ async function seed() {
   let user1 = await User.create({
     email: 'cody@email.com',
     password: '123456',
+    profilePicture: '/img/tran-pp1.jpg',
     userName: 'Cody'
   })
   let user2 = await User.create({
     email: 'murphy@email.com',
     password: '123456',
+    profilePicture: '/img/tran-pp2.jpg',
     userName: 'Murphy'
   })
   let user3 = await User.create({
-    email: 'Yanna@email.com',
+    email: 'yanna@email.com',
     password: '123456',
     userName: 'Yanna',
+    profilePicture: '/img/tran-pp3.jpeg',
     language: 'RUS',
     isAdmin: true
   })
   let user4 = await User.create({
-    email: 'Jenna@email.com',
+    email: 'jenna@email.com',
     password: '123456',
     userName: 'Jenna',
+    profilePicture: '/img/tran-pp4.jpeg',
     language: 'CHI',
     isAdmin: true
   })
   let user5 = await User.create({
-    email: 'Josephine@email.com',
+    email: 'josephine@email.com',
     password: '123456',
     userName: 'Josephine',
+    profilePicture: '/img/tran-pp5.jpg',
     language: 'ENG',
     isAdmin: true
   })
 
-  const message1 = await Message.createMessage('I like', user1, user2)
-  const message2 = await Message.createMessage('i dont like', user2, user1)
-  const message3 = await Message.createMessage('I like', user1, user2)
+  const message1 = await Message.createMessage('I like', user1.id, user2.id)
+  const message2 = await Message.createMessage(
+    'i dont like',
+    user2.id,
+    user1.id
+  )
+  const message3 = await Message.createMessage('I like', user1.id, user2.id)
+  const message4 = await Message.createMessage('I like', user3.id, user1.id)
+  const message5 = await Message.createMessage('I ok', user4.id, user1.id)
   const friendship1 = await Friendship.create({
     senderId: 1,
     receiverId: 2,
@@ -56,6 +67,7 @@ async function seed() {
   })
   await friendship1.confirm()
   await friendship2.deny()
+  await user1.getConvos()
   // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
