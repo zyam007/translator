@@ -17,6 +17,7 @@ module.exports = {
   watchOptions: {
     ignored: /node_modules/
   },
+
   module: {
     rules: [
       {
@@ -24,10 +25,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      }
+      //original
+      {test: /\.css$/i, use: ['style-loader', 'css-loader']}
     ]
   }
 }
