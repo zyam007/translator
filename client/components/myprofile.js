@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+//import '../../public/App.scss'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Button, Container, Row, Col, Modal} from 'react-bootstrap'

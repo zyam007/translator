@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Container, Col, ListGroup, Button} from 'react-bootstrap'
 import {fetchUserFriends} from '../store/reducers/userFriends'
+//import '../../public/App.scss'
 
 export class FriendList extends Component {
   constructor() {
