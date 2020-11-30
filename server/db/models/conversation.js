@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {Op} = Sequelize
+// const {Op} = Sequelize
 
 const Conversation = db.define('conversation', {
   user1Id: Sequelize.INTEGER,
@@ -14,6 +14,7 @@ Conversation.findOrCreateConversation = async (user1Id, user2Id) => {
       user2Id: user2Id
     }
   })
+
   const conversation2 = await Conversation.findOne({
     where: {
       user1Id: user2Id,

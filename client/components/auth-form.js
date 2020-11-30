@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -11,25 +12,70 @@ const AuthForm = props => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      {props.name === 'login' ? (
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+          <form onSubmit={handleSubmit} name={name}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" />
+            </div>
+            <div>
+              <button type="submit">{displayName}</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          <Link to="/signup">
+            <div>Not a member?</div>
+          </Link>
+          <a href="/auth/google">{displayName} with Google</a>
         </div>
+      ) : (
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+          <form onSubmit={handleSubmit} name={name}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" />
+            </div>
+            <div>
+              <label htmlFor="userName">
+                <small>Username</small>
+              </label>
+              <input name="userName" type="userName" />
+            </div>
+            <div>
+              <label htmlFor="language">
+                <small>Choose Your Language</small>
+              </label>
+              <select name="language" type="language">
+                <option value="ENG">ENG</option>
+                <option value="RUS">RUS</option>
+                <option value="CHI">CHI</option>
+              </select>
+            </div>
+            <div>
+              <button type="submit">{displayName}</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          <a href="/auth/google">{displayName} with Google</a>
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      )}
     </div>
   )
 }
@@ -56,8 +102,7 @@ const mapSignup = state => {
     error: state.user.error
   }
 }
-
-const mapDispatch = dispatch => {
+const mapDispatchL = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
@@ -69,8 +114,22 @@ const mapDispatch = dispatch => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+const mapDispatchS = dispatch => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const formName = evt.target.name
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      const userName = evt.target.userName.value
+      const language = evt.target.language.value
+      dispatch(auth(email, password, formName, userName, language))
+    }
+  }
+}
+
+export const Login = connect(mapLogin, mapDispatchL)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatchS)(AuthForm)
 
 /**
  * PROP TYPES
