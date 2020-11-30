@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import store from './store'
-import {postMessage} from './store/message'
+import {postMessage} from './store/reducers/message'
 const socket = io(window.location.origin)
 
 socket.on('connect', () => {

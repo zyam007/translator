@@ -1,6 +1,6 @@
 //search for friend, thunk to get friend, change status(requested, confirmed, blocked, denied)
 import React, {Component} from 'react'
-import {fetchUser, fetchAddFriend} from '../store/friend'
+import {fetchUser, fetchAddFriend} from '../store/reducers/friend'
 import {connect} from 'react-redux'
 
 const defaultState = {

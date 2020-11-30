@@ -118,6 +118,7 @@ User.prototype.findFriend = async function() {
     friendships: part1.concat(part2),
     friends: otherFP1.concat(otherFP2)
   }
+  console.log(result)
   return result
 }
 /**

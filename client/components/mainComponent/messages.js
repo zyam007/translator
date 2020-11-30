@@ -1,7 +1,7 @@
 import React from 'react'
 import Input from './input'
 import './message.css'
-import {getAllMessages, postAMessage} from '../../store/message'
+import {getAllMessages, postAMessage} from '../../store/reducers/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
