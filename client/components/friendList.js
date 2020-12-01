@@ -18,16 +18,6 @@ export class FriendList extends Component {
     const newRequests = this.props.userWithFriends.newRequests || []
     const confirmed = this.props.userWithFriends.confirmed || []
     const requested = this.props.userWithFriends.requested || []
-    // const confirmed = arr.filter((elem) => elem.status === 'confirmed')
-
-    // const requested = arr.filter((elem) => {
-    //   if (elem.status === 'requested' && elem.senderId === this.props.user.id)
-    //     return true
-    // })
-    // const newRequests = arr.filter((elem) => {
-    //   if (elem.status === 'requested' && elem.senderId !== this.props.user.id)
-    //     return true
-    // })
 
     return (
       <>
@@ -44,7 +34,6 @@ export class FriendList extends Component {
                   >
                     <img src={friend.profilePicture} className="friends-img" />
                     <p style={{width: '200px'}}>{friend.email}</p>
-                    {/* <span>status: {friend.friendship.status}</span> */}
                     <Button variant="outline-danger" size="sm">
                       Block
                     </Button>
@@ -87,9 +76,6 @@ export class FriendList extends Component {
                 ) : (
                   <></>
                 )}
-                {/* <Badge variant="dark" className="new-requests-badge">
-                  {newRequests.length}
-                </Badge> */}
               </React.Fragment>
             }
           >
@@ -103,7 +89,6 @@ export class FriendList extends Component {
                   >
                     <img src={friend.profilePicture} className="friends-img" />
                     <p style={{width: '200px'}}>{friend.email}</p>
-                    {/* <span>status: {friend.friendship.status}</span> */}
                     <Button variant="outline-success">Accept</Button>
                     <Button variant="dark" size="sm">
                       Cancel

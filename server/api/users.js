@@ -30,15 +30,6 @@ router.put('/', async (req, res, next) => {
 router.post('/friends', async (req, res, next) => {
   const {userId} = req.body
   try {
-    // const results = await User.findOne({
-    //   where: {id: userId},
-    //   include: [
-    //     {
-    //       model: User,
-    //       as: 'friends',
-    //     },
-    //   ],
-    // })
     const user = await User.findByPk(userId)
     const results = await user.findFriend()
     res.json(results)
