@@ -4,9 +4,9 @@ import history from '../../history'
 /**
  * ACTION TYPES
  */
-const FIND_USER = 'FIND_USER'
+const FIND_FRIEND = 'FIND_FRIEND'
 const ADD_FRIEND = 'ADD_FRIEND'
-const ERR_FINDING_USER = 'ERR_FINDING_USER'
+const ERR_FINDING_FRIEND = 'ERR_FINDING_FRIEND'
 /**
  * INITIAL STATE
  */
@@ -14,9 +14,9 @@ const ERR_FINDING_USER = 'ERR_FINDING_USER'
 /**
  * ACTION CREATORS
  */
-const findUser = user => ({
-  type: FIND_USER,
-  user
+const findFriend = friend => ({
+  type: FIND_FRIEND,
+  friend
 })
 
 const addFriend = friend => ({
@@ -24,21 +24,21 @@ const addFriend = friend => ({
   friend
 })
 
-const errFindingUser = () => ({
-  type: ERR_FINDING_USER
+const errFindingFriend = () => ({
+  type: ERR_FINDING_FRIEND
 })
 
 /**
  * THUNK CREATORS
  */
-export const fetchUser = email => async dispatch => {
+export const fetchFriend = email => async dispatch => {
   try {
     const res = await axios.get(`/api/user/${email}`)
-    console.log(res)
-    if (res.data == null) {
-      dispatch(errFindingUser())
+    console.log('res in fetchFriend in findFriend', res)
+    if (res.data === null) {
+      dispatch(errFindingFriend())
     } else {
-      dispatch(findUser(res.data))
+      dispatch(findFriend(res.data))
     }
   } catch (err) {
     dispatch(addErr(err))
@@ -63,20 +63,20 @@ export const fetchAddFriend = (
   }
 }
 
-const defaultUser = {
-  user: {},
+const defaultFriend = {
+  friend: {},
   error: false
 }
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function(state = defaultFriend, action) {
   switch (action.type) {
-    case FIND_USER:
-      return {...state, user: action.user, error: false}
+    case FIND_FRIEND:
+      return {...state, friend: action.friend, error: false}
     case ADD_FRIEND:
-      return defaultUser
-    case ERR_FINDING_USER:
+      return defaultFriend
+    case ERR_FINDING_FRIEND:
       return {...state, error: true}
     default:
       return state
