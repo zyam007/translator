@@ -98,9 +98,7 @@ User.prototype.findFriend = async function() {
       senderId: this.id
     }
   })
-  // const otherFP1 = part1.map((user) => {
-  //   return user.dataValues.receiverId
-  // })
+
   const otherFP1 = await Promise.all(
     part1.map(async user => {
       let person = await User.findByPk(user.dataValues.receiverId)
@@ -115,13 +113,11 @@ User.prototype.findFriend = async function() {
       receiverId: this.id
     }
   })
-  // const otherFP2 = part2.map((user) => {
-  //   return user.dataValues.senderId
-  // })
 
   const otherFP2 = await Promise.all(
     part2.map(async user => {
       let person = await User.findByPk(user.dataValues.senderId)
+      if (user.dataValues.status == 'confirmed') confirmed.push(person)
       if (user.dataValues.status == 'requested') newRequests.push(person)
       return person
     })
@@ -134,7 +130,6 @@ User.prototype.findFriend = async function() {
     requested,
     confirmed
   }
-  console.log(result)
   return result
 }
 /**
