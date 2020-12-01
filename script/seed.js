@@ -58,6 +58,7 @@ async function seed() {
     2,
     'I would like to be your friend.'
   )
+  const friendship10 = await Friendship.createFriendship(5, 1, 'Add me!')
   const friendship2 = await Friendship.createFriendship(
     2,
     1,
@@ -75,6 +76,7 @@ async function seed() {
   )
   await friendship1.confirm()
   await friendship4.confirm()
+  await friendship10.confirm()
   // await friendship2.deny()
   await user1.getConvos()
   await user1.findFriend()
