@@ -88,35 +88,51 @@ User.prototype.getConvos = async function() {
   }
   return result
 }
+
 User.prototype.findFriend = async function() {
+  let newRequests = []
+  let confirmed = []
+  let requested = []
   const part1 = await Friendship.findAll({
     where: {
       senderId: this.id
     }
   })
-  const otherFP1 = part1
-    .filter(user => {
-      return user.dataValues.status == 'confirmed'
+  // const otherFP1 = part1.map((user) => {
+  //   return user.dataValues.receiverId
+  // })
+  const otherFP1 = await Promise.all(
+    part1.map(async user => {
+      let person = await User.findByPk(user.dataValues.receiverId)
+      if (user.dataValues.status == 'confirmed') confirmed.push(person)
+      if (user.dataValues.status == 'requested') requested.push(person)
+      return person
     })
-    .map(user => {
-      return user.dataValues.receiverId
-    })
+  )
+
   const part2 = await Friendship.findAll({
     where: {
       receiverId: this.id
     }
   })
-  const otherFP2 = part2
-    .filter(user => {
-      return user.dataValues.status == 'confirmed'
+  // const otherFP2 = part2.map((user) => {
+  //   return user.dataValues.senderId
+  // })
+
+  const otherFP2 = await Promise.all(
+    part2.map(async user => {
+      let person = await User.findByPk(user.dataValues.senderId)
+      if (user.dataValues.status == 'requested') newRequests.push(person)
+      return person
     })
-    .map(user => {
-      return user.dataValues.receiverId
-    })
+  )
 
   let result = {
     friendships: part1.concat(part2),
-    friends: otherFP1.concat(otherFP2)
+    friends: otherFP1.concat(otherFP2),
+    newRequests,
+    requested,
+    confirmed
   }
   console.log(result)
   return result
