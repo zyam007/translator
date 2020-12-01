@@ -34,7 +34,6 @@ const errFindingFriend = () => ({
 export const fetchFriend = email => async dispatch => {
   try {
     const res = await axios.get(`/api/user/${email}`)
-    console.log('res in fetchFriend in findFriend', res)
     if (res.data === null) {
       dispatch(errFindingFriend())
     } else {
@@ -65,7 +64,7 @@ export const fetchAddFriend = (
 
 const defaultFriend = {
   friend: {},
-  error: false
+  error: null
 }
 /**
  * REDUCER
