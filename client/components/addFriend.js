@@ -1,20 +1,23 @@
-//search for friend, thunk to get friend, change status(requested, confirmed, blocked, denied)
 import React, {Component} from 'react'
-import {fetchUser, fetchAddFriend} from '../store/reducers/findfriend'
+import {
+  fetchFriend,
+  fetchAddFriend,
+  resetError
+} from '../store/reducers/findfriend'
 import {connect} from 'react-redux'
-import Toast from 'react-bootstrap/Toast'
+import {Toast, Button, Container, Row, Col} from 'react-bootstrap'
 
 const defaultState = {
   email: '',
   intro: '',
-  search: false
+  search: false,
+  error: null
 }
 
 class AddFriend extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = defaultState
-
     this.handleSearch = this.handleSearch.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
@@ -22,103 +25,122 @@ class AddFriend extends Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      search: false,
+      error: null
     })
+
+    if (event.target.name == 'email') {
+      this.props.resetError()
+    }
   }
 
   async handleSearch(event) {
     event.preventDefault()
     try {
       this.props.fetchUser(this.state.email)
-      console.log(this.props.findFriend)
-      console.log(this.props.error)
       await this.setState({
         // email: '',
         // intro: '',
-        search: true
+        search: true,
+        error: this.props.error
       })
     } catch (error) {
       console.log(error)
     }
   }
-
   handleAdd(event) {
     event.preventDefault()
     try {
       this.props.fetchAddFriend(
         this.props.userId,
-        this.props.friend.id,
+        this.props.findFriend.id,
         this.state.intro
       )
+      alert('Your friend request was sent')
       this.setState(defaultState)
     } catch (error) {
       console.log(error)
     }
   }
 
-  render(props) {
+  render() {
     return (
-      <form id="findFriend">
-        <div>
-          <label htmlFor="email">Search by Email</label>
-          <input
-            type="text"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
-          <button type="submit" onClick={this.handleSearch}>
-            Search
-          </button>
-          {this.state.email && this.state.search ? (
-            <SearchFriend
-              email={this.state.email}
-              handleChange={this.handleChange}
-              handleAdd={this.handleAdd}
-              intro={this.state.intro}
-              user={this.props.findFriend}
-              error={this.props.error}
-            />
-          ) : (
-            <div />
-          )}
-        </div>
-      </form>
+      <Container>
+        <Col />
+        <Col>
+          <form id="findFriend">
+            <div>
+              <h5>
+                <label htmlFor="email">Search by Email</label>
+              </h5>
+              <input
+                type="text"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+              <Button type="submit" onClick={this.handleSearch}>
+                Search
+              </Button>
+              {this.props.error !== 'pending' ? (
+                <Container>
+                  <SearchFriend
+                    email={this.state.email}
+                    handleChange={this.handleChange}
+                    handleAdd={this.handleAdd}
+                    intro={this.state.intro}
+                    user={this.props.findFriend}
+                    error={this.props.error}
+                  />
+                </Container>
+              ) : (
+                <div />
+              )}
+            </div>
+          </form>
+        </Col>
+        <Col />
+      </Container>
     )
   }
 }
 
 const mapState = state => {
   return {
-    findFriend: state.findFriend.user,
+    findFriend: state.findFriend.friend,
     error: state.findFriend.error,
     userId: state.user.id
   }
 }
 
 const mapDispatch = dispatch => ({
-  fetchUser: email => dispatch(fetchUser(email)),
+  fetchFriend: email => dispatch(fetchFriend(email)),
   fetchAddFriend: (senderId, receiverId, intro) =>
-    dispatch(fetchAddFriend(senderId, receiverId, intro))
+    dispatch(fetchAddFriend(senderId, receiverId, intro)),
+  resetError: () => dispatch(resetError())
 })
 
 export default connect(mapState, mapDispatch)(AddFriend)
 
 const SearchFriend = props => {
   const {userName, email, profilePicture, language} = props.user || ''
-  return (
-    <div>
-      {props.error ? (
+  const state = {defaultState}
+  if (props.error) {
+    return (
+      <div>
+        <h4>
+          Sorry, we couldn't find your friend! Try searching another email.
+        </h4>
+      </div>
+    )
+  } else {
+    return (
+      <div>
         <div>
-          <h4>
-            Sorry, we couldn't find your friend! Try searching another email.
-          </h4>
-        </div>
-      ) : (
-        <div>
-          <div>We found your friend: {userName}</div>
+          <h6>We found your friend: {userName}</h6>
           <div>{profilePicture}</div>
-          <div>Language:{language}</div>
+          <div>Language: {language}</div>
           <label htmlFor="text">Add a note to introduce yourself</label>
           <input
             type="text"
@@ -127,11 +149,11 @@ const SearchFriend = props => {
             onChange={props.handleChange}
             style={{height: '100px'}}
           />
-          <button type="submit" onClick={props.handleAdd}>
+          <Button type="submit" onClick={props.handleAdd}>
             Send Friend Request
-          </button>
+          </Button>
         </div>
-      )}
-    </div>
-  )
+      </div>
+    )
+  }
 }

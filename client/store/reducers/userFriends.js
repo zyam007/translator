@@ -13,7 +13,7 @@ export const fetchUserFriends = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/users/friends', {userId})
-      console.log('data:', data)
+      console.log('data of friendship', data)
       dispatch(setUserFriends(data))
     } catch (err) {
       console.log(err)

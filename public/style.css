@@ -115,7 +115,18 @@ form div {
 .friends-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: start;
+}
+.friends-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #d264b6;
+}
+
+.new-requests-badge {
+  margin-left: 10px;
 }
 /* FRIENDS LIST END */
 
