@@ -18,9 +18,8 @@ Conversation.belongsTo(User, {as: 'user1'})
 Conversation.belongsTo(User, {as: 'user2'})
 Message.belongsTo(Conversation)
 Conversation.hasMany(Message)
-Message.belongsTo(User, {as: 'user'})
-Message.belongsTo(User, {as: 'receiver'})
-
+// Message.belongsTo(User, { as: 'sender' })
+// Message.belongsTo(User, { as: 'receive' })
 User.belongsToMany(User, {
   as: 'friends',
   through: Friendship,
