@@ -5,6 +5,7 @@ import {getAllMessages, postAMessage} from '../../store/reducers/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
+import axios from 'axios'
 
 class Messages extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Messages extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.translate = this.translate.bind(this)
   }
   componentDidMount() {
     let selected = this.props.selected
@@ -38,6 +40,14 @@ class Messages extends React.Component {
       value: ''
     })
   }
+  async translate(text, lan) {
+    try {
+      let res = await axios.post('/api/translate', {q: text, lan: lan})
+      console.log('this.is res', res)
+    } catch (err) {
+      console.error(err)
+    }
+  }
   render() {
     if (this.props.loading == true) {
       return (
@@ -56,17 +66,25 @@ class Messages extends React.Component {
         >
           {this.props.messages.map(message => {
             return (
-              <li
-                key={message.id}
-                className={
-                  'messages' +
-                  (message.receiverId == this.props.userId
-                    ? 'receiver'
-                    : 'sender')
-                }
-              >
-                {message.text}
-              </li>
+              <div key={message.id}>
+                <li
+                  className={
+                    'messages' +
+                    (message.receiverId == this.props.userId
+                      ? 'receiver'
+                      : 'sender')
+                  }
+                >
+                  {message.text}
+                </li>
+                <button
+                  onClick={() => {
+                    this.translate(message.text, this.props.user.language)
+                  }}
+                >
+                  translate to your language
+                </button>
+              </div>
             )
           })}
         </ul>
@@ -88,6 +106,7 @@ class Messages extends React.Component {
 const mapState = state => {
   return {
     userId: state.user.id,
+    user: state.user,
     messages: state.message.messages,
     loading: state.message.loading
   }

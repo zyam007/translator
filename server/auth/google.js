@@ -33,7 +33,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const googleId = profile.id
       const email = profile.emails[0].value
       const profilePicture = profile.photos[0].value
-      const username = profile.displayName
+      const username = profile.displayName || 'cody'
 
       User.findOrCreate({
         where: {googleId},
@@ -54,7 +54,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   router.get(
     '/callback',
     passport.authenticate('google', {
-      successRedirect: '/home',
+      successRedirect: '/',
       failureRedirect: '/login'
     })
   )
