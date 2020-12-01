@@ -4,7 +4,6 @@
  * having to figure out which file they belong to!
  */
 export {default as NavBar} from './navbar'
-export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as FriendList} from './friendList'
 export {default as MyProfile} from './myprofile'
