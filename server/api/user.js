@@ -35,11 +35,11 @@ router.get('/:email', async (req, res, next) => {
 
 router.post('/addFriend', async (req, res, next) => {
   try {
-    const friendship = await Friendship.create({
-      senderId: req.body.senderId,
-      receiverId: req.body.receiverId,
-      intro: req.body.intro
-    })
+    const friendship = await Friendship.createFriendship(
+      req.body.senderId,
+      req.body.receiverId,
+      req.body.intro
+    )
     res.json(friendship)
   } catch (err) {
     next(err)

@@ -25,7 +25,11 @@
   padding: 10px;
   margin: 10px 0;
 }
-
+.overflow-wrapper {
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 /* Clear floats */
 .messagessender::after {
   content: '';

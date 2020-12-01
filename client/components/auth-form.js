@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Link} from 'react-router-dom'
+import {Button, Container, Row, Col} from 'react-bootstrap'
 
 /**
  * COMPONENT
@@ -11,72 +12,84 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      {props.name === 'login' ? (
-        <div>
-          <form onSubmit={handleSubmit} name={name}>
-            <div>
-              <label htmlFor="email">
-                <small>Email</small>
-              </label>
-              <input name="email" type="text" />
-            </div>
-            <div>
-              <label htmlFor="password">
-                <small>Password</small>
-              </label>
-              <input name="password" type="password" />
-            </div>
-            <div>
-              <button type="submit">{displayName}</button>
-            </div>
-            {error && error.response && <div> {error.response.data} </div>}
-          </form>
-          <Link to="/signup">
-            <div>Not a member?</div>
-          </Link>
-          <a href="/auth/google">{displayName} with Google</a>
-        </div>
-      ) : (
-        <div>
-          <form onSubmit={handleSubmit} name={name}>
-            <div>
-              <label htmlFor="email">
-                <small>Email</small>
-              </label>
-              <input name="email" type="text" />
-            </div>
-            <div>
-              <label htmlFor="password">
-                <small>Password</small>
-              </label>
-              <input name="password" type="password" />
-            </div>
-            <div>
-              <label htmlFor="userName">
-                <small>Username</small>
-              </label>
-              <input name="userName" type="userName" />
-            </div>
-            <div>
-              <label htmlFor="language">
-                <small>Choose Your Language</small>
-              </label>
-              <select name="language" type="language">
-                <option value="ENG">ENG</option>
-                <option value="RUS">RUS</option>
-                <option value="CHI">CHI</option>
-              </select>
-            </div>
-            <div>
-              <button type="submit">{displayName}</button>
-            </div>
-            {error && error.response && <div> {error.response.data} </div>}
-          </form>
-          <a href="/auth/google">{displayName} with Google</a>
-        </div>
-      )}
-    </div>
+    <Container>
+      <div>
+        {props.name === 'login' ? (
+          <div>
+            <form onSubmit={handleSubmit} name={name}>
+              <div>
+                <Row>
+                  <label htmlFor="email">
+                    <small>Email</small>
+                  </label>
+                </Row>
+                <Row>
+                  <input name="email" type="text" />
+                </Row>
+              </div>
+              <div>
+                <Row>
+                  <label htmlFor="password">
+                    <small>Password</small>
+                  </label>
+                </Row>
+                <Row>
+                  <input name="password" type="password" />
+                </Row>
+              </div>
+              <Row>
+                <div>
+                  <Button type="submit">{displayName}</Button>
+                </div>
+              </Row>
+              {error && error.response && <div> {error.response.data} </div>}
+            </form>
+            <Link to="/signup">
+              <div>Not a member?</div>
+            </Link>
+            <a href="/auth/google">{displayName} with Google</a>
+          </div>
+        ) : (
+          <div>
+            <form onSubmit={handleSubmit} name={name}>
+              <div>
+                <label htmlFor="email">
+                  <small>Email</small>
+                </label>
+                <input name="email" type="text" />
+              </div>
+              <div>
+                <label htmlFor="password">
+                  <small>Password</small>
+                </label>
+                <input name="password" type="password" />
+              </div>
+              <div>
+                <label htmlFor="userName">
+                  <small>Username</small>
+                </label>
+                <input name="userName" type="userName" />
+              </div>
+              <div>
+                <label htmlFor="language">
+                  <small>Choose Your Language</small>
+                </label>
+                <select name="language" type="language">
+                  <option value="ENG">ENG</option>
+                  <option value="RUS">RUS</option>
+                  <option value="CHI">CHI</option>
+                </select>
+              </div>
+              <div>
+                <Button type="submit">{displayName}</Button>
+              </div>
+              {error && error.response && <div> {error.response.data} </div>}
+            </form>
+            <a href="/auth/google">{displayName} with Google</a>
+          </div>
+        )}
+      </div>
+    </Container>
   )
 }
 

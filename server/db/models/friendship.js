@@ -12,7 +12,11 @@ const Friendship = db.define('friendship', {
     defaultValue: 'I would like to be your friend.'
   }
 })
-Friendship.createFriendship = async (senderId, receiverId, intro) => {
+Friendship.createFriendship = async (
+  senderId,
+  receiverId,
+  intro = 'I would like to be your friend.'
+) => {
   let friendship = await Friendship.findOne({
     where: {
       senderId: {

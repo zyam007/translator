@@ -49,7 +49,11 @@ class Messages extends React.Component {
     }
     return (
       <div>
-        <ul className="list" style={{minHeight: '100%', height: '100%'}}>
+        <ul
+          className="list"
+          style={{minHeight: '100%', height: '100%'}}
+          className="overflow-wrapper"
+        >
           {this.props.messages.map(message => {
             return (
               <li
