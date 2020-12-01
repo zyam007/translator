@@ -17,11 +17,11 @@ class Main extends React.Component {
   componentDidMount() {
     this.props.getConvo(this.props.userId)
   }
-  async handleClick(event) {
-    await this.setState({
+
+  handleClick(event) {
+    this.setState({
       selected: Number(event.target.value)
     })
-    console.log('in handleclick, selected', this.state.selected)
   }
   render() {
     return (

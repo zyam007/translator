@@ -4,7 +4,6 @@ import './message.css'
 import {getAllMessages, postAMessage} from '../../store/reducers/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
-import socket from '../../socket'
 
 class Messages extends React.Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class Messages extends React.Component {
     })
   }
   render() {
-    if (this.props.loading == true) {
+    if (this.props.loading) {
       return (
         <div>
           <p>Loading messages...Please wait</p>
@@ -60,7 +59,7 @@ class Messages extends React.Component {
                 key={message.id}
                 className={
                   'messages' +
-                  (message.receiverId == this.props.userId
+                  (message.receiverId === this.props.userId
                     ? 'receiver'
                     : 'sender')
                 }

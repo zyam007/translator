@@ -1,10 +1,10 @@
 import axios from 'axios'
-import history from '../../history'
 import socket from '../../socket'
 
 // ACTION TYPES
 const GET_MESSAGES = 'GET_MESSAGES'
 const POST_MESSAGE = 'POST_MESSAGE'
+
 // ACTION CREATER
 const getMessages = messages => ({type: GET_MESSAGES, messages})
 export const postMessage = message => ({type: POST_MESSAGE, message})
@@ -33,10 +33,14 @@ export const postAMessage = (text, id, otherId) => async dispatch => {
     console.error(err.message, err.response)
   }
 }
+
+/* SET DEFAULT STATE */
+
 let defaultMessages = {
   messages: [],
   loading: true
 }
+
 export default function(state = defaultMessages, action) {
   switch (action.type) {
     case GET_MESSAGES:
