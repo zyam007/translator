@@ -43,7 +43,7 @@ class Messages extends React.Component {
   async translate(text, lan) {
     try {
       let res = await axios.post('/api/translate', {q: text, lan: lan})
-      console.log('this.is res', res)
+      let translated = res.data
     } catch (err) {
       console.error(err)
     }
