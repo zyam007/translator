@@ -62,9 +62,13 @@ export const fetchAddFriend = (
   }
 }
 
+const RESET_ERROR = 'RESET_ERROR'
+export const resetError = () => ({
+  type: RESET_ERROR
+})
 const defaultFriend = {
   friend: {},
-  error: null
+  error: 'pending'
 }
 /**
  * REDUCER
@@ -77,6 +81,8 @@ export default function(state = defaultFriend, action) {
       return defaultFriend
     case ERR_FINDING_FRIEND:
       return {...state, error: true}
+    case RESET_ERROR:
+      return {...state, error: 'pending'}
     default:
       return state
   }

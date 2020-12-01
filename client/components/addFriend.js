@@ -1,12 +1,17 @@
 import React, {Component} from 'react'
-import {fetchFriend, fetchAddFriend} from '../store/reducers/findfriend'
+import {
+  fetchFriend,
+  fetchAddFriend,
+  resetError
+} from '../store/reducers/findfriend'
 import {connect} from 'react-redux'
 import {Toast, Button, Container, Row, Col} from 'react-bootstrap'
 
 const defaultState = {
   email: '',
   intro: '',
-  search: false
+  search: false,
+  error: null
 }
 
 class AddFriend extends Component {
@@ -20,24 +25,30 @@ class AddFriend extends Component {
 
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      search: false,
+      error: null
     })
+
+    if (event.target.name == 'email') {
+      this.props.resetError()
+    }
   }
 
-  handleSearch(event) {
+  async handleSearch(event) {
     event.preventDefault()
     try {
       this.props.fetchFriend(this.state.email)
-      this.setState({
+      await this.setState({
         // email: '',
         // intro: '',
-        search: true
+        search: true,
+        error: this.props.error
       })
     } catch (error) {
       console.log(error)
     }
   }
-
   handleAdd(event) {
     event.preventDefault()
     try {
@@ -72,7 +83,7 @@ class AddFriend extends Component {
               <Button type="submit" onClick={this.handleSearch}>
                 Search
               </Button>
-              {this.state.email && this.state.search ? (
+              {this.props.error !== 'pending' ? (
                 <Container>
                   <SearchFriend
                     email={this.state.email}
@@ -106,7 +117,8 @@ const mapState = state => {
 const mapDispatch = dispatch => ({
   fetchFriend: email => dispatch(fetchFriend(email)),
   fetchAddFriend: (senderId, receiverId, intro) =>
-    dispatch(fetchAddFriend(senderId, receiverId, intro))
+    dispatch(fetchAddFriend(senderId, receiverId, intro)),
+  resetError: () => dispatch(resetError())
 })
 
 export default connect(mapState, mapDispatch)(AddFriend)
@@ -114,15 +126,17 @@ export default connect(mapState, mapDispatch)(AddFriend)
 const SearchFriend = props => {
   const {userName, email, profilePicture, language} = props.user || ''
   const state = {defaultState}
-  return (
-    <div>
-      {props.error ? (
-        <div>
-          <h4>
-            Sorry, we couldn't find your friend! Try searching another email.
-          </h4>
-        </div>
-      ) : (
+  if (props.error) {
+    return (
+      <div>
+        <h4>
+          Sorry, we couldn't find your friend! Try searching another email.
+        </h4>
+      </div>
+    )
+  } else {
+    return (
+      <div>
         <div>
           <h6>We found your friend: {userName}</h6>
           <div>{profilePicture}</div>
@@ -139,7 +153,7 @@ const SearchFriend = props => {
             Send Friend Request
           </Button>
         </div>
-      )}
-    </div>
-  )
+      </div>
+    )
+  }
 }
