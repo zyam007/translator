@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 const db = require('../db')
-const Conversation = require('./conversation')
 const Message = require('./message')
-
+const Conversation = require('./conversation')
 const Friendship = db.define('friendship', {
   status: {
     type: Sequelize.ENUM('requested', 'confirmed', 'denied', 'blocked'),
@@ -44,6 +43,14 @@ Friendship.prototype.confirm = async function() {
   this.status = 'confirmed'
   await this.save()
 }
+Friendship.prototype.initiateChat = async function() {
+  await Message.createMessage(
+    "Hi, we are friends now. Let's start talking!",
+    this.senderId,
+    this.receiverId
+  )
+}
+
 Friendship.prototype.block = async function() {
   this.status = 'blocked'
   await this.save()

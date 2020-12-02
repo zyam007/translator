@@ -77,6 +77,7 @@ async function seed() {
   await friendship1.confirm()
   await friendship4.confirm()
   await friendship10.confirm()
+  await friendship10.initiateChat()
   // await friendship2.deny()
   await user1.getConvos()
   await user1.findFriend()
