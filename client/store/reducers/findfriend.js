@@ -65,9 +65,11 @@ export const fetchAddFriend = (
       receiverId: receiverId,
       intro: intro
     }
-    socket.emit('new-friend', res.data)
+
     const {data} = await axios.post('/api/user/addFriend', friendRequest)
-    dispatch(addFriend(data))
+    socket.emit('new-friend', data)
+    console.log('in redux, findfriend, supposed to print when i add u', data)
+    dispatch(addFriend(data.friendship))
   } catch (err) {
     console.error(err)
   }

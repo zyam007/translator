@@ -13,16 +13,16 @@ socket.on('connect', () => {
       store.dispatch(postMessage(message))
     }
   })
-  socket.on('new-friend', user => {
+  socket.on('new-friend', data => {
     let state = store.getState()
     console.log(
       'in socket, want to print, newrequests',
       'this should be the target of the friend request',
-      user,
+      data,
       state.userFriends.newRequests
     )
-    if (state.user.id === user.id) {
-      store.dispatch(addOneToFrequest(user))
+    if (data.receiver.id === state.user.id) {
+      store.dispatch(addOneToFrequest(data.sender))
       console.log(
         'the newRequest should now be not empty',
         state.userFriends.newRequests

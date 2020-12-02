@@ -57,10 +57,10 @@ const userFriendsReducer = (state = initialState, action) => {
       return action.userFriends
     }
     case ADD_ONE_TO_FREQUEST:
-      state.newRequests.push(action.user)
-      console.log(state.newRequests)
-      let newstate = Object.assign(state, state)
-      return newstate
+      // state.newRequests.push(action.user)
+      // console.log(state.newRequests)
+      // let newstate = Object.assign(state, state)
+      return {...state, newRequests: [...state.newRequests, action.user]}
     default: {
       return state
     }
