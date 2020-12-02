@@ -13,7 +13,6 @@ export const fetchUserFriends = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.post('/api/users/friends', {userId})
-      console.log('data of friendship', data)
       dispatch(setUserFriends(data))
     } catch (err) {
       console.log(err)
@@ -22,6 +21,7 @@ export const fetchUserFriends = userId => {
 }
 
 const initialState = {}
+
 const userFriendsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_FRIENDS: {
