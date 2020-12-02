@@ -18,6 +18,19 @@ if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
 
+// const text = ["这是一个非常好的API", "to jest bardzo dobre API"];
+
+// async function detectLanguage() {
+//   let [detections] = await translate.detect(text);
+//   detections = Array.isArray(detections) ? detections : [detections];
+//   console.log("Detections:");
+//   detections.forEach((detection) => {
+//     console.log(detection);
+//   });
+// }
+
+// detectLanguage();
+
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project

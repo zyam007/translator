@@ -27,7 +27,8 @@ const User = db.define('user', {
   userName: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 'cody'
   },
   profilePicture: {
     type: Sequelize.STRING,

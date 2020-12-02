@@ -38,7 +38,7 @@ class AddFriend extends Component {
   async handleSearch(event) {
     event.preventDefault()
     try {
-      this.props.fetchFriend(this.state.email)
+      this.props.fetchUser(this.state.email)
       await this.setState({
         // email: '',
         // intro: '',
