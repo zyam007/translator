@@ -23,7 +23,7 @@ Conversation.findOrCreateConversation = async (user1Id, user2Id) => {
   })
   if (conversation1) return conversation1
   if (conversation2) return conversation2
-  return await Conversation.create({
+  return Conversation.create({
     user1Id: user1Id,
     user2Id: user2Id
   })

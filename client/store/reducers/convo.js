@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../../history'
 
 // ACTION TYPES
 const GET_CONVO = 'GET_CONVO'
@@ -24,6 +23,7 @@ let defaultConvo = {
   conversations: [],
   otherIC: []
 }
+
 export default function(state = defaultConvo, action) {
   switch (action.type) {
     case GET_CONVO:
