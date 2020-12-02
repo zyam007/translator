@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 const db = require('../db')
 const Conversation = require('./conversation')
 const Message = require('./message')
@@ -52,5 +53,25 @@ Friendship.prototype.deny = async function() {
   await this.save()
 }
 
-//Friendship.prototype.delete() = async function () {}
+Friendship.prototype.deleteFriendship = async function() {
+  const conversation = await Conversation.findOne({
+    where: {
+      user1Id: {
+        [Sequelize.Op.or]: [this.senderId, this.receiverId]
+      },
+      user2Id: {
+        [Sequelize.Op.or]: [this.senderId, this.receiverId]
+      }
+    }
+  })
+
+  //using conversation id destroy messages
+  const messages = await Message.destroy({
+    where: {
+      conversationId: conversation.id
+    }
+  })
+
+  conversation.destroy()
+}
 module.exports = Friendship

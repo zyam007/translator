@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {ListGroup, Button, Tabs, Tab, Badge} from 'react-bootstrap'
-import {fetchUserFriends, confirmFriend} from '../store/reducers/userFriends'
+import {
+  fetchUserFriends,
+  confirmFriend,
+  deleteFriend
+} from '../store/reducers/userFriends'
 
 export class FriendList extends Component {
   constructor() {
@@ -47,7 +51,13 @@ export class FriendList extends Component {
                     >
                       Block
                     </Button>
-                    <Button variant="danger" size="sm">
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() =>
+                        this.props.delete(this.props.user.id, friend.id)
+                      }
+                    >
                       x
                     </Button>
                   </ListGroup.Item>
@@ -156,7 +166,8 @@ const mapDispatch = dispatch => {
   return {
     getFriends: userId => dispatch(fetchUserFriends(userId)),
     requestUpdate: (userId, friendId, action) =>
-      dispatch(confirmFriend(userId, friendId, action))
+      dispatch(confirmFriend(userId, friendId, action)),
+    delete: (userId, friendId) => dispatch(deleteFriend(userId, friendId))
   }
 }
 

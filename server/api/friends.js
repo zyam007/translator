@@ -61,7 +61,6 @@ router.put('/:id', async (req, res, next) => {
           senderId: id
         }
       })
-      console.log('Friendship ...: ', friendship)
       if (!friendship) {
         friendship = await Friendship.findOne({
           where: {
@@ -81,9 +80,25 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   const {id} = req.params
-  const {userId} = req.body
+  const {friendId} = req.body
   try {
-    //res.json(results)
+    let friendship = await Friendship.findOne({
+      where: {
+        receiverId: id,
+        senderId: friendId
+      }
+    })
+    if (!friendship) {
+      friendship = await Friendship.findOne({
+        where: {
+          receiverId: friendId,
+          senderId: id
+        }
+      })
+    }
+    friendship.deleteFriendship()
+    const result = friendship.destroy()
+    res.json(result)
   } catch (err) {
     next(err)
   }
