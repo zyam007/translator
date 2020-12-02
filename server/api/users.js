@@ -27,13 +27,13 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.post('/friends', async (req, res, next) => {
-  const {userId} = req.body
-  try {
-    const user = await User.findByPk(userId)
-    const results = await user.findFriend()
-    res.json(results)
-  } catch (err) {
-    next(err)
-  }
-})
+// router.post('/friends', async (req, res, next) => {
+//   const {userId} = req.body
+//   try {
+//     const user = await User.findByPk(userId)
+//     const results = await user.findFriend()
+//     res.json(results)
+//   } catch (err) {
+//     next(err)
+//   }
+// })

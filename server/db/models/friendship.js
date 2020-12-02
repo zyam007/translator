@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Conversation = require('./conversation')
+const Message = require('./message')
 
 const Friendship = db.define('friendship', {
   status: {
@@ -49,4 +51,6 @@ Friendship.prototype.deny = async function() {
   this.status = 'denied'
   await this.save()
 }
+
+//Friendship.prototype.delete() = async function () {}
 module.exports = Friendship

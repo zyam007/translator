@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {ListGroup, Button, Tabs, Tab, Badge} from 'react-bootstrap'
-import {fetchUserFriends} from '../store/reducers/userFriends'
+import {fetchUserFriends, confirmFriend} from '../store/reducers/userFriends'
 
 export class FriendList extends Component {
   constructor() {
@@ -34,7 +34,17 @@ export class FriendList extends Component {
                   >
                     <img src={friend.profilePicture} className="friends-img" />
                     <p style={{width: '200px'}}>{friend.email}</p>
-                    <Button variant="outline-danger" size="sm">
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
+                      onClick={() =>
+                        this.props.requestUpdate(
+                          this.props.user.id,
+                          friend.id,
+                          'block'
+                        )
+                      }
+                    >
                       Block
                     </Button>
                     <Button variant="danger" size="sm">
@@ -56,7 +66,17 @@ export class FriendList extends Component {
                   >
                     <img src={friend.profilePicture} className="friends-img" />
                     <p style={{width: '200px'}}>{friend.email}</p>
-                    <Button variant="dark" size="sm">
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      onClick={() =>
+                        this.props.requestUpdate(
+                          this.props.user.id,
+                          friend.id,
+                          'cancel'
+                        )
+                      }
+                    >
                       Cancel
                     </Button>
                   </ListGroup.Item>
@@ -89,9 +109,30 @@ export class FriendList extends Component {
                   >
                     <img src={friend.profilePicture} className="friends-img" />
                     <p style={{width: '200px'}}>{friend.email}</p>
-                    <Button variant="outline-success">Accept</Button>
-                    <Button variant="dark" size="sm">
-                      Cancel
+                    <Button
+                      variant="outline-success"
+                      onClick={() =>
+                        this.props.requestUpdate(
+                          this.props.user.id,
+                          friend.id,
+                          'accept'
+                        )
+                      }
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      onClick={() =>
+                        this.props.requestUpdate(
+                          this.props.user.id,
+                          friend.id,
+                          'deny'
+                        )
+                      }
+                    >
+                      Deny
                     </Button>
                   </ListGroup.Item>
                 )
@@ -113,7 +154,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getFriends: userId => dispatch(fetchUserFriends(userId))
+    getFriends: userId => dispatch(fetchUserFriends(userId)),
+    requestUpdate: (userId, friendId, action) =>
+      dispatch(confirmFriend(userId, friendId, action))
   }
 }
 
