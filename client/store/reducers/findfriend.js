@@ -1,4 +1,5 @@
 import axios from 'axios'
+import socket from '../../socket'
 
 /**
  * ACTION TYPES
@@ -47,6 +48,7 @@ export const fetchFriend = email => async dispatch => {
       dispatch(errFindingFriend())
     } else {
       dispatch(findFriend(res.data))
+      socket.emit('new-friend', res.data)
     }
   } catch (err) {
     console.error(err)

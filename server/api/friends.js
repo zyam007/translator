@@ -27,6 +27,7 @@ router.put('/:id', async (req, res, next) => {
         }
       })
       await friendship.confirm()
+      await friendship.initiateChat()
       res.send(friendship)
     }
     if (action === 'deny') {
