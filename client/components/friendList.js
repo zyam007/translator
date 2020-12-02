@@ -22,7 +22,7 @@ export class FriendList extends Component {
     const newRequests = this.props.userWithFriends.newRequests || []
     const confirmed = this.props.userWithFriends.confirmed || []
     const requested = this.props.userWithFriends.requested || []
-
+    console.log('friendlist render, new request')
     return (
       <>
         <h3>Your Friends</h3>

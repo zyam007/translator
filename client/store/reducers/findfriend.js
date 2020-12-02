@@ -48,7 +48,6 @@ export const fetchFriend = email => async dispatch => {
       dispatch(errFindingFriend())
     } else {
       dispatch(findFriend(res.data))
-      socket.emit('new-friend', res.data)
     }
   } catch (err) {
     console.error(err)
@@ -66,6 +65,7 @@ export const fetchAddFriend = (
       receiverId: receiverId,
       intro: intro
     }
+    socket.emit('new-friend', res.data)
     const {data} = await axios.post('/api/user/addFriend', friendRequest)
     dispatch(addFriend(data))
   } catch (err) {
