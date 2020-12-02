@@ -28,8 +28,8 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={Welcome} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         {/* <Route path="/myprofile" component={MyProfile} /> */}
         {isLoggedIn && (
           <Switch>

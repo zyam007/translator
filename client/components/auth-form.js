@@ -41,7 +41,7 @@ const AuthForm = props => {
               <br />
               <Link to="/signup">Not a member?</Link>
               <br />
-              <Link to="/auth/google">{displayName} with Google</Link>
+              <a href="/auth/google">{displayName} with Google</a>
             </div>
           </Form>
         ) : (
@@ -88,7 +88,7 @@ const AuthForm = props => {
               </Button>
               {error && error.response && <div> {error.response.data} </div>}
               <br />
-              <Link to="/auth/google">{displayName} with Google</Link>
+              <a href="/auth/google">{displayName} with Google</a>
             </div>
           </Form>
         )}

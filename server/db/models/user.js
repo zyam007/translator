@@ -28,7 +28,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false,
-    defaultValue: 'cody'
+    defaultValue: 'change your username'
   },
   profilePicture: {
     type: Sequelize.STRING,
