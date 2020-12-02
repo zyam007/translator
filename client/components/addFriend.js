@@ -141,7 +141,7 @@ const SearchFriend = props => {
       <div>
         <div>
           <h6>We found your friend: {userName}</h6>
-          <div>{profilePicture}</div>
+          <img src={profilePicture} className="profile-photo" />
           <div>Language: {language}</div>
           <label htmlFor="text">Add a note to introduce yourself</label>
           <input
@@ -149,7 +149,7 @@ const SearchFriend = props => {
             name="intro"
             value={props.intro}
             onChange={props.handleChange}
-            style={{height: '100px'}}
+            style={{height: '100px', width: '200px'}}
           />
           <Button type="submit" onClick={props.handleAdd}>
             Send Friend Request

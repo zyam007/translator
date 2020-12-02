@@ -9,10 +9,34 @@ const setUserFriends = userFriends => {
   }
 }
 
-export const fetchUserFriends = userId => {
+export const deleteFriend = (id, friendId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/users/friends', {userId})
+      const {data} = await axios.delete(`/api/friends/${id}`, {
+        data: {friendId}
+      })
+      dispatch(fetchUserFriends(id))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const confirmFriend = (id, friendId, action) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/friends/${id}`, {friendId, action})
+      dispatch(fetchUserFriends(id))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const fetchUserFriends = id => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/friends/${id}`)
       dispatch(setUserFriends(data))
     } catch (err) {
       console.log(err)
