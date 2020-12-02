@@ -33,11 +33,8 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const googleId = profile.id
       const email = profile.emails[0].value
       const profilePicture = profile.photos[0].value
-      console.log('email', email)
-      let name = email.replace(/@.*$/, '')
-      console.log('name', name)
-      const userName = name[0].toUpperCase() + name.slice(1)
-      console.log('userName', userName)
+      const firstName = profile.name.givenName
+      const userName = firstName
 
       User.findOrCreate({
         where: {googleId},

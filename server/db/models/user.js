@@ -26,7 +26,7 @@ const User = db.define('user', {
   },
   userName: {
     type: Sequelize.STRING,
-    unique: true,
+    // unique: true,
     allowNull: false,
     defaultValue: 'change your username'
   },
