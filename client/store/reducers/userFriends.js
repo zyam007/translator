@@ -1,14 +1,19 @@
 import axios from 'axios'
 
 const GET_USER_FRIENDS = 'GET_USER_FRIENDS'
-
+const ADD_ONE_TO_FREQUEST = 'ADD_ONE_TO_FREQUEST'
 const setUserFriends = userFriends => {
   return {
     type: GET_USER_FRIENDS,
     userFriends
   }
 }
-
+export const addOneToFrequest = user => {
+  return {
+    type: ADD_ONE_TO_FREQUEST,
+    user
+  }
+}
 export const deleteFriend = (id, friendId) => {
   return async dispatch => {
     try {
@@ -51,6 +56,11 @@ const userFriendsReducer = (state = initialState, action) => {
     case GET_USER_FRIENDS: {
       return action.userFriends
     }
+    case ADD_ONE_TO_FREQUEST:
+      // state.newRequests.push(action.user)
+      // console.log(state.newRequests)
+      // let newstate = Object.assign(state, state)
+      return {...state, newRequests: [...state.newRequests, action.user]}
     default: {
       return state
     }
