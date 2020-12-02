@@ -45,6 +45,7 @@ export const fetchUserFriends = id => {
 }
 
 const initialState = {}
+
 const userFriendsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_FRIENDS: {

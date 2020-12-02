@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Link} from 'react-router-dom'
-import {Button, Container, Row, Col} from 'react-bootstrap'
+import {Button, Container, Row, Form, Col} from 'react-bootstrap'
 
 /**
  * COMPONENT
@@ -15,78 +15,82 @@ const AuthForm = props => {
     <Container>
       <div>
         {props.name === 'login' ? (
-          <div>
-            <form onSubmit={handleSubmit} name={name}>
-              <div>
-                <Row>
-                  <label htmlFor="email">
-                    <small>Email</small>
-                  </label>
-                </Row>
-                <Row>
-                  <input name="email" type="text" />
-                </Row>
-              </div>
-              <div>
-                <Row>
-                  <label htmlFor="password">
-                    <small>Password</small>
-                  </label>
-                </Row>
-                <Row>
-                  <input name="password" type="password" />
-                </Row>
-              </div>
-              <Row>
-                <div>
-                  <Button type="submit">{displayName}</Button>
-                </div>
-              </Row>
+          <Form onSubmit={handleSubmit} name={name}>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                name="email"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
+            </Form.Group>
+            <div>
+              <Button variant="primary" type="submit">
+                {displayName}
+              </Button>
               {error && error.response && <div> {error.response.data} </div>}
-            </form>
-            <Link to="/signup">
-              <div>Not a member?</div>
-            </Link>
-            <a href="/auth/google">{displayName} with Google</a>
-          </div>
+              <br />
+              <Link to="/signup">Not a member?</Link>
+              <br />
+              <a href="/auth/google">{displayName} with Google</a>
+            </div>
+          </Form>
         ) : (
-          <div>
-            <form onSubmit={handleSubmit} name={name}>
-              <div>
-                <label htmlFor="email">
-                  <small>Email</small>
-                </label>
-                <input name="email" type="text" />
-              </div>
-              <div>
-                <label htmlFor="password">
-                  <small>Password</small>
-                </label>
-                <input name="password" type="password" />
-              </div>
-              <div>
-                <label htmlFor="userName">
-                  <small>Username</small>
-                </label>
-                <input name="userName" type="userName" />
-              </div>
-              <div>
-                <label htmlFor="language">
-                  <small>Choose Your Language</small>
-                </label>
-                <select name="language" type="language">
-                  <option value="ENG">ENG</option>
-                  <option value="RUS">RUS</option>
-                  <option value="CHI">CHI</option>
-                </select>
-              </div>
-              <div>
-                <Button type="submit">{displayName}</Button>
-              </div>
+          <Form onSubmit={handleSubmit} name={name}>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                name="email"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicuserName">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="userName"
+                placeholder="Username"
+                name="userName"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicLanguage">
+              <Form.Label>Choose Your Language</Form.Label>
+              <Form.Control as="select" name="language" type="language">
+                <option value="ENG">ENG</option>
+                <option value="RUS">RUS</option>
+                <option value="CHI">CHI</option>
+              </Form.Control>
+            </Form.Group>
+
+            <div>
+              <Button variant="primary" type="submit">
+                {displayName}
+              </Button>
               {error && error.response && <div> {error.response.data} </div>}
-            </form>
-            <a href="/auth/google">{displayName} with Google</a>
-          </div>
+              <br />
+              <a href="/auth/google">{displayName} with Google</a>
+            </div>
+          </Form>
         )}
       </div>
     </Container>

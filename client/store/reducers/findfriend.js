@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../../history'
 
 /**
  * ACTION TYPES
@@ -7,9 +6,15 @@ import history from '../../history'
 const FIND_FRIEND = 'FIND_FRIEND'
 const ADD_FRIEND = 'ADD_FRIEND'
 const ERR_FINDING_FRIEND = 'ERR_FINDING_FRIEND'
+const RESET_ERROR = 'RESET_ERROR'
+
 /**
  * INITIAL STATE
  */
+const defaultFriend = {
+  friend: {},
+  error: 'pending'
+}
 
 /**
  * ACTION CREATORS
@@ -28,6 +33,10 @@ const errFindingFriend = () => ({
   type: ERR_FINDING_FRIEND
 })
 
+export const resetError = () => ({
+  type: RESET_ERROR
+})
+
 /**
  * THUNK CREATORS
  */
@@ -40,7 +49,7 @@ export const fetchFriend = email => async dispatch => {
       dispatch(findFriend(res.data))
     }
   } catch (err) {
-    dispatch(addErr(err))
+    console.error(err)
   }
 }
 
@@ -62,14 +71,6 @@ export const fetchAddFriend = (
   }
 }
 
-const RESET_ERROR = 'RESET_ERROR'
-export const resetError = () => ({
-  type: RESET_ERROR
-})
-const defaultFriend = {
-  friend: {},
-  error: 'pending'
-}
 /**
  * REDUCER
  */

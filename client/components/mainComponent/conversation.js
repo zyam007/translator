@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import './convo.css'
 
 function Conversation(props) {
-  if (props.otherInChat == []) {
+  if (props.otherInChat === []) {
     return (
       <div>
         <p>loading</p>
@@ -29,7 +29,7 @@ function Conversation(props) {
           return (
             <li
               key={user.id}
-              className={props.selected == user.id ? 'highlight' : 'convo'}
+              className={props.selected === user.id ? 'highlight' : 'convo'}
               value={user.id}
               onClick={props.handleClick}
             >
