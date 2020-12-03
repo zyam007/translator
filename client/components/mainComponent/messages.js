@@ -37,9 +37,9 @@ class Messages extends React.Component {
     if (this.props.selected !== prevProps.selected) {
       this.props.getAllMessages(this.props.userId, this.props.selected)
     }
-    if (this.props.messages !== prevProps.messages) {
-      this.props.translateAll(this.props.messages, this.props.user.language)
-    }
+    // if (this.props.messages !== prevProps.messages) {
+    //   this.props.translateAll(this.props.messages, this.props.user.language)
+    // }
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.translate !== nextProps.translate) {
@@ -170,7 +170,10 @@ class Messages extends React.Component {
           <button
             type="submit"
             onClick={() => {
-              this.toggleShowTrans()
+              this.props.translateAll(
+                this.props.messages,
+                this.props.user.language
+              )
             }}
           >
             translate all
@@ -199,7 +202,15 @@ const mapState = state => {
     title: state.message.isTyping
       ? 'The other user is typing...'
       : 'Start your conversation',
-    translateall: state.message.translateAll.translation
+
+    translateAll: state.message.messages.map(message => {
+      let allTM = state.message.translateAll.translation
+      for (let i = 0; i < allTM.length; i++) {
+        if (message.id == allTM[i].messageId) {
+          message.trans = allTM[i][translate]
+        }
+      }
+    })
   }
 }
 
