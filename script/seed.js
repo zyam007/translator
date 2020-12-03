@@ -51,8 +51,9 @@ async function seed() {
     user1.id
   )
   const message3 = await Message.createMessage('I like', user1.id, user2.id)
-  const message4 = await Message.createMessage('I like', user3.id, user1.id)
+  const message4 = await Message.createMessage('I like', user1.id, user4.id)
   const message5 = await Message.createMessage('I ok', user4.id, user1.id)
+
   const friendship1 = await Friendship.createFriendship(
     1,
     2,
@@ -62,17 +63,17 @@ async function seed() {
   const friendship2 = await Friendship.createFriendship(
     2,
     1,
-    'I would like to be more than your friend.'
+    'I want to be more than your friend.'
   )
   const friendship3 = await Friendship.createFriendship(
     1,
     3,
-    'I would like to be your friend.'
+    'Be my friend please!'
   )
   const friendship4 = await Friendship.createFriendship(
     1,
     4,
-    'I would like to be your friend.'
+    'Will you be my friend?'
   )
   await friendship1.confirm()
   await friendship4.confirm()
