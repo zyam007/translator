@@ -77,10 +77,10 @@ let defaultMessages = {
 export default function(state = defaultMessages, action) {
   switch (action.type) {
     case GET_MESSAGES:
-      console.log('in store, message.js, action.messages', action.messages)
+      // console.log('in store, message.js, action.messages', action.messages)
       return {...state, messages: action.messages, loading: false}
     case POST_MESSAGE:
-      console.log('in message store about to add it in', action.message)
+      // console.log('in message store about to add it in', action.message)
       return {...state, messages: [...state.messages, action.message]}
     case RESET_LOADING:
       return {...state, loading: true}
@@ -90,7 +90,7 @@ export default function(state = defaultMessages, action) {
       state.translate[action.translated.messageId] = action.translated.text
       // console.log('in reducer, is the translater state right', state.translate)
       let newState = Object.assign(state, state)
-      console.log('the new state', newState)
+      // console.log('the new state', newState)
       return {...newState, loading: false}
     case GET_TRANSLATIONN:
       return {...state, translateAll: action.translated}

@@ -47,7 +47,7 @@ class Messages extends React.Component {
   }
   handleChange(event) {
     this.setState({value: event.target.value})
-    console.log('event target', event.target.value !== '')
+    // console.log('event target', event.target.value !== '')
     let bool = false
     event.target.value !== '' ? (bool = true) : (bool = false)
     socket.emit('user typing', {
@@ -107,6 +107,8 @@ class Messages extends React.Component {
           style={{minHeight: '100%', height: '100%'}}
         >
           {this.props.messages.map(message => {
+            console.log('ID', message.id)
+            console.log('TRANS TEXT', this.props.translateall[message.id])
             return (
               <div key={message.id}>
                 {this.state.showTrans && this.state.translate[message.id] ? (
@@ -148,12 +150,7 @@ class Messages extends React.Component {
             )
           })}
         </ul>
-        <div
-          style={{
-            bottom: '0px'
-          }}
-        >
-          <h1>HELLO</h1>
+        <div style={{bottom: '0px'}}>
           <button
             type="submit"
             onClick={() => {
@@ -183,7 +180,7 @@ const mapState = state => {
     title: state.message.isTyping
       ? 'The other user is typing...'
       : 'Start your conversation',
-    translateAll: state.message.translateAll.translation
+    translateall: state.message.translateAll.translation
   }
 }
 
