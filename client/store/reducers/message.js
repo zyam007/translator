@@ -14,7 +14,7 @@ const transone = translated => ({type: GET_SINGLETRANSLATION, translated})
 const resetLoading = () => ({
   type: RESET_LOADING
 })
-
+const transall = translated => ({type: GET_TRANSLATIONN, translated})
 const getMessages = messages => ({type: GET_MESSAGES, messages})
 
 export const postMessage = message => ({type: POST_MESSAGE, message})
@@ -27,7 +27,18 @@ export const getAllMessages = (id, otherId) => async dispatch => {
     console.error(err)
   }
 }
-
+export const translateAll = (messages, language) => async dispatch => {
+  try {
+    console.log(messages)
+    const {data} = await axios.post(`/api/translate/all`, {
+      messages: messages,
+      language: language
+    })
+    dispatch(transAll(data))
+  } catch (err) {
+    console.err(err)
+  }
+}
 export const postAMessage = (text, id, otherId) => async dispatch => {
   try {
     console.log('theses all correct post a message', {
@@ -80,6 +91,8 @@ export default function(state = defaultMessages, action) {
       let newState = Object.assign(state, state)
       console.log('the new state', newState)
       return {...newState, loading: false}
+    case GET_TRANSLATIONN:
+      console.log(action.translated)
     default:
       return state
   }

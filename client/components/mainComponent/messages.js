@@ -4,7 +4,8 @@ import './message.css'
 import {
   getAllMessages,
   postAMessage,
-  translateOne
+  translateOne,
+  translateAll
 } from '../../store/reducers/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
@@ -31,6 +32,9 @@ class Messages extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.selected !== prevProps.selected) {
       this.props.getAllMessages(this.props.userId, this.props.selected)
+    }
+    if (this.props.messages !== prevProps.messages) {
+      this.props.translateAll(this.props.messages, this.props.user.language)
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -171,7 +175,9 @@ const mapDispatch = dispatch => {
     postAMessage: (text, senderId, receiverId) =>
       dispatch(postAMessage(text, senderId, receiverId)),
     translateOne: (text, lan, messageId) =>
-      dispatch(translateOne(text, lan, messageId))
+      dispatch(translateOne(text, lan, messageId)),
+    translateAll: (messages, language) =>
+      dispatch(translateAll(messages, language))
   }
 }
 export default connect(mapState, mapDispatch)(Messages)
