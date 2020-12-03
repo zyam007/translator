@@ -4,7 +4,6 @@ require('../../../secrets')
 const GAPI = process.env.GAPI || 'missing API for giphy'
 
 function Input(props) {
-  console.log(GAPI)
   return (
     <div>
       <form onSubmit={props.handleSubmit}>
@@ -21,7 +20,11 @@ function Input(props) {
 
         <input type="submit" value="Submit" />
       </form>
-      <button onClick={props.toggle} style={{width: '100px', height: '40px'}}>
+      <button
+        type="submit"
+        onClick={props.toggle}
+        style={{width: '100px', height: '40px'}}
+      >
         MEMES
       </button>
       {props.toggleMemes ? (

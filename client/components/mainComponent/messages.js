@@ -121,8 +121,6 @@ class Messages extends React.Component {
           style={{minHeight: '100%', height: '100%'}}
         >
           {this.props.messages.map(message => {
-            console.log('ID', message.id)
-            console.log('TRANS TEXT', this.props.translateall[message.id])
             return (
               <div key={message.id}>
                 {this.state.showTrans && this.state.translate[message.id] ? (
