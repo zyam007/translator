@@ -3,7 +3,7 @@ import store from './store'
 import {postMessage} from './store/reducers/message'
 const socket = io(window.location.origin)
 import {addOneToFrequest} from './store/reducers/userFriends'
-
+import {isTyping} from './store/reducers/message'
 socket.on('connect', () => {
   console.log('Connected!')
 
@@ -15,18 +15,15 @@ socket.on('connect', () => {
   })
   socket.on('new-friend', data => {
     let state = store.getState()
-    console.log(
-      'in socket, want to print, newrequests',
-      'this should be the target of the friend request',
-      data,
-      state.userFriends.newRequests
-    )
     if (data.receiver.id === state.user.id) {
       store.dispatch(addOneToFrequest(data.sender))
-      console.log(
-        'the newRequest should now be not empty',
-        state.userFriends.newRequests
-      )
+    }
+  })
+  socket.on('user typing', data => {
+    let state = store.getState()
+    if (data.receiverId === state.user.id) {
+      console.log('in client socket', data)
+      store.dispatch(isTyping(data.isTyping))
     }
   })
 })
