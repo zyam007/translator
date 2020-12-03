@@ -44,10 +44,10 @@ router.post('/all', async (req, res, next) => {
     let lan = req.body.language
     console.dir(req.body.messages)
     console.dir(req.body.language)
-    // let resultArray = await translaterAll(arrayOfObj, lan)
-    // console.log(resultArray)
-    // // res.set('Content-Type', 'text/html')
-    // res.json({ translation: resultArray })
+    let resultArray = await translaterAll(arrayOfObj, lan)
+    console.log(resultArray)
+    // res.set('Content-Type', 'text/html')
+    res.json({translation: resultArray})
   } catch (error) {
     console.error(error)
   }

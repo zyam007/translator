@@ -34,7 +34,7 @@ export const translateAll = (messages, language) => async dispatch => {
       messages: messages,
       language: language
     })
-    dispatch(transAll(data))
+    dispatch(transall(data))
   } catch (err) {
     console.err(err)
   }
@@ -70,7 +70,8 @@ let defaultMessages = {
   messages: [],
   translate: {},
   loading: true,
-  isTyping: false
+  isTyping: false,
+  translateAll: []
 }
 
 export default function(state = defaultMessages, action) {
@@ -92,7 +93,8 @@ export default function(state = defaultMessages, action) {
       console.log('the new state', newState)
       return {...newState, loading: false}
     case GET_TRANSLATIONN:
-      console.log(action.translated)
+      return {...state, translateAll: action.translated}
+    //console.log(action.translated)
     default:
       return state
   }

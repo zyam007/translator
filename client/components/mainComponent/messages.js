@@ -24,6 +24,7 @@ class Messages extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.translate = this.translate.bind(this)
+    this.toggleShowTrans = this.toggleShowTrans.bind(this)
   }
   componentDidMount() {
     let selected = this.props.selected
@@ -67,10 +68,17 @@ class Messages extends React.Component {
       value: ''
     })
   }
+
+  toggleShowTrans() {
+    let {showTrans} = this.state
+    this.setState({
+      showTrans: !showTrans
+    })
+  }
+
   // switch to the store
   async translate(text, lan, messageId) {
     try {
-      console.log('STAAAATE', this.state)
       this.props.translateOne(text, lan, messageId)
       let {showTrans} = this.state
       await this.setState({
@@ -134,7 +142,7 @@ class Messages extends React.Component {
                     )
                   }}
                 >
-                  translate to your language
+                  translate message
                 </button>
               </div>
             )
@@ -145,6 +153,15 @@ class Messages extends React.Component {
             bottom: '0px'
           }}
         >
+          <h1>HELLO</h1>
+          <button
+            type="submit"
+            onClick={() => {
+              this.toggleShowTrans()
+            }}
+          >
+            translate all
+          </button>
           <Input
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -165,7 +182,8 @@ const mapState = state => {
     isTyping: state.message.isTyping,
     title: state.message.isTyping
       ? 'The other user is typing...'
-      : 'Start your conversation'
+      : 'Start your conversation',
+    translateAll: state.message.translateAll.translation
   }
 }
 
