@@ -91,6 +91,8 @@ export default function(state = defaultMessages, action) {
       let newState = Object.assign(state, state)
       console.log('the new state', newState)
       return {...newState, loading: false}
+    case GET_TRANSLATIONN:
+      console.log(action.translated)
     default:
       return state
   }
