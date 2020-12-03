@@ -40,7 +40,14 @@ router.post('/addFriend', async (req, res, next) => {
       req.body.receiverId,
       req.body.intro
     )
-    res.json(friendship)
+    const sender = await User.findByPk(friendship.senderId)
+    const receiver = await User.findByPk(friendship.receiverId)
+    let result = {
+      friendship,
+      sender,
+      receiver
+    }
+    res.json(result)
   } catch (err) {
     next(err)
   }
