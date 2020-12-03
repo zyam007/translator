@@ -66,15 +66,18 @@ class Messages extends React.Component {
   // switch to the store
   async translate(text, lan, messageId) {
     try {
+      console.log('STAAAATE', this.state)
       this.props.translateOne(text, lan, messageId)
+      let {showTrans} = this.state
       await this.setState({
-        showTrans: true,
+        showTrans: !showTrans,
         translate: this.props.translate
       })
     } catch (err) {
       console.error(err)
     }
   }
+
   render() {
     if (this.props.loading) {
       return (
@@ -88,28 +91,17 @@ class Messages extends React.Component {
       <div style={{paddingTop: '20px'}}>
         <Alert variant="info">{this.props.title}</Alert>
         <ul
-          className="list"
+          className="list overflow-wrapper"
           style={{minHeight: '100%', height: '100%'}}
-          className="overflow-wrapper"
         >
           {this.props.messages.map(message => {
             return (
               <div key={message.id}>
-                <li
-                  className={
-                    'messages' +
-                    (message.receiverId == this.props.userId
-                      ? 'receiver'
-                      : 'sender')
-                  }
-                >
-                  {message.text}
-                </li>
-                {this.state.translate[message.id] ? (
+                {this.state.showTrans && this.state.translate[message.id] ? (
                   <li
                     className={
                       'messages' +
-                      (message.receiverId == this.props.userId
+                      (message.receiverId === this.props.userId
                         ? 'receiver'
                         : 'sender')
                     }
@@ -117,9 +109,19 @@ class Messages extends React.Component {
                     {this.state.translate[message.id]}
                   </li>
                 ) : (
-                  <div />
+                  <li
+                    className={
+                      'messages' +
+                      (message.receiverId === this.props.userId
+                        ? 'receiver'
+                        : 'sender')
+                    }
+                  >
+                    {message.text}
+                  </li>
                 )}
                 <button
+                  type="submit"
                   onClick={() => {
                     this.translate(
                       message.text,

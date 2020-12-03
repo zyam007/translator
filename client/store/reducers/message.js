@@ -14,8 +14,11 @@ const transone = translated => ({type: GET_SINGLETRANSLATION, translated})
 const resetLoading = () => ({
   type: RESET_LOADING
 })
+
 const getMessages = messages => ({type: GET_MESSAGES, messages})
+
 export const postMessage = message => ({type: POST_MESSAGE, message})
+
 export const getAllMessages = (id, otherId) => async dispatch => {
   try {
     const {data} = await axios.get(`/api/messages/${id}/${otherId}`)
@@ -24,6 +27,7 @@ export const getAllMessages = (id, otherId) => async dispatch => {
     console.error(err)
   }
 }
+
 export const postAMessage = (text, id, otherId) => async dispatch => {
   try {
     console.log('theses all correct post a message', {
