@@ -4,7 +4,6 @@ require('../../../secrets')
 const GAPI = process.env.GAPI || 'missing API for giphy'
 
 function Input(props) {
-  console.log(GAPI)
   return (
     <div>
       <form onSubmit={props.handleSubmit}>
