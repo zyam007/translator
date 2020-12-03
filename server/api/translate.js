@@ -37,3 +37,34 @@ router.post('/', async (req, res, next) => {
     console.error(error)
   }
 })
+router.post('/all', async (req, res, next) => {
+  try {
+    projectId = process.env.PROJECT_ID
+    let arrayOfObj = req.body.messages
+    let lan = req.body.language
+    console.dir(req.body.messages)
+    console.dir(req.body.language)
+    // let resultArray = await translaterAll(arrayOfObj, lan)
+    // console.log(resultArray)
+    // // res.set('Content-Type', 'text/html')
+    // res.json({ translation: resultArray })
+  } catch (error) {
+    console.error(error)
+  }
+})
+async function translaterAll(arrayOfObj, lan) {
+  const {Translate} = require('@google-cloud/translate').v2
+  const translate = new Translate()
+  async function translateText() {
+    let result = []
+    for (let i = 0; i < arrayOfObj.length; i++) {
+      let [translations] = await translate.translate(arrayOfObj[i].text, lan)
+      let instance = {messageId: arrayOfObj[i].id, translate: translations}
+      result.push(instance)
+    }
+    return result
+  }
+  let result = await translateText()
+  return result
+  // [END translate_translate_text]
+}
