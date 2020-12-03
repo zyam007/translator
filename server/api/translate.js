@@ -56,13 +56,11 @@ async function translaterAll(arrayOfObj, lan) {
   const {Translate} = require('@google-cloud/translate').v2
   const translate = new Translate()
   async function translateText() {
-    let result = []
     for (let i = 0; i < arrayOfObj.length; i++) {
       let [translations] = await translate.translate(arrayOfObj[i].text, lan)
-      let instance = {messageId: arrayOfObj[i].id, translate: translations}
-      result.push(instance)
+      arrayOfObj[i][translation] = translations
     }
-    return result
+    return arrayOfObj
   }
   let result = await translateText()
   return result
