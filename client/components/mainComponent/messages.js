@@ -18,6 +18,7 @@ class Messages extends React.Component {
     this.state = {
       value: '',
       showTrans: false,
+      toggleMemes: false,
       translate: {}
     }
 
@@ -25,6 +26,8 @@ class Messages extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.translate = this.translate.bind(this)
     this.toggleShowTrans = this.toggleShowTrans.bind(this)
+    this.handleGIPHY = this.handleGIPHY.bind(this)
+    this.toggle = this.toggle.bind(this)
   }
   componentDidMount() {
     let selected = this.props.selected
@@ -76,6 +79,9 @@ class Messages extends React.Component {
     })
   }
 
+  toggle() {
+    this.setState(prevState => ({toggleMemes: !prevState.toggleMemes}))
+  }
   // switch to the store
   async translate(text, lan, messageId) {
     try {
@@ -89,7 +95,15 @@ class Messages extends React.Component {
       console.error(err)
     }
   }
-
+  handleGIPHY(gif) {
+    // console.log(gif)
+    this.props.postAMessage(
+      gif.downsized.url,
+      this.props.userId,
+      this.props.selected,
+      true
+    )
+  }
   render() {
     if (this.props.loading) {
       return (
@@ -129,7 +143,11 @@ class Messages extends React.Component {
                         : 'sender')
                     }
                   >
-                    {message.text}
+                    {message.isImage ? (
+                      <img src={message.text} />
+                    ) : (
+                      message.text
+                    )}
                   </li>
                 )}
                 <button
@@ -166,6 +184,9 @@ class Messages extends React.Component {
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
             value={this.state.value}
+            handleGIPHY={this.handleGIPHY}
+            toggleMemes={this.state.toggleMemes}
+            toggle={this.toggle}
           />
         </div>
       </div>
@@ -190,8 +211,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getAllMessages: (id, otherId) => dispatch(getAllMessages(id, otherId)),
-    postAMessage: (text, senderId, receiverId) =>
-      dispatch(postAMessage(text, senderId, receiverId)),
+    postAMessage: (text, senderId, receiverId, bool) =>
+      dispatch(postAMessage(text, senderId, receiverId, bool)),
     translateOne: (text, lan, messageId) =>
       dispatch(translateOne(text, lan, messageId)),
     translateAll: (messages, language) =>
