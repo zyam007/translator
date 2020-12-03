@@ -10,15 +10,20 @@ const Message = db.define('message', {
       notEmpty: true
     }
   },
+  isImage: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   userId: Sequelize.INTEGER,
   receiverId: Sequelize.INTEGER
 })
 
-Message.createMessage = async (text, senderId, receiverId) => {
+Message.createMessage = async (text, senderId, receiverId, bool) => {
   const message = await Message.create({
     text,
     userId: senderId,
-    receiverId: receiverId
+    receiverId: receiverId,
+    isImage: bool
   })
   const conversation1 = await Conversation.findOrCreateConversation(
     senderId,
