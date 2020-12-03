@@ -7,7 +7,9 @@ const POST_MESSAGE = 'POST_MESSAGE'
 const GET_TRANSLATIONN = 'GET_TRANSLATION'
 const GET_SINGLETRANSLATION = 'GET_SINGLETRANSLATION'
 const RESET_LOADING = 'RESET_LOADING'
+const IS_TYPING = 'IS_TYPING'
 // ACTION CREATER
+export const isTyping = bool => ({type: IS_TYPING, bool})
 const transone = translated => ({type: GET_SINGLETRANSLATION, translated})
 const resetLoading = () => ({
   type: RESET_LOADING
@@ -56,7 +58,8 @@ export const translateOne = (text, lan, messageId) => async dispatch => {
 let defaultMessages = {
   messages: [],
   translate: {},
-  loading: true
+  loading: true,
+  isTyping: false
 }
 
 export default function(state = defaultMessages, action) {
@@ -69,6 +72,8 @@ export default function(state = defaultMessages, action) {
       return {...state, messages: [...state.messages, action.message]}
     case RESET_LOADING:
       return {...state, loading: true}
+    case IS_TYPING:
+      return {...state, isTyping: action.bool}
     case GET_SINGLETRANSLATION:
       state.translate[action.translated.messageId] = action.translated.text
       // console.log('in reducer, is the translater state right', state.translate)

@@ -5,7 +5,9 @@ module.exports = io => {
     })
     socket.on('new-friend', data => {
       socket.broadcast.emit('new-friend', data)
-      console.log('data , socket server side', data)
+    })
+    socket.on('user typing', data => {
+      socket.broadcast.emit('user typing', data)
     })
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
