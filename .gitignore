@@ -8,3 +8,4 @@ npm-debug.log
 yarn-error.log
 service-account-file.json
 service-account-file
+.env

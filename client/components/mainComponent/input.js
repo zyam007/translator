@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Picker from 'react-giphy-component'
-let GAPI = 'PWyqSzezWej7dxElq24bR1KBm22pMC7z'
+require('../../../secrets')
+const GAPI = process.env.GAPI || 'missing API for giphy'
+
 function Input(props) {
+  console.log(GAPI)
   return (
     <div>
       <form onSubmit={props.handleSubmit}>
