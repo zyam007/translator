@@ -34,7 +34,8 @@ router.post('/:id/:otherId', async (req, res, next) => {
     let id = Number(req.params.id)
     let otherId = Number(req.params.otherId)
     let text = req.body.text
-    const message = await Message.createMessage(text, id, otherId)
+    let bool = req.body.bool
+    const message = await Message.createMessage(text, id, otherId, bool)
     // const newMessage = await Message.createMessage(req.body, req.params.id, req.params.otherId)
     // console.dir(req.params)
     // console.dir(req.body)

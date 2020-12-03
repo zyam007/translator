@@ -28,14 +28,21 @@ export const getAllMessages = (id, otherId) => async dispatch => {
   }
 }
 
-export const postAMessage = (text, id, otherId) => async dispatch => {
+export const postAMessage = (
+  text,
+  id,
+  otherId,
+  bool = false
+) => async dispatch => {
   try {
     console.log('theses all correct post a message', {
       userId: id,
-      senderId: otherId
+      senderId: otherId,
+      bool: bool
     })
     const res = await axios.post(`/api/messages/${id}/${otherId}`, {
-      text: text
+      text: text,
+      bool: bool
     })
     dispatch(postMessage(res.data))
     socket.emit('new-message', res.data)
