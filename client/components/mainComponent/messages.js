@@ -8,6 +8,8 @@ import {
 } from '../../store/reducers/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
+import socket from '../../socket'
+import Alert from 'react-bootstrap/Alert'
 
 class Messages extends React.Component {
   constructor(props) {
@@ -40,6 +42,14 @@ class Messages extends React.Component {
   }
   handleChange(event) {
     this.setState({value: event.target.value})
+    console.log('event target', event.target.value !== '')
+    let bool = false
+    event.target.value !== '' ? (bool = true) : (bool = false)
+    socket.emit('user typing', {
+      typerId: this.props.userId,
+      receiverId: this.props.selected,
+      isTyping: bool
+    })
   }
 
   handleSubmit(event) {
@@ -75,7 +85,8 @@ class Messages extends React.Component {
       )
     }
     return (
-      <div>
+      <div style={{paddingTop: '20px'}}>
+        <Alert variant="info">{this.props.title}</Alert>
         <ul
           className="list"
           style={{minHeight: '100%', height: '100%'}}
@@ -144,7 +155,11 @@ const mapState = state => {
     user: state.user,
     messages: state.message.messages,
     translate: state.message.translate,
-    loading: state.message.loading
+    loading: state.message.loading,
+    isTyping: state.message.isTyping,
+    title: state.message.isTyping
+      ? 'The other user is typing...'
+      : 'Start your conversation'
   }
 }
 
