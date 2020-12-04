@@ -4,6 +4,7 @@
   padding-bottom: 20px;
   padding-top: 20px;
   border-bottom: 1px solid #c4c4c4;
+  color: #ffffff;
 }
 .recent_heading h4 {
   color: #05728f;
@@ -16,9 +17,15 @@
   border-bottom: 1px solid #c4c4c4;
 }
 .img {
-  padding-left: 10px;
-  width: 11%;
-  border-bottom: 1px solid #c4c4c4;
+  /* padding-left: 10px; */
+  width: 40px;
+  height: 40px;
+  /* border-bottom: 1px solid #c4c4c4; */
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin-right: 10px;
+  margin-left: 20px;
 }
 .overflow-wrapper {
   max-height: 400px;
@@ -31,14 +38,15 @@
   outline: none;
   cursor: pointer;
 }
+
 .highlight {
   padding-right: 15px;
   height: 20%;
   padding-bottom: 20px;
   padding-top: 20px;
   border-bottom: 1px solid #c4c4c4;
-  color: brown;
-  background-color: lightgrey;
+  color: rgb(133, 127, 127);
+  background-color: rgb(88, 83, 83);
 }
 .srch_bar {
   display: inline-block;

@@ -122,7 +122,7 @@ class Messages extends React.Component {
     }
     const translated = this.props.translateall
     return (
-      <div style={{paddingTop: '20px'}}>
+      <div>
         <Alert variant="info">{this.props.title}</Alert>
         <ul
           className="list overflow-wrapper"
