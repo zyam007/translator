@@ -73,7 +73,7 @@ async function seed() {
   const friendship10 = await Friendship.createFriendship(5, 1, 'Add me!')
   const friendship2 = await Friendship.createFriendship(
     2,
-    1,
+    3,
     'I want to be more than your friend.'
   )
   const friendship3 = await Friendship.createFriendship(
@@ -100,10 +100,12 @@ async function seed() {
   await friendship4.confirm()
   await friendship10.confirm()
   await friendship5.confirm()
+  await friendship2.confirm()
   await friendship10.initiateChat()
+  await friendship2.initiateChat()
   // await friendship2.deny()
-  await user1.getConvos()
-  await user1.findFriend()
+  // await user1.getConvos()
+  // await user1.findFriend()
   // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
