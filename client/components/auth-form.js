@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Link} from 'react-router-dom'
 import {Button, Container, Row, Form, Col} from 'react-bootstrap'
-
+// import Facebook from './facebook'
 /**
  * COMPONENT
  */
@@ -90,6 +90,7 @@ const AuthForm = props => {
               {error && error.response && <div> {error.response.data} </div>}
               <br />
               <a href="/auth/google">{displayName} with Google</a>
+              {/* <Facebook SorL={displayName} /> */}
             </div>
           </Form>
         )}
