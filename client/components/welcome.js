@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 // import {Nav, NavItem, Navbar, Container, NavDropdown} from 'react-bootstrap'
 import Main from './mainComponent/main'
-
+import {Button} from 'react-bootstrap'
 //landing page
 
 export class Welcome extends React.Component {
@@ -15,23 +15,30 @@ export class Welcome extends React.Component {
   render() {
     const {isLoggedIn} = this.props
     return (
-      <div>
+      <div className="main-container">
         {isLoggedIn ? (
           // show links if user is logged in
           <div>
             <Main />
           </div>
         ) : (
-          <div>
-            <h1>Translator Chat</h1>
-            <h5>Connecting the world</h5>
-            <nav>
-              <div>
-                {/* The navbar will show these links before you log in */}
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
-              </div>
-            </nav>
+          <div className="main-banner">
+            <h1 id="app-title">Chat Made Easy</h1>
+            <p id="animate">
+              <span className="text-change" />
+            </p>
+
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">
+              <Button className="btn-left" variant="secondary">
+                Login
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button className="btn-right" variant="warning">
+                Sign Up
+              </Button>
+            </Link>
           </div>
         )}
       </div>

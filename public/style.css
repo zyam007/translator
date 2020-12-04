@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
 }
@@ -36,6 +42,7 @@ form div {
   animation-name: example;
   animation-duration: 10s;
   animation-iteration-count: infinite;
+  /* position: relative; */
 }
 
 .nav-name {
@@ -159,5 +166,122 @@ form div {
   }
   .profile-info {
     margin-top: 30px;
+  }
+}
+
+/* Welcome page css */
+.main-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.main-banner {
+  width: 100%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.main-banner h1 {
+  font-size: 40px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  animation-name: titleMove;
+  animation-duration: 2s;
+}
+
+.main-banner p {
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.main-banner button {
+  width: 100px;
+  margin: 20px;
+  border: 2px solid black;
+  border-radius: 50px;
+  outline: none;
+}
+
+.btn-left {
+  animation-name: animateBtn;
+  animation-duration: 1s;
+  animation-delay: 1.5s;
+  animation-fill-mode: backwards;
+}
+
+.btn-right {
+  animation-name: animateBtn;
+  animation-duration: 1s;
+  animation-delay: 2.3s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes titleMove {
+  0% {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes animateBtn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* .main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#app-title {
+  width: max-content;
+  text-align: center;
+  margin: auto;
+} */
+
+#animate {
+  /* display: flex; */
+  /* justify-content: center; */
+  color: blueviolet;
+}
+
+.text-change::before {
+  content: 'We will melt away the ice of confusion.';
+  animation: animate infinite 10s;
+  padding-left: 10px;
+}
+
+/* .btn-login-signup {
+  display: flex;
+
+  justify-content: center;
+} */
+
+@keyframes animate {
+  0% {
+    content: 'We will melt away the ice of confusion.';
+  }
+
+  50% {
+    content: 'Мы растопим лед замешательства.';
+  }
+
+  75% {
+    content: '我們將消除混亂之冰';
+    opacity: 1;
   }
 }
