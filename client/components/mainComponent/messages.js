@@ -37,6 +37,11 @@ class Messages extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.selected !== prevProps.selected) {
       this.props.getAllMessages(this.props.userId, this.props.selected)
+      this.setState({
+        value: '',
+        toggleMemes: false,
+        showTrans: false
+      })
     }
     if (this.props.messages !== prevProps.messages) {
       this.props.translateAll(this.props.messages, this.props.user.language)
