@@ -4,7 +4,8 @@ import './message.css'
 import {
   getAllMessages,
   postAMessage,
-  translateOne
+  translateOne,
+  translateAll
 } from '../../store/reducers/message'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
@@ -24,6 +25,7 @@ class Messages extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.translate = this.translate.bind(this)
+    this.toggleShowTrans = this.toggleShowTrans.bind(this)
     this.handleGIPHY = this.handleGIPHY.bind(this)
     this.toggle = this.toggle.bind(this)
   }
@@ -31,11 +33,21 @@ class Messages extends React.Component {
     let selected = this.props.selected
     this.props.getAllMessages(this.props.userId, selected)
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.selected !== prevProps.selected) {
       this.props.getAllMessages(this.props.userId, this.props.selected)
+      this.setState({
+        value: '',
+        toggleMemes: false,
+        showTrans: false
+      })
+    }
+    if (this.props.messages !== prevProps.messages) {
+      this.props.translateAll(this.props.messages, this.props.user.language)
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.translate !== nextProps.translate) {
       this.setState({
@@ -45,7 +57,7 @@ class Messages extends React.Component {
   }
   handleChange(event) {
     this.setState({value: event.target.value})
-    console.log('event target', event.target.value !== '')
+    // console.log('event target', event.target.value !== '')
     let bool = false
     event.target.value !== '' ? (bool = true) : (bool = false)
     socket.emit('user typing', {
@@ -66,13 +78,20 @@ class Messages extends React.Component {
       value: ''
     })
   }
+
+  toggleShowTrans() {
+    let {showTrans} = this.state
+    this.setState({
+      showTrans: !showTrans
+    })
+  }
+
   toggle() {
     this.setState(prevState => ({toggleMemes: !prevState.toggleMemes}))
   }
   // switch to the store
   async translate(text, lan, messageId) {
     try {
-      console.log('STAAAATE', this.state)
       this.props.translateOne(text, lan, messageId)
       let {showTrans} = this.state
       await this.setState({
@@ -101,6 +120,7 @@ class Messages extends React.Component {
         </div>
       )
     }
+    const translated = this.props.translateall
     return (
       <div style={{paddingTop: '20px'}}>
         <Alert variant="info">{this.props.title}</Alert>
@@ -108,57 +128,55 @@ class Messages extends React.Component {
           className="list overflow-wrapper"
           style={{minHeight: '100%', height: '100%'}}
         >
-          {this.props.messages.map(message => {
-            return (
-              <div key={message.id}>
-                {this.state.showTrans && this.state.translate[message.id] ? (
-                  <li
-                    className={
-                      'messages' +
-                      (message.receiverId === this.props.userId
-                        ? 'receiver'
-                        : 'sender')
-                    }
-                  >
-                    {this.state.translate[message.id]}
-                  </li>
-                ) : (
-                  <li
-                    className={
-                      'messages' +
-                      (message.receiverId === this.props.userId
-                        ? 'receiver'
-                        : 'sender')
-                    }
-                  >
-                    {message.isImage ? (
-                      <img src={message.text} />
-                    ) : (
-                      message.text
-                    )}
-                  </li>
-                )}
-                <button
-                  type="submit"
-                  onClick={() => {
-                    this.translate(
-                      message.text,
-                      this.props.user.language,
-                      message.id
-                    )
-                  }}
-                >
-                  translate to your language
-                </button>
-              </div>
-            )
-          })}
+          {translated &&
+            translated.translation &&
+            translated.translation.map(message => {
+              return (
+                <div key={message.id}>
+                  {this.state.showTrans ? (
+                    <li
+                      className={
+                        'messages' +
+                        (message.receiverId === this.props.userId
+                          ? 'receiver'
+                          : 'sender')
+                      }
+                    >
+                      {message.isImage ? (
+                        <img src={message.text} />
+                      ) : (
+                        message.translation
+                      )}
+                    </li>
+                  ) : (
+                    <li
+                      className={
+                        'messages' +
+                        (message.receiverId === this.props.userId
+                          ? 'receiver'
+                          : 'sender')
+                      }
+                    >
+                      {message.isImage ? (
+                        <img src={message.text} />
+                      ) : (
+                        message.text
+                      )}
+                    </li>
+                  )}
+                </div>
+              )
+            })}
         </ul>
-        <div
-          style={{
-            bottom: '0px'
-          }}
-        >
+        <div style={{bottom: '0px'}}>
+          <button
+            type="submit"
+            onClick={() => {
+              this.toggleShowTrans()
+            }}
+          >
+            translate all
+          </button>{' '}
           <Input
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -182,7 +200,9 @@ const mapState = state => {
     isTyping: state.message.isTyping,
     title: state.message.isTyping
       ? 'The other user is typing...'
-      : 'Start your conversation'
+      : 'Start your conversation',
+
+    translateall: state.message.translateAll
   }
 }
 
@@ -192,7 +212,9 @@ const mapDispatch = dispatch => {
     postAMessage: (text, senderId, receiverId, bool) =>
       dispatch(postAMessage(text, senderId, receiverId, bool)),
     translateOne: (text, lan, messageId) =>
-      dispatch(translateOne(text, lan, messageId))
+      dispatch(translateOne(text, lan, messageId)),
+    translateAll: (messages, language) =>
+      dispatch(translateAll(messages, language))
   }
 }
 export default connect(mapState, mapDispatch)(Messages)

@@ -37,6 +37,7 @@ export default function updateUserForm(props) {
         <Form.Label>Change Language</Form.Label>
         <Form.Control as="select" name="language">
           <option>ENG</option>
+          <option>SPA</option>
           <option>CHI</option>
           <option>RUS</option>
         </Form.Control>
