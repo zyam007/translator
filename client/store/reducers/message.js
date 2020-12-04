@@ -14,7 +14,7 @@ const transone = translated => ({type: GET_SINGLETRANSLATION, translated})
 const resetLoading = () => ({
   type: RESET_LOADING
 })
-
+const transall = translated => ({type: GET_TRANSLATIONN, translated})
 const getMessages = messages => ({type: GET_MESSAGES, messages})
 
 export const postMessage = message => ({type: POST_MESSAGE, message})
@@ -25,6 +25,18 @@ export const getAllMessages = (id, otherId) => async dispatch => {
     dispatch(getMessages(data))
   } catch (err) {
     console.error(err)
+  }
+}
+export const translateAll = (messages, language) => async dispatch => {
+  try {
+    //console.log(messages)
+    const {data} = await axios.post(`/api/translate/all`, {
+      messages: messages,
+      language: language
+    })
+    dispatch(transall(data))
+  } catch (err) {
+    console.err(err)
   }
 }
 
@@ -55,7 +67,7 @@ export const translateOne = (text, lan, messageId) => async dispatch => {
     dispatch(resetLoading())
     let res = await axios.post('/api/translate', {q: text, lan: lan})
     let translated = {messageId: messageId, text: res.data.translation}
-    console.log('in translateOne', translated)
+    //console.log('in translateOne', translated)
     dispatch(transone(translated))
   } catch (err) {
     console.error(err.message, err.response)
@@ -66,16 +78,17 @@ let defaultMessages = {
   messages: [],
   translate: {},
   loading: true,
-  isTyping: false
+  isTyping: false,
+  translateAll: []
 }
 
 export default function(state = defaultMessages, action) {
   switch (action.type) {
     case GET_MESSAGES:
-      console.log('in store, message.js, action.messages', action.messages)
+      // console.log('in store, message.js, action.messages', action.messages)
       return {...state, messages: action.messages, loading: false}
     case POST_MESSAGE:
-      console.log('in message store about to add it in', action.message)
+      // console.log('in message store about to add it in', action.message)
       return {...state, messages: [...state.messages, action.message]}
     case RESET_LOADING:
       return {...state, loading: true}
@@ -85,8 +98,11 @@ export default function(state = defaultMessages, action) {
       state.translate[action.translated.messageId] = action.translated.text
       // console.log('in reducer, is the translater state right', state.translate)
       let newState = Object.assign(state, state)
-      console.log('the new state', newState)
+      // console.log('the new state', newState)
       return {...newState, loading: false}
+    case GET_TRANSLATIONN:
+      return {...state, translateAll: action.translated}
+    //console.log(action.translated)
     default:
       return state
   }

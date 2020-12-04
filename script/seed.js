@@ -17,7 +17,8 @@ async function seed() {
     email: 'murphy@email.com',
     password: '123456',
     profilePicture: '/img/tran-pp2.jpg',
-    userName: 'Murphy'
+    userName: 'Murphy',
+    language: 'SPA'
   })
   let user3 = await User.create({
     email: 'yanna@email.com',
@@ -40,8 +41,13 @@ async function seed() {
     password: '123456',
     userName: 'Josephine',
     profilePicture: '/img/tran-pp5.jpg',
-    language: 'ENG',
     isAdmin: true
+  })
+  let user6 = await User.create({
+    email: 'bob@email.com',
+    password: '123456',
+    userName: 'Bob',
+    profilePicture: '/img/tran-pp6.jpg'
   })
 
   const message1 = await Message.createMessage('I like', user1.id, user2.id)
@@ -51,8 +57,14 @@ async function seed() {
     user1.id
   )
   const message3 = await Message.createMessage('I like', user1.id, user2.id)
-  const message4 = await Message.createMessage('I like', user3.id, user1.id)
+  const message4 = await Message.createMessage('I like', user1.id, user4.id)
   const message5 = await Message.createMessage('I ok', user4.id, user1.id)
+  const message6 = await Message.createMessage(
+    'Are you hungy?',
+    user2.id,
+    user4.id
+  )
+
   const friendship1 = await Friendship.createFriendship(
     1,
     2,
@@ -61,26 +73,39 @@ async function seed() {
   const friendship10 = await Friendship.createFriendship(5, 1, 'Add me!')
   const friendship2 = await Friendship.createFriendship(
     2,
-    1,
-    'I would like to be more than your friend.'
+    3,
+    'I want to be more than your friend.'
   )
   const friendship3 = await Friendship.createFriendship(
     1,
     3,
-    'I would like to be your friend.'
+    'Be my friend please!'
   )
   const friendship4 = await Friendship.createFriendship(
     1,
     4,
-    'I would like to be your friend.'
+    'Will you be my friend?'
+  )
+  const friendship5 = await Friendship.createFriendship(
+    2,
+    4,
+    'Please add me :)'
+  )
+  const friendship6 = await Friendship.createFriendship(
+    5,
+    2,
+    'Remember me from Spanish class?'
   )
   await friendship1.confirm()
   await friendship4.confirm()
   await friendship10.confirm()
+  await friendship5.confirm()
+  await friendship2.confirm()
   await friendship10.initiateChat()
+  await friendship2.initiateChat()
   // await friendship2.deny()
-  await user1.getConvos()
-  await user1.findFriend()
+  // await user1.getConvos()
+  // await user1.findFriend()
   // console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }

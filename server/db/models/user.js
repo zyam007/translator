@@ -36,7 +36,7 @@ const User = db.define('user', {
       'https://images.unsplash.com/photo-1575425186775-b8de9a427e67?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cHVnfGVufDB8fDB8&auto=format&fit=crop&w=800&q=60'
   },
   language: {
-    type: Sequelize.ENUM('ENG', 'CHI', 'RUS'),
+    type: Sequelize.ENUM('ENG', 'CHI', 'RUS', 'SPA'),
     defaultValue: 'ENG'
   },
   isAdmin: {
