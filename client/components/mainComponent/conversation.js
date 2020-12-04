@@ -14,11 +14,8 @@ function Conversation(props) {
     <div className="convo-container overflow-wrapper">
       <div className="headind_srch">
         <div className="stylish-input-group">
-          <Link to="/">
-            <button className="button search-bar" type="button">
-              Find Friend To Chat!
-            </button>
-          </Link>
+          <input type="text" placeholder="Search" className="search_friends" />
+
           <div className="recent_heading">
             <h4>Recent</h4>
           </div>
@@ -35,6 +32,10 @@ function Conversation(props) {
             >
               <img src={user.profilePicture} className="img" />
               {user.userName}
+              <img
+                src={`/img/flags/${user.language}.png`}
+                style={{width: '20px', marginLeft: '10px'}}
+              />
             </li>
           )
         })}
