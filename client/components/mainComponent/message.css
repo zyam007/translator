@@ -8,11 +8,12 @@
 }
 .messagesreceiver {
   border: 2px solid #dedede;
-  background-color: #f1f1f1;
+  background-color: #acb0b1;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
   text-align: left;
+  max-width: 80%;
 }
 /* Darker chat container */
 .messagessender {
@@ -24,7 +25,13 @@
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
+  background-color: #b4d0e2;
+
+  max-width: 80%;
+  margin-left: auto;
+  /* display: inline-block; */
 }
+
 .overflow-wrapper {
   max-height: 400px;
   overflow-x: hidden;
@@ -38,4 +45,12 @@
 }
 .list {
   list-style-type: none;
+}
+
+.btn-translate {
+  margin-bottom: 20px;
+}
+
+img {
+  width: 200px;
 }

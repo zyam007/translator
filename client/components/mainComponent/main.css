@@ -2,5 +2,6 @@
   display: grid;
   grid-template-columns: 30% 70%;
   grid-template-rows: auto;
+  grid-gap: 20px;
   grid-template-areas: 'conversation messages';
 }

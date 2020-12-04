@@ -170,6 +170,7 @@ class Messages extends React.Component {
         </ul>
         <div style={{bottom: '0px'}}>
           <Button
+            className="btn-translate"
             type="submit"
             onClick={() => {
               this.toggleShowTrans()

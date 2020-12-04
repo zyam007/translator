@@ -32,6 +32,10 @@ function Conversation(props) {
             >
               <img src={user.profilePicture} className="img" />
               {user.userName}
+              <img
+                src={`/img/flags/${user.language}.png`}
+                style={{width: '20px', marginLeft: '10px'}}
+              />
             </li>
           )
         })}
