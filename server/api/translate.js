@@ -11,7 +11,7 @@ async function translater(text, target) {
   const translate = new Translate()
   async function translateText() {
     let [translations] = await translate.translate(text, target)
-    console.log('this is translations', translations)
+    // console.log('this is translations', translations)
     // translations = Array.isArray(translations) ? translations : [translations]
     // translations.forEach((translation, i) => {
     //   `${text[i]} => (${target}) ${translation}`
@@ -28,9 +28,9 @@ router.post('/', async (req, res, next) => {
     projectId = process.env.PROJECT_ID
     let q = req.body.q
     let lan = req.body.lan
-    console.dir(req.body)
+    // console.dir(req.body)
     let result = await translater(q, lan)
-    console.log(result)
+    // console.log(result)
     // res.set('Content-Type', 'text/html')
     res.json({translation: result})
   } catch (error) {
@@ -42,10 +42,10 @@ router.post('/all', async (req, res, next) => {
     projectId = process.env.PROJECT_ID
     let arrayOfObj = req.body.messages
     let lan = req.body.language
-    console.dir(req.body.messages)
-    console.dir(req.body.language)
+    // console.dir(req.body.messages)
+    // console.dir(req.body.language)
     let resultArray = await translaterAll(arrayOfObj, lan)
-    console.log(resultArray)
+    // console.log(resultArray)
     // res.set('Content-Type', 'text/html')
     res.json({translation: resultArray})
   } catch (error) {
@@ -58,7 +58,7 @@ async function translaterAll(arrayOfObj, lan) {
   async function translateText() {
     for (let i = 0; i < arrayOfObj.length; i++) {
       let [translations] = await translate.translate(arrayOfObj[i].text, lan)
-      arrayOfObj[i][translation] = translations
+      arrayOfObj[i].translation = translations
     }
     return arrayOfObj
   }

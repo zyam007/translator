@@ -33,6 +33,7 @@ class Messages extends React.Component {
     let selected = this.props.selected
     this.props.getAllMessages(this.props.userId, selected)
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.selected !== prevProps.selected) {
       this.props.getAllMessages(this.props.userId, this.props.selected)
@@ -41,6 +42,7 @@ class Messages extends React.Component {
       this.props.translateAll(this.props.messages, this.props.user.language)
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.translate !== nextProps.translate) {
       this.setState({
@@ -113,6 +115,7 @@ class Messages extends React.Component {
         </div>
       )
     }
+    const translated = this.props.translateall
     return (
       <div style={{paddingTop: '20px'}}>
         <Alert variant="info">{this.props.title}</Alert>
@@ -120,65 +123,55 @@ class Messages extends React.Component {
           className="list overflow-wrapper"
           style={{minHeight: '100%', height: '100%'}}
         >
-          {this.props.messages.map(message => {
-            return (
-              <div key={message.id}>
-                {this.state.showTrans && this.state.translate[message.id] ? (
-                  <li
-                    className={
-                      'messages' +
-                      (message.receiverId === this.props.userId
-                        ? 'receiver'
-                        : 'sender')
-                    }
-                  >
-                    {this.state.translate[message.id]}
-                  </li>
-                ) : (
-                  <li
-                    className={
-                      'messages' +
-                      (message.receiverId === this.props.userId
-                        ? 'receiver'
-                        : 'sender')
-                    }
-                  >
-                    {message.isImage ? (
-                      <img src={message.text} />
-                    ) : (
-                      message.text
-                    )}
-                  </li>
-                )}
-                <button
-                  type="submit"
-                  onClick={() => {
-                    this.translate(
-                      message.text,
-                      this.props.user.language,
-                      message.id
-                    )
-                  }}
-                >
-                  translate message
-                </button>
-              </div>
-            )
-          })}
+          {translated &&
+            translated.translation &&
+            translated.translation.map(message => {
+              return (
+                <div key={message.id}>
+                  {this.state.showTrans ? (
+                    <li
+                      className={
+                        'messages' +
+                        (message.receiverId === this.props.userId
+                          ? 'receiver'
+                          : 'sender')
+                      }
+                    >
+                      {message.isImage ? (
+                        <img src={message.text} />
+                      ) : (
+                        message.translation
+                      )}
+                    </li>
+                  ) : (
+                    <li
+                      className={
+                        'messages' +
+                        (message.receiverId === this.props.userId
+                          ? 'receiver'
+                          : 'sender')
+                      }
+                    >
+                      {message.isImage ? (
+                        <img src={message.text} />
+                      ) : (
+                        message.text
+                      )}
+                    </li>
+                  )}
+                </div>
+              )
+            })}
         </ul>
         <div style={{bottom: '0px'}}>
           <button
             type="submit"
             onClick={() => {
-              this.props.translateAll(
-                this.props.messages,
-                this.props.user.language
-              )
+              this.toggleShowTrans()
             }}
           >
             translate all
           </button>{' '}
-          */}
           <Input
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -204,7 +197,7 @@ const mapState = state => {
       ? 'The other user is typing...'
       : 'Start your conversation',
 
-    translateAll: state.message.messages.translateAll
+    translateall: state.message.translateAll
   }
 }
 

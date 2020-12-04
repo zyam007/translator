@@ -44,11 +44,7 @@ Friendship.prototype.confirm = async function() {
   await this.save()
 }
 Friendship.prototype.initiateChat = async function() {
-  await Message.createMessage(
-    "Hi, we are friends now. Let's start talking!",
-    this.senderId,
-    this.receiverId
-  )
+  await Message.createMessage(`${this.intro}`, this.senderId, this.receiverId)
 }
 
 Friendship.prototype.block = async function() {

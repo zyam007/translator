@@ -53,3 +53,15 @@ style={{minHeight: '100%', height: '100%'}}
 <button type="submit" onClick={() => {
       this.toggleShowTrans()
     }}>translate all</button> */
+
+//   <button
+//   type="submit"
+//   onClick={() => {
+//     this.props.translateAll(
+//       this.props.messages,
+//       this.props.user.language
+//     )
+//   }}
+// >
+//   translate all
+// </button>{' '}

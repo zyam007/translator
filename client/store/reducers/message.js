@@ -29,7 +29,7 @@ export const getAllMessages = (id, otherId) => async dispatch => {
 }
 export const translateAll = (messages, language) => async dispatch => {
   try {
-    console.log(messages)
+    //console.log(messages)
     const {data} = await axios.post(`/api/translate/all`, {
       messages: messages,
       language: language
@@ -67,7 +67,7 @@ export const translateOne = (text, lan, messageId) => async dispatch => {
     dispatch(resetLoading())
     let res = await axios.post('/api/translate', {q: text, lan: lan})
     let translated = {messageId: messageId, text: res.data.translation}
-    console.log('in translateOne', translated)
+    //console.log('in translateOne', translated)
     dispatch(transone(translated))
   } catch (err) {
     console.error(err.message, err.response)
