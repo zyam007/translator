@@ -4,4 +4,6 @@
   grid-template-rows: auto;
   grid-gap: 20px;
   grid-template-areas: 'conversation messages';
+  height: calc(100vh - 55px);
+  width: 100vw;
 }
