@@ -10,7 +10,7 @@ import {
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
-import Alert from 'react-bootstrap/Alert'
+import {Alert, Button} from 'react-bootstrap'
 
 class Messages extends React.Component {
   constructor(props) {
@@ -169,14 +169,14 @@ class Messages extends React.Component {
             })}
         </ul>
         <div style={{bottom: '0px'}}>
-          <button
+          <Button
             type="submit"
             onClick={() => {
               this.toggleShowTrans()
             }}
           >
             translate all
-          </button>{' '}
+          </Button>{' '}
           <Input
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
