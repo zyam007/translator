@@ -124,7 +124,7 @@ class Messages extends React.Component {
     return (
       <div>
         <Alert variant="info">{this.props.title}</Alert>
-        <ul
+        <div
           className="list overflow-wrapper"
           style={{minHeight: '100%', height: '100%'}}
         >
@@ -134,7 +134,7 @@ class Messages extends React.Component {
               return (
                 <div key={message.id}>
                   {this.state.showTrans ? (
-                    <li
+                    <div
                       className={
                         'messages' +
                         (message.receiverId === this.props.userId
@@ -147,9 +147,9 @@ class Messages extends React.Component {
                       ) : (
                         message.translation
                       )}
-                    </li>
+                    </div>
                   ) : (
-                    <li
+                    <div
                       className={
                         'messages' +
                         (message.receiverId === this.props.userId
@@ -162,12 +162,12 @@ class Messages extends React.Component {
                       ) : (
                         message.text
                       )}
-                    </li>
+                    </div>
                   )}
                 </div>
               )
             })}
-        </ul>
+        </div>
         <div style={{bottom: '0px'}}>
           <Button
             className="btn-translate"

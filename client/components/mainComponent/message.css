@@ -13,7 +13,7 @@
   padding: 10px;
   margin: 10px 0;
   text-align: left;
-  max-width: 80%;
+  /* max-width: 80%; */
 }
 /* Darker chat container */
 .messagessender {
@@ -27,7 +27,7 @@
   margin: 10px 0;
   background-color: #b4d0e2;
 
-  max-width: 80%;
+  /* max-width: 80%; */
   margin-left: auto;
   /* display: inline-block; */
 }
