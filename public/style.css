@@ -167,12 +167,15 @@ form div {
   .profile-info {
     margin-top: 30px;
   }
+  .img {
+    display: none;
+  }
 }
 
 /* Welcome page css */
 .main-container {
   width: 100%;
-  height: 100vh;
+  height: 93vh;
   position: relative;
 }
 

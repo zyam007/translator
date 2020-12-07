@@ -94,17 +94,6 @@ export class MyProfile extends Component {
             </Col>
           </Row>
         </Container>
-        <div className="d-flex flex-column flex-grow-1">
-          <div className="flex-grow-1 overflow-auto">
-            <div className="h-100 d-flex flex-column align-items-start justify-content-end px-3">
-              <div className="my-1 d-flex flex-column">
-                <span className="rounded px-2 py-1 bg-secondary text-white">
-                  text
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     )
   }

@@ -9,10 +9,9 @@ import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
 import {Alert, Button, FormControl, InputGroup} from 'react-bootstrap'
-import Input from './input'
-import './message.css'
+import InputComp from './inputComp'
 
-export class Messages extends Component {
+export class Msg extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -179,7 +178,7 @@ export class Messages extends Component {
               })}
           </div>
         </div>
-        <Input
+        <InputComp
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           value={this.state.value}
@@ -187,7 +186,6 @@ export class Messages extends Component {
           toggleMemes={this.state.toggleMemes}
           toggle={this.toggle}
           toggleShowTrans={this.toggleShowTrans}
-          userLanguage={this.props.user.language}
         />
       </div>
     )
@@ -221,4 +219,4 @@ const mapDispatch = dispatch => {
       dispatch(translateAll(messages, language))
   }
 }
-export default connect(mapState, mapDispatch)(Messages)
+export default connect(mapState, mapDispatch)(Msg)

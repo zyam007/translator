@@ -1,42 +1,42 @@
-.timestampleft {
+/* .timestampleft {
   float: left;
   color: #999;
 }
 .timestampright {
   float: right;
   color: #aaa;
-}
+} */
+
 .messagesreceiver {
   border: 2px solid #dedede;
-  background-color: #acb0b1;
-  border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
-  text-align: left;
-  /* max-width: 80%; */
+  border-radius: 0 25px 25px 0;
 }
 /* Darker chat container */
 .messagessender {
   border-color: #ccc;
-  background-color: #ddd;
-  text-align: right;
   border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
   background-color: #b4d0e2;
-
-  /* max-width: 80%; */
-  margin-left: auto;
-  /* display: inline-block; */
+  border-radius: 25px 0 0 25px;
 }
 
-.overflow-wrapper {
+.messagessenderimg,
+.messagesreceiverimg {
+  border: none;
+  background-color: none;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* .overflow-wrapper {
   max-height: 400px;
   overflow-x: hidden;
   overflow-y: scroll;
-}
+} */
+
 /* Clear floats */
 .messagessender::after {
   content: '';
