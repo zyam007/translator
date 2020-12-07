@@ -59,6 +59,7 @@
     "express-session": "^1.15.1",
     "google-translate": "^3.0.0",
     "history": "^4.9.0",
+    "mdbreact": "^5.0.1",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
@@ -68,6 +69,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-bootstrap": "^1.4.0",
+    "react-bootstrap-icons": "^1.1.0",
     "react-cookies": "^0.1.1",
     "react-dom": "^16.8.6",
     "react-giphy-component": "^1.1.0",
@@ -79,6 +81,7 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
+    "semantic-ui-react": "^2.0.1",
     "sequelize": "^5.3.1",
     "socket.io": "^2.2.0",
     "style-loader": "^2.0.0"
