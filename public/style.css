@@ -7,7 +7,10 @@
 body {
   font-family: sans-serif;
 }
-
+* {
+  margin: 0;
+  padding: 0;
+}
 a {
   text-decoration: none;
 }
@@ -284,7 +287,7 @@ form div {
   }
 
   75% {
-    content: '我們將消除混亂之冰';
+    content: '我們將消除交流障碍';
     opacity: 1;
   }
 }
