@@ -14,6 +14,7 @@ const Friendship = db.define('friendship', {
     defaultValue: 'I would like to be your friend.'
   }
 })
+
 Friendship.createFriendship = async (
   senderId,
   receiverId,
