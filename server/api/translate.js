@@ -4,11 +4,29 @@ const {User, Message, Friendship, Conversation} = require('../db/models')
 const Sequelize = require('sequelize')
 const {Op} = Sequelize
 module.exports = router
-// const { Translate } = require('@google-cloud/translate').v2
+
+const {Translate} = require('@google-cloud/translate').v2
+const projectId = 'translate-chat-297404'
+const translate = new Translate({
+  projectId: projectId,
+  credentials: {
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    client_email: process.env.GOOGLE_CLIENT_EMAIL
+  }
+})
 
 async function translater(text, target) {
+  // const {Translate} = require('@google-cloud/translate').v2
+  // const translate = new Translate()
   const {Translate} = require('@google-cloud/translate').v2
-  const translate = new Translate()
+  const projectId = 'translate-chat-297404'
+  const translate = new Translate({
+    projectId: projectId,
+    credentials: {
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CLIENT_EMAIL
+    }
+  })
   async function translateText() {
     let [translations] = await translate.translate(text, target)
     // console.log('this is translations', translations)
@@ -25,7 +43,7 @@ async function translater(text, target) {
 
 router.post('/', async (req, res, next) => {
   try {
-    projectId = process.env.PROJECT_ID
+    apiId = process.env.API_ID
     let q = req.body.q
     let lan = req.body.lan
     // console.dir(req.body)
@@ -39,7 +57,7 @@ router.post('/', async (req, res, next) => {
 })
 router.post('/all', async (req, res, next) => {
   try {
-    projectId = process.env.PROJECT_ID
+    apiId = process.env.API_ID
     let arrayOfObj = req.body.messages
     let lan = req.body.language
     // console.dir(req.body.messages)
@@ -53,8 +71,17 @@ router.post('/all', async (req, res, next) => {
   }
 })
 async function translaterAll(arrayOfObj, lan) {
+  // const {Translate} = require('@google-cloud/translate').v2
+  // const translate = new Translate()
   const {Translate} = require('@google-cloud/translate').v2
-  const translate = new Translate()
+  const projectId = 'translate-chat-297404'
+  const translate = new Translate({
+    projectId: projectId,
+    credentials: {
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CLIENT_EMAIL
+    }
+  })
   async function translateText() {
     for (let i = 0; i < arrayOfObj.length; i++) {
       let [translations] = await translate.translate(arrayOfObj[i].text, lan)
