@@ -27,6 +27,7 @@ router.get('/:email', async (req, res, next) => {
         email: req.params.email
       }
     })
+
     res.json(findUser)
   } catch (err) {
     next(err)

@@ -32,7 +32,7 @@ class AddFriend extends Component {
       error: null
     })
 
-    if (event.target.name == 'email') {
+    if (event.target.name === 'email') {
       this.props.resetError()
     }
   }
@@ -42,8 +42,6 @@ class AddFriend extends Component {
     try {
       this.props.fetchFriend(this.state.email)
       await this.setState({
-        // email: '',
-        // intro: '',
         search: true,
         error: this.props.error
       })
