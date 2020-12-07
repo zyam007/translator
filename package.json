@@ -72,6 +72,7 @@
     "react-bootstrap-icons": "^1.1.0",
     "react-cookies": "^0.1.1",
     "react-dom": "^16.8.6",
+    "react-fontawesome": "^1.7.1",
     "react-giphy-component": "^1.1.0",
     "react-loader-spinner": "^3.1.14",
     "react-redux": "^7.0.1",

@@ -1,15 +1,36 @@
-import React, {Component, useState} from 'react'
+import React, {Component, useState, useEffect} from 'react'
 import {Container, ListGroup, Button} from 'react-bootstrap'
 import './convo.css'
+import {MDBRow, MDBCol, MDBIcon} from 'mdbreact'
 // import Speech from './speech'
-
+import io from 'socket.io-client'
+import store from '../../store'
+const socket = io(window.location.origin)
+// import 'font-awesome/css/font-awesome.min.css'
 export default function Conversation(props) {
   const [search, setSearch] = useState('')
+  const [newMessage, setNewMessage] = useState({})
+  // useEffect(() => {
+  //   if (newMessage[props.selected]) {
+  //     setNewMessage(newMessage[props.selected] = false)
+  //   }
 
+  // })
   const updateSearch = event => {
     setSearch(event.target.value.substr(0, 20))
   }
-
+  socket.on('new-message', message => {
+    console.log('in conversation.js, this is the message', message)
+    let state = store.getState()
+    if (state.user.id === message.receiverId) {
+      //message userId is the person that sent the message
+      if (!newMessage[message.userId]) {
+        setNewMessage((newMessage[message.userId] = true))
+        console.log('type of userId in message', typeof message.userId)
+      }
+      console.log('newMessage', newMessage)
+    }
+  })
   const userSelected = event => {
     setSearch('')
     props.handleClick(event)
@@ -75,6 +96,12 @@ export default function Conversation(props) {
                       marginLeft: '10px'
                     }}
                   />
+                  {newMessage[user.id] ? (
+                    // <MDBIcon icon="ellipsis-h" style={{ 'paddingLeft': '10px' }} />
+                    <p>{user.id}true</p>
+                  ) : (
+                    <p>{user.id}false</p>
+                  )}
                 </li>
               )
             })}

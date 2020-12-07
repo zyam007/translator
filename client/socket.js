@@ -21,8 +21,11 @@ socket.on('connect', () => {
   })
   socket.on('user typing', data => {
     let state = store.getState()
-    if (data.receiverId === state.user.id) {
-      console.log('in client socket', data)
+    console.log('user is typing. socket', data)
+    if (
+      data.receiverId === state.user.id &&
+      state.message.isTyping !== data.isTyping
+    ) {
       store.dispatch(isTyping(data.isTyping))
     }
   })

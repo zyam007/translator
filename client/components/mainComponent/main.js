@@ -18,14 +18,16 @@ export class Main extends Component {
   }
 
   handleClick(event) {
-    console.log('name is: ', event.target.value)
-
     this.setState({
       selected: event.target.value
     })
   }
 
   render() {
+    console.log(
+      ' is this the one I am looking for ???',
+      this.props.otherInChat || []
+    )
     return (
       <div className="d-flex" style={{height: '93vh'}}>
         <Conversation
