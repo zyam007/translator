@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Container} from 'react-bootstrap'
-import Conversation from './conversation'
-import Messages from './messages'
+import Side from './side'
+import Msg from './msg'
 import {getConvo} from '../../store/reducers/convo'
 
-export class Main extends Component {
+export class Chatty extends Component {
   constructor() {
     super()
     this.state = {
@@ -28,13 +28,14 @@ export class Main extends Component {
   render() {
     return (
       <div className="d-flex" style={{height: '93vh'}}>
-        <Conversation
+        <Side
           otherInChat={this.props.otherInChat}
           handleClick={this.handleClick}
           selected={this.state.selected}
+          userLanguage={this.props.userLanguage}
         />
         {this.state.selected !== '' || undefined ? (
-          <Messages selected={this.state.selected} />
+          <Msg selected={this.state.selected} />
         ) : (
           <p>Start a conversation by clicking on one of your friends' name!</p>
         )}
@@ -47,7 +48,8 @@ const mapState = state => {
   return {
     conversations: state.convo.conversations,
     otherInChat: state.convo.otherIC,
-    userId: state.user.id
+    userId: state.user.id,
+    userLanguage: state.user.language
   }
 }
 
@@ -56,4 +58,4 @@ const mapDispatch = dispatch => {
     getConvo: id => dispatch(getConvo(id))
   }
 }
-export default connect(mapState, mapDispatch)(Main)
+export default connect(mapState, mapDispatch)(Chatty)

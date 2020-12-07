@@ -1,9 +1,9 @@
 import React, {Component, useState} from 'react'
 import {Container, ListGroup, Button} from 'react-bootstrap'
-import './convo.css'
+import './side.css'
 // import Speech from './speech'
 
-export default function Conversation(props) {
+export default function Side(props) {
   const [search, setSearch] = useState('')
 
   const updateSearch = event => {

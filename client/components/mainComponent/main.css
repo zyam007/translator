@@ -1,13 +1,18 @@
-.container {
+/* #chat-room {
   display: grid;
   grid-template-columns: 30% 70%;
   grid-template-rows: auto;
-  grid-gap: 20px;
-  grid-template-areas: 'conversation messages';
-  height: calc(100vh - 55px);
+
+  grid-template-areas: 'leftside chat';
+  height: 93vh;
   width: 100vw;
 }
-.messages {
-  grid-column-start: 2;
-  grid-column-end: end;
+
+.conversation {
+  grid-area: leftside;
 }
+
+.messages {
+  grid-area: chat;
+
+} */
