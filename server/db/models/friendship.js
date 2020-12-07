@@ -15,14 +15,6 @@ const Friendship = db.define('friendship', {
   }
 })
 
-const setIntro = friendship => {
-  if (friendship.intro === '') {
-    friendship.intro = 'I would like to be your friend.'
-  }
-}
-
-Friendship.beforeCreate(setIntro)
-
 Friendship.createFriendship = async (
   senderId,
   receiverId,
