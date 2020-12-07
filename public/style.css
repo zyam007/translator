@@ -74,6 +74,11 @@ form div {
   align-items: center;
 }
 
+.chat-icon {
+  width: 20px;
+  height: 20px;
+}
+
 /* NAVBAR END */
 
 /* MY PROFILE CSS START */
