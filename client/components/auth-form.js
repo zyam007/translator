@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Link} from 'react-router-dom'
 import {Button, Container, Row, Form, Col} from 'react-bootstrap'
-
+import './auth-form.css'
 /**
  * COMPONENT
  */
@@ -41,7 +41,11 @@ const AuthForm = props => {
               <br />
               <Link to="/signup">Not a member?</Link>
               <br />
+
               <a href="/auth/google">{displayName} with Google</a>
+              <a href="/auth/facebook" className="fb connect">
+                {displayName} with Facebook
+              </a>
             </div>
           </Form>
         ) : (
@@ -90,6 +94,9 @@ const AuthForm = props => {
               {error && error.response && <div> {error.response.data} </div>}
               <br />
               <a href="/auth/google">{displayName} with Google</a>
+              <a href="/auth/facebook" className="fb connect">
+                {displayName} with Facebook
+              </a>
             </div>
           </Form>
         )}

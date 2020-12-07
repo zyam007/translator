@@ -5,7 +5,7 @@ import {
   resetError
 } from '../store/reducers/findfriend'
 import {connect} from 'react-redux'
-import {Toast, Button, Container, Row, Col} from 'react-bootstrap'
+import {Toast, Button, Container, Row, Col, Alert} from 'react-bootstrap'
 
 const defaultState = {
   email: '',
@@ -128,11 +128,9 @@ const SearchFriend = props => {
   const state = {defaultState}
   if (props.error) {
     return (
-      <div>
-        <h4>
-          Sorry, we couldn't find your friend! Try searching another email.
-        </h4>
-      </div>
+      <Alert variat="warning">
+        Sorry, we couldn't find your friend! Try searching another email.
+      </Alert>
     )
   } else {
     return (

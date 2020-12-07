@@ -25,8 +25,16 @@ class Main extends React.Component {
   }
   render() {
     return (
-      <div className="container">
-        <div className="conversation">
+      <div
+        className="container"
+        style={{
+          marginLeft: '0',
+          marginRight: '0',
+          paddingLeft: '0',
+          paddingRight: '0'
+        }}
+      >
+        <div className="conversation" style={{backgroundColor: '#3b3e49'}}>
           <Conversation
             otherInChat={this.props.otherInChat}
             handleClick={this.handleClick}
