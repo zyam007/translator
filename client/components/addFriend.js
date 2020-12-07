@@ -4,6 +4,7 @@ import {
   fetchAddFriend,
   resetError
 } from '../store/reducers/findfriend'
+import {fetchUserFriends} from '../store/reducers/userFriends'
 import {connect} from 'react-redux'
 import {Toast, Button, Container, Row, Col, Alert} from 'react-bootstrap'
 
@@ -23,6 +24,7 @@ class AddFriend extends Component {
     this.handleAdd = this.handleAdd.bind(this)
   }
   componentDidMount() {
+    this.props.getFriends(this.props.userId)
     this.props.resetError()
   }
   handleChange(event) {
@@ -92,6 +94,8 @@ class AddFriend extends Component {
                     intro={this.state.intro}
                     user={this.props.findFriend}
                     error={this.props.error}
+                    userId={this.props.userId}
+                    userWithFriends={this.props.userWithFriends}
                   />
                 </Container>
               ) : (
@@ -108,30 +112,46 @@ class AddFriend extends Component {
 
 const mapState = state => {
   return {
+    userId: state.user.id,
+    userWithFriends: state.userFriends,
     findFriend: state.findFriend.friend,
-    error: state.findFriend.error,
-    userId: state.user.id
+    error: state.findFriend.error
   }
 }
 
-const mapDispatch = dispatch => ({
-  fetchFriend: email => dispatch(fetchFriend(email)),
-  fetchAddFriend: (senderId, receiverId, intro) =>
-    dispatch(fetchAddFriend(senderId, receiverId, intro)),
-  resetError: () => dispatch(resetError())
-})
+const mapDispatch = dispatch => {
+  return {
+    getFriends: userId => dispatch(fetchUserFriends(userId)),
+    fetchFriend: email => dispatch(fetchFriend(email)),
+    fetchAddFriend: (senderId, receiverId, intro) =>
+      dispatch(fetchAddFriend(senderId, receiverId, intro)),
+    resetError: () => dispatch(resetError())
+  }
+}
 
 export default connect(mapState, mapDispatch)(AddFriend)
 
 const SearchFriend = props => {
-  const {userName, email, profilePicture, language} = props.user || ''
-  const state = {defaultState}
+  const {userName, email, profilePicture, language, id} = props.user || ''
+  const func = each => {
+    return each.id === id
+  }
+  const array = props.userWithFriends.friends || ''
+  const check = array.some(func)
   if (props.error) {
     return (
       <Alert variat="warning">
         Sorry, we couldn't find your friend! Try searching another email.
       </Alert>
     )
+  } else if (check) {
+    return (
+      <Alert variat="warning">
+        This friend or friend request already exists.
+      </Alert>
+    )
+  } else if (id === props.userId) {
+    return <Alert variat="warning">This is your email.</Alert>
   } else {
     return (
       <div>
