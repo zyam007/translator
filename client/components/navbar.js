@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 import {Nav, NavItem, Navbar, Container, NavDropdown} from 'react-bootstrap'
+import {MDBRow, MDBCol, MDBIcon} from 'mdbreact'
 
 export class NavBar extends React.Component {
   async componentDidMount() {}
@@ -15,10 +16,22 @@ export class NavBar extends React.Component {
     return (
       <>
         <Navbar collapseOnSelect expand="md" id="navbar">
-          <Link to="/">
-            <img src="logo3.png" alt="Translate" className="logo" />
-          </Link>
-
+          {isLoggedIn ? (
+            <Navbar.Brand href="/">
+              <img src="logo3.png" alt="Translate" className="logo" />{' '}
+              {/* <img src="logo3.png" alt="Translate" className="logo" />{' '} */}
+              <MDBIcon
+                icon="angle-double-left"
+                size="lg"
+                style={{paddingRight: '10px'}}
+              />
+              Start Chatting!
+            </Navbar.Brand>
+          ) : (
+            <Navbar.Brand>
+              <img src="logo3.png" alt="Translate" className="logo" />{' '}
+            </Navbar.Brand>
+          )}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="justify-content-end" style={{width: '100%'}}>
