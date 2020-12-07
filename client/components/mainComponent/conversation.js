@@ -80,7 +80,6 @@ export default function Conversation(props) {
             })}
         </ul>
       </Container>
-      {/* <Speech userLanguage={props.userLanguage} /> */}
     </div>
   )
 }

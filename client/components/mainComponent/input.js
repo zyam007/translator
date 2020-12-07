@@ -9,7 +9,10 @@ export default function Input(props) {
   return (
     <div>
       <div className="d-flex flex-column align-items-end">
-        <Speech userLanguage={props.userLanguage} />
+        <Speech
+          userLanguage={props.userLanguage}
+          handleVoice={props.handleVoice}
+        />
         <Button
           style={{width: '100px'}}
           variant="outline-primary"

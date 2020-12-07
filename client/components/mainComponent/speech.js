@@ -16,7 +16,7 @@ export default function Speech(props) {
 
   const [isListening, setIsListening] = useState(false)
   const [note, setNote] = useState(null)
-  const [saveNotes, setSaveNotes] = useState([])
+  //const [saveNotes, setSaveNotes] = useState([])
   console.log('lang', props.userLanguage)
   useEffect(
     () => {
@@ -29,13 +29,12 @@ export default function Speech(props) {
     if (isListening) {
       mic.start()
       mic.onend = () => {
-        console.log('continue...')
         mic.start()
       }
     } else {
       mic.stop()
       mic.onend = () => {
-        console.log('Stopped the mic on Click')
+        console.log('Stopped the mic on Click and the note is')
       }
     }
     mic.onstart = () => {
@@ -46,7 +45,8 @@ export default function Speech(props) {
         .map(result => result[0])
         .map(result => result.transcript)
         .join('')
-      console.log(transcript)
+      // console.log(transcript)
+
       setNote(transcript)
       mic.onerror = event => {
         console.log(event.error)
@@ -55,7 +55,8 @@ export default function Speech(props) {
   }
 
   const handleSaveNotes = () => {
-    setSaveNotes([...saveNotes, note])
+    //setSaveNotes([...saveNotes, note])
+    props.handleVoice(note)
     setNote('')
   }
 
