@@ -7,10 +7,7 @@
 body {
   font-family: sans-serif;
 }
-* {
-  margin: 0;
-  padding: 0;
-}
+
 a {
   text-decoration: none;
 }
@@ -170,12 +167,15 @@ form div {
   .profile-info {
     margin-top: 30px;
   }
+  .img {
+    display: none;
+  }
 }
 
 /* Welcome page css */
 .main-container {
   width: 100%;
-  height: 100vh;
+  height: 93vh;
   position: relative;
 }
 
@@ -284,7 +284,7 @@ form div {
   }
 
   75% {
-    content: '我們將消除混亂之冰';
+    content: '我們將消除交流障碍';
     opacity: 1;
   }
 }
