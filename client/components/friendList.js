@@ -79,11 +79,7 @@ export class FriendList extends Component {
                       variant="dark"
                       size="sm"
                       onClick={() =>
-                        this.props.requestUpdate(
-                          this.props.user.id,
-                          friend.id,
-                          'cancel'
-                        )
+                        this.props.delete(this.props.user.id, friend.id)
                       }
                     >
                       Cancel
@@ -134,11 +130,7 @@ export class FriendList extends Component {
                       variant="dark"
                       size="sm"
                       onClick={() =>
-                        this.props.requestUpdate(
-                          this.props.user.id,
-                          friend.id,
-                          'deny'
-                        )
+                        this.props.delete(this.props.user.id, friend.id)
                       }
                     >
                       Deny

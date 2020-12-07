@@ -3,13 +3,11 @@ import Picker from 'react-giphy-component'
 require('../../../secrets')
 import {Button, InputGroup, FormControl, Form} from 'react-bootstrap'
 const GAPI = process.env.GAPI || 'missing API for giphy'
-import Speech from './speech'
 
-export default function Input(props) {
+export default function InputComp(props) {
   return (
     <div>
       <div className="d-flex flex-column align-items-end">
-        <Speech userLanguage={props.userLanguage} />
         <Button
           style={{width: '100px'}}
           variant="outline-primary"
@@ -33,7 +31,7 @@ export default function Input(props) {
           <div />
         )}
       </div>
-      <InputGroup className="m-2 pr-3">
+      <InputGroup className="m-2">
         <FormControl
           placeholder="Type here"
           aria-label="sending text"
