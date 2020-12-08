@@ -2,19 +2,7 @@ const router = require('express').Router()
 const {User, Message, Friendship, Conversation} = require('../db/models')
 module.exports = router
 
-const adminOrUser = (req, res, next) => {
-  if (
-    !req.user ||
-    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
-  ) {
-    const err = new Error('Unauthorized')
-    err.status = 401
-    return next(err)
-  }
-  next()
-}
-
-router.get('/:id', adminOrUser, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const {id} = req.params
   try {
     const user = await User.findByPk(id)
@@ -25,7 +13,7 @@ router.get('/:id', adminOrUser, async (req, res, next) => {
   }
 })
 
-router.put('/:id', adminOrUser, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const {id} = req.params
   const {friendId, action} = req.body
   try {

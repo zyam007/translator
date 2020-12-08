@@ -4,19 +4,7 @@ const Sequelize = require('sequelize')
 const {Op} = Sequelize
 module.exports = router
 
-const adminOrUser = (req, res, next) => {
-  if (
-    !req.user ||
-    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
-  ) {
-    const err = new Error('Unauthorized')
-    err.status = 401
-    return next(err)
-  }
-  next()
-}
-
-router.get('/:id/:otherId', adminOrUser, async (req, res, next) => {
+router.get('/:id/:otherId', async (req, res, next) => {
   try {
     console.log('EIR', req.params.id)
     const convo = await Conversation.findOne({
@@ -41,7 +29,7 @@ router.get('/:id/:otherId', adminOrUser, async (req, res, next) => {
   }
 })
 
-router.post('/:id/:otherId', adminOrUser, async (req, res, next) => {
+router.post('/:id/:otherId', async (req, res, next) => {
   try {
     let id = Number(req.params.id)
     let otherId = Number(req.params.otherId)

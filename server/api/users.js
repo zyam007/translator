@@ -2,28 +2,7 @@ const router = require('express').Router()
 const {User, Friendship, Message} = require('../db/models')
 module.exports = router
 
-const adminsOnly = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
-    const err = new Error('Unauthorized')
-    err.status = 401
-    return next(err)
-  }
-  next()
-}
-
-const adminOrUser = (req, res, next) => {
-  if (
-    !req.user ||
-    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
-  ) {
-    const err = new Error('Unauthorized')
-    err.status = 401
-    return next(err)
-  }
-  next()
-}
-
-router.get('/', adminsOnly, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -37,7 +16,7 @@ router.get('/', adminsOnly, async (req, res, next) => {
   }
 })
 
-router.put('/', adminOrUser, async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   const {id, userName, language, profilePicture} = req.body
   try {
     const user = await User.findByPk(id)
