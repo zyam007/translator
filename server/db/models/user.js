@@ -97,6 +97,7 @@ User.prototype.findFriend = async function() {
   let newRequests = []
   let confirmed = []
   let requested = []
+  let blocked = []
   const part1 = await Friendship.findAll({
     where: {
       senderId: this.id
@@ -108,6 +109,7 @@ User.prototype.findFriend = async function() {
       let person = await User.findByPk(user.dataValues.receiverId)
       if (user.dataValues.status === 'confirmed') confirmed.push(person)
       if (user.dataValues.status === 'requested') requested.push(person)
+      if (user.dataValues.status === 'blocked') blocked.push(person)
       return person
     })
   )
@@ -123,6 +125,7 @@ User.prototype.findFriend = async function() {
       let person = await User.findByPk(user.dataValues.senderId)
       if (user.dataValues.status === 'confirmed') confirmed.push(person)
       if (user.dataValues.status === 'requested') newRequests.push(person)
+      if (user.dataValues.status === 'blocked') blocked.push(person)
       return person
     })
   )
@@ -132,7 +135,8 @@ User.prototype.findFriend = async function() {
     friends: otherFP1.concat(otherFP2),
     newRequests,
     requested,
-    confirmed
+    confirmed,
+    blocked
   }
   return result
 }

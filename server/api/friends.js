@@ -70,8 +70,10 @@ router.put('/:id', async (req, res, next) => {
           }
         })
       }
-
-      await friendship.block()
+      console.log('status of friends!!!!!', friendship.status)
+      if (friendship.status === 'blocked') {
+        await friendship.unblock()
+      } else await friendship.block()
       res.send(friendship)
     }
   } catch (err) {

@@ -12,6 +12,7 @@ export default function Input(props) {
         <Speech
           userLanguage={props.userLanguage}
           handleVoice={props.handleVoice}
+          blocked={props.blocked}
         />
         <Button
           style={{width: '100px'}}
@@ -27,6 +28,7 @@ export default function Input(props) {
           style={{width: '100px'}}
           variant="outline-warning"
           onClick={props.toggle}
+          disabled={props.blocked}
         >
           Gifs
         </Button>
@@ -52,6 +54,7 @@ export default function Input(props) {
             variant="secondary"
             type="submit"
             onClick={props.handleSubmit}
+            disabled={props.blocked}
           >
             Send
           </Button>

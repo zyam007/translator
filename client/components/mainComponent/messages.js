@@ -5,6 +5,7 @@ import {
   translateOne,
   translateAll
 } from '../../store/reducers/message'
+import {fetchUserFriends} from '../../store/reducers/userFriends'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
@@ -34,6 +35,7 @@ export class Messages extends Component {
   componentDidMount() {
     let selected = this.props.selected
     this.props.getAllMessages(this.props.userId, selected)
+    this.props.getFriends(this.props.userId)
   }
 
   componentDidUpdate(prevProps) {
@@ -139,7 +141,7 @@ export class Messages extends Component {
         </div>
       )
     }
-
+    const blocked = this.props.blocked || []
     const translated = this.props.translateall
 
     return (
@@ -207,6 +209,10 @@ export class Messages extends Component {
           toggleShowTrans={this.toggleShowTrans}
           userLanguage={this.props.user.language}
           handleVoice={this.handleVoice}
+          blocked={
+            blocked.findIndex(friend => friend.id === this.props.selected) !==
+            -1
+          }
         />
       </div>
     )
@@ -225,12 +231,14 @@ const mapState = state => {
       ? 'The other user is typing...'
       : 'Start your conversation',
 
-    translateall: state.message.translateAll
+    translateall: state.message.translateAll,
+    blocked: state.userFriends.blocked
   }
 }
 
 const mapDispatch = dispatch => {
   return {
+    getFriends: userId => dispatch(fetchUserFriends(userId)),
     getAllMessages: (id, otherId) => dispatch(getAllMessages(id, otherId)),
     postAMessage: (text, senderId, receiverId, bool) =>
       dispatch(postAMessage(text, senderId, receiverId, bool)),
