@@ -141,7 +141,9 @@ export class Messages extends Component {
         </div>
       )
     }
+
     const blocked = this.props.blocked || []
+
     const translated = this.props.translateall
 
     return (
@@ -208,11 +210,13 @@ export class Messages extends Component {
           toggle={this.toggle}
           toggleShowTrans={this.toggleShowTrans}
           userLanguage={this.props.user.language}
+
           handleVoice={this.handleVoice}
           blocked={
             blocked.findIndex(friend => friend.id === this.props.selected) !==
             -1
           }
+
         />
       </div>
     )

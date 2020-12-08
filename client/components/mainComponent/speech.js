@@ -1,8 +1,10 @@
+
 import {faMicrophone} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import React, {useState, useEffect} from 'react'
 import {Button} from 'react-bootstrap'
 import './speech.css'
+
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition
 const mic = new SpeechRecognition()
@@ -18,7 +20,7 @@ export default function Speech(props) {
 
   const [isListening, setIsListening] = useState(false)
   const [note, setNote] = useState(null)
-  //const [saveNotes, setSaveNotes] = useState([])
+
   console.log('lang', props.userLanguage)
   useEffect(
     () => {
@@ -31,12 +33,15 @@ export default function Speech(props) {
     if (isListening) {
       mic.start()
       mic.onend = () => {
+
         mic.start()
       }
     } else {
       mic.stop()
       mic.onend = () => {
+
         console.log('Stopped the mic on Click and the note is')
+
       }
     }
     mic.onstart = () => {
@@ -47,7 +52,6 @@ export default function Speech(props) {
         .map(result => result[0])
         .map(result => result.transcript)
         .join('')
-      // console.log(transcript)
 
       setNote(transcript)
       mic.onerror = event => {
@@ -57,13 +61,16 @@ export default function Speech(props) {
   }
 
   const handleSaveNotes = () => {
+
     //setSaveNotes([...saveNotes, note])
     props.handleVoice(note)
+
     setNote('')
   }
 
   return (
     <div>
+
       {isListening ? <span>Recording</span> : <span />}
       {/* <Button
         variant="warning"
@@ -84,6 +91,7 @@ export default function Speech(props) {
         onClick={() => setIsListening((prevState) => !prevState)}
         disabled={props.blocked}
       ></FontAwesomeIcon> */}
+
       <Button variant="danger" onClick={handleSaveNotes} disabled={!note}>
         Send
       </Button>
