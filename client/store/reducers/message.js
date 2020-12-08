@@ -8,12 +8,16 @@ const GET_TRANSLATIONN = 'GET_TRANSLATION'
 const GET_SINGLETRANSLATION = 'GET_SINGLETRANSLATION'
 const RESET_LOADING = 'RESET_LOADING'
 const IS_TYPING = 'IS_TYPING'
+const NEW_UNREAD = 'NEW_UNREAD'
+const CLEAR_UNDREAD = 'CLEAR_UNREAD'
 // ACTION CREATER
 export const isTyping = bool => ({type: IS_TYPING, bool})
 const transone = translated => ({type: GET_SINGLETRANSLATION, translated})
 const resetLoading = () => ({
   type: RESET_LOADING
 })
+export const clearUnread = id => ({type: CLEAR_UNDREAD, id})
+export const newUnread = user => ({type: NEW_UNREAD, user})
 const transall = translated => ({type: GET_TRANSLATIONN, translated})
 const getMessages = messages => ({type: GET_MESSAGES, messages})
 
@@ -79,7 +83,8 @@ let defaultMessages = {
   translate: {},
   loading: true,
   isTyping: false,
-  translateAll: []
+  translateAll: [],
+  newUnread: []
 }
 
 export default function(state = defaultMessages, action) {
@@ -103,6 +108,13 @@ export default function(state = defaultMessages, action) {
     case GET_TRANSLATIONN:
       return {...state, translateAll: action.translated}
     //console.log(action.translated)
+    case NEW_UNREAD:
+      return {...state, newUnread: [...state.newUnread, action.user]}
+    case CLEAR_UNDREAD:
+      return {
+        ...state,
+        newUnread: state.newUnread.filter(userId => userId !== action.id)
+      }
     default:
       return state
   }
