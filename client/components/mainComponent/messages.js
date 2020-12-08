@@ -53,6 +53,9 @@ export class Messages extends Component {
     }
   }
 
+  // this lifecycle method is marked as a "legacy" lifecycle method
+  // the name "componentWillReceiveProps" is only available until React version 17 (you are on 16.8 now)
+  // some alternatives to this method are listed in the docs: https://reactjs.org/docs/react-component.html#unsafe_componentwillreceiveprops
   componentWillReceiveProps(nextProps) {
     if (this.props.translate !== nextProps.translate) {
       this.setState({
@@ -61,14 +64,11 @@ export class Messages extends Component {
     }
   }
 
+  // awaiting "setState" doesn't really do much as setState will not return a promise
   async handleVoice(voiceMsg) {
     console.log('in voice')
     await this.setState({value: voiceMsg})
-    this.props.postAMessage(
-      this.state.value,
-      this.props.userId,
-      this.props.selected
-    )
+    this.props.postAMessage(voiceMsg, this.props.userId, this.props.selected)
     this.setState({
       value: ''
     })

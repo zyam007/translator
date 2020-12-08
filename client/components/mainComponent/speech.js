@@ -9,6 +9,7 @@ mic.interimResults = true
 // mic.lang = ''
 
 export default function Speech(props) {
+  // to make this more scalable, maybe we can create some JavaScript Object that associates the user language with the mic language
   if (props.userLanguage === 'RUS') mic.lang = 'ru'
   if (props.userLanguage === 'CHI') mic.lang = 'zh-cn'
   if (props.userLanguage === 'SPA') mic.lang = 'es'

@@ -39,6 +39,7 @@ class AddFriend extends Component {
     }
   }
 
+  // similar note here as before, awaiting setState doesn't do much as setState does not return a promise
   async handleSearch(event) {
     event.preventDefault()
     try {
@@ -130,6 +131,8 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(AddFriend)
+
+// maybe this component could go in its own file? I feel like you may be able to reuse this in other screens like the chat screen (for the stretch goal of group chats)
 
 const SearchFriend = props => {
   const {userName, email, profilePicture, language, id} = props.user || ''

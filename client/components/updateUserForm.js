@@ -35,6 +35,7 @@ export default function updateUserForm(props) {
       </Form.Group>
       <Form.Group controlId="exampleForm.ControlSelect">
         <Form.Label>Change Language</Form.Label>
+        {/* This could also use the global array or object for storing languages so it scales and uses a map */}
         <Form.Control as="select" name="language">
           <option>ENG</option>
           <option>SPA</option>
