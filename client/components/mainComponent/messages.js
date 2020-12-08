@@ -174,7 +174,7 @@ export class Messages extends Component {
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} />
+                          <img src={message.text} className="img-gif" />
                         ) : (
                           message.translation
                         )}
@@ -190,7 +190,7 @@ export class Messages extends Component {
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} />
+                          <img src={message.text} className="img-gif" />
                         ) : (
                           message.text
                         )}

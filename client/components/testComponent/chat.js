@@ -27,7 +27,7 @@ export class Chatty extends Component {
 
   render() {
     return (
-      <div className="d-flex" style={{height: '93vh'}}>
+      <div className="d-flex" style={{height: '92vh'}}>
         <Side
           otherInChat={this.props.otherInChat}
           handleClick={this.handleClick}

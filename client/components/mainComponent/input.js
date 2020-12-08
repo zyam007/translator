@@ -64,14 +64,14 @@ export default function Input(props) {
     <div>
       <div className="d-flex flex-column align-items-end">
         <Button
-          style={{width: '100px'}}
+          style={{borderRadius: '50%'}}
           variant="outline-primary"
           type="submit"
           onClick={() => {
             props.toggleShowTrans()
           }}
         >
-          Translate
+          <img src="logo3.png" alt="Translate" className="logo" />
         </Button>
         <Button
           style={{width: '100px'}}
