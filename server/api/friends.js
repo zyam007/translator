@@ -2,9 +2,20 @@ const router = require('express').Router()
 const {User, Message, Friendship, Conversation} = require('../db/models')
 module.exports = router
 
-router.get('/:id', async (req, res, next) => {
+const adminOrUser = (req, res, next) => {
+  if (
+    !req.user ||
+    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
+  ) {
+    const err = new Error('Unauthorized')
+    err.status = 401
+    return next(err)
+  }
+  next()
+}
+
+router.get('/:id', adminOrUser, async (req, res, next) => {
   const {id} = req.params
-  //const {userId} = req.body
   try {
     const user = await User.findByPk(id)
     const results = await user.findFriend()
@@ -14,10 +25,9 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', adminOrUser, async (req, res, next) => {
   const {id} = req.params
   const {friendId, action} = req.body
-  console.log('params: ', id, friendId, action)
   try {
     if (action === 'accept') {
       const friendship = await Friendship.findOne({
@@ -70,7 +80,6 @@ router.put('/:id', async (req, res, next) => {
           }
         })
       }
-      console.log('status of friends!!!!!', friendship.status)
       if (friendship.status === 'blocked') {
         await friendship.unblock()
       } else await friendship.block()

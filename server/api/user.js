@@ -2,7 +2,28 @@ const router = require('express').Router()
 const {User, Message, Friendship, Conversation} = require('../db/models')
 module.exports = router
 
-router.get('/conversations/:id', async (req, res, next) => {
+const adminsOnly = (req, res, next) => {
+  if (!req.user || !req.user.isAdmin) {
+    const err = new Error('Unauthorized')
+    err.status = 401
+    return next(err)
+  }
+  next()
+}
+
+const adminOrUser = (req, res, next) => {
+  if (
+    !req.user ||
+    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
+  ) {
+    const err = new Error('Unauthorized')
+    err.status = 401
+    return next(err)
+  }
+  next()
+}
+
+router.get('/conversations/:id', adminOrUser, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     const conversationsFriends = await user.getConvos()
@@ -20,7 +41,7 @@ router.get('/conversations/:id', async (req, res, next) => {
   }
 })
 
-router.get('/:email', async (req, res, next) => {
+router.get('/:email', adminOrUser, async (req, res, next) => {
   try {
     const findUser = await User.findOne({
       where: {
@@ -34,7 +55,7 @@ router.get('/:email', async (req, res, next) => {
   }
 })
 
-router.post('/addFriend', async (req, res, next) => {
+router.post('/addFriend', adminOrUser, async (req, res, next) => {
   try {
     const friendship = await Friendship.createFriendship(
       req.body.senderId,

@@ -4,8 +4,21 @@ const Sequelize = require('sequelize')
 const {Op} = Sequelize
 module.exports = router
 
-router.get('/:id/:otherId', async (req, res, next) => {
+const adminOrUser = (req, res, next) => {
+  if (
+    !req.user ||
+    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
+  ) {
+    const err = new Error('Unauthorized')
+    err.status = 401
+    return next(err)
+  }
+  next()
+}
+
+router.get('/:id/:otherId', adminOrUser, async (req, res, next) => {
   try {
+    console.log('EIR', req.params.id)
     const convo = await Conversation.findOne({
       where: {
         user1Id: {
@@ -28,18 +41,13 @@ router.get('/:id/:otherId', async (req, res, next) => {
   }
 })
 
-router.post('/:id/:otherId', async (req, res, next) => {
+router.post('/:id/:otherId', adminOrUser, async (req, res, next) => {
   try {
-    // let bodyKey = req.body.key
     let id = Number(req.params.id)
     let otherId = Number(req.params.otherId)
     let text = req.body.text
     let bool = req.body.bool
     const message = await Message.createMessage(text, id, otherId, bool)
-    // const newMessage = await Message.createMessage(req.body, req.params.id, req.params.otherId)
-    // console.dir(req.params)
-    // console.dir(req.body)
-
     res.json(message)
   } catch (err) {
     next(err)
