@@ -22,6 +22,7 @@ export class FriendList extends Component {
     const newRequests = this.props.userWithFriends.newRequests || []
     const confirmed = this.props.userWithFriends.confirmed || []
     const requested = this.props.userWithFriends.requested || []
+    const blocked = this.props.userWithFriends.blocked || []
     return (
       <>
         <h3>Your Friends</h3>
@@ -49,6 +50,40 @@ export class FriendList extends Component {
                       }
                     >
                       Block
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() =>
+                        this.props.delete(this.props.user.id, friend.id)
+                      }
+                    >
+                      x
+                    </Button>
+                  </ListGroup.Item>
+                )
+              })}
+              {blocked.map(friend => {
+                return (
+                  <ListGroup.Item
+                    key={friend.id}
+                    className="friends-list"
+                    style={{display: 'flex'}}
+                  >
+                    <img src={friend.profilePicture} className="friends-img" />
+                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
+                      onClick={() =>
+                        this.props.requestUpdate(
+                          this.props.user.id,
+                          friend.id,
+                          'block'
+                        )
+                      }
+                    >
+                      unBlock
                     </Button>
                     <Button
                       variant="danger"
