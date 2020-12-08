@@ -147,7 +147,11 @@ export class Messages extends Component {
     const translated = this.props.translateall
 
     return (
-      <div className="d-flex flex-column flex-grow-1">
+      <div
+        className={`d-flex flex-column flex-grow-1 ${
+          this.props.isOpen ? 'mm mmsmaller' : 'mm mmbigger'
+        }`}
+      >
         <Alert variant="info">{this.props.title}</Alert>
         <div className="flex-grow-1 overflow-auto">
           <div className="d-flex flex-column align-items-start justify-content-end ">
@@ -157,7 +161,7 @@ export class Messages extends Component {
                 return (
                   <div
                     key={message.id}
-                    style={{maxWidth: '80%'}}
+                    style={{maxWidth: '100%'}}
                     className={`my-1 d-flex flex-column ${
                       message.receiverId === this.props.userId
                         ? 'align-items-start'

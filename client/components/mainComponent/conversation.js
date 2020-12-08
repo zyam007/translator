@@ -26,9 +26,13 @@ export default function Conversation(props) {
   }
 
   const newUnread = props.newUnread || []
-
+  let sidebarClass = props.isOpen ? 'sidebar open' : 'sidebar'
   return (
-    <div style={{minWidth: '20%'}} className="d-flex flex-column bg-dark">
+    <div
+      style={{minWidth: '20%'}}
+      className="d-flex flex-column bg-dark"
+      className={sidebarClass}
+    >
       <Container
         className="border-right overflow-auto flex-grow-1"
         style={{
@@ -90,6 +94,7 @@ export default function Conversation(props) {
               )
             })}
         </ul>
+        <button onClick={props.toggleSidebar} className="sidebar-toggle" />
       </Container>
     </div>
   )

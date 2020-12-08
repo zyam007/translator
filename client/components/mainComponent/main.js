@@ -11,9 +11,14 @@ export class Main extends Component {
   constructor() {
     super()
     this.state = {
-      selected: ''
+      selected: '',
+      sidebarOpen: true
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleViewSidebar = this.handleViewSidebar.bind(this)
+  }
+  handleViewSidebar() {
+    this.setState({sidebarOpen: !this.state.sidebarOpen})
   }
   componentDidMount() {
     this.props.getConvo(this.props.userId)
@@ -43,10 +48,9 @@ export class Main extends Component {
   }
 
   render() {
-    console.log(
-      ' is this the one I am looking for ???',
-      this.props.otherInChat || []
-    )
+    let MessagerSidebar = this.state.sidebarOpen
+      ? 'mm mmsmaller'
+      : 'mm mmbigger'
     return (
       <div className="d-flex" style={{height: '93vh'}}>
         <Conversation
@@ -54,11 +58,20 @@ export class Main extends Component {
           handleClick={this.handleClick}
           selected={this.state.selected}
           newUnread={this.props.newUnread}
+          toggleSidebar={this.handleViewSidebar}
+          isOpen={this.state.sidebarOpen}
         />
         {this.state.selected !== '' || undefined ? (
-          <Messages selected={this.state.selected} />
+          <Messages
+            selected={this.state.selected}
+            isOpen={this.state.sidebarOpen}
+          />
         ) : (
-          <p>Start a conversation by clicking on one of your friends' name!</p>
+          <h4
+            style={{position: 'absolute', left: '400px', paddingTop: '200px'}}
+          >
+            Start a conversation by clicking on one of your friends' name!
+          </h4>
         )}
       </div>
     )

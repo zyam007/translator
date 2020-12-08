@@ -54,3 +54,19 @@
 img {
   width: 200px;
 }
+.mm {
+  position: relative;
+  /* top: 60px; */
+  left: 0;
+  right: 0;
+  height: 100%;
+  /* transition: left .3s ease-in-out; */
+  background-color: white;
+}
+
+.mm .mmbigger {
+  left: 0;
+}
+.mm .mmsmaller {
+  left: 300px;
+}
