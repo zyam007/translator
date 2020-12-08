@@ -1,5 +1,9 @@
+
+import {faMicrophone} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import React, {useState, useEffect} from 'react'
 import {Button} from 'react-bootstrap'
+import './speech.css'
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition
@@ -16,7 +20,7 @@ export default function Speech(props) {
 
   const [isListening, setIsListening] = useState(false)
   const [note, setNote] = useState(null)
-  const [saveNotes, setSaveNotes] = useState([])
+
   console.log('lang', props.userLanguage)
   useEffect(
     () => {
@@ -29,13 +33,15 @@ export default function Speech(props) {
     if (isListening) {
       mic.start()
       mic.onend = () => {
-        console.log('continue...')
+
         mic.start()
       }
     } else {
       mic.stop()
       mic.onend = () => {
-        console.log('Stopped the mic on Click')
+
+        console.log('Stopped the mic on Click and the note is')
+
       }
     }
     mic.onstart = () => {
@@ -46,7 +52,7 @@ export default function Speech(props) {
         .map(result => result[0])
         .map(result => result.transcript)
         .join('')
-      console.log(transcript)
+
       setNote(transcript)
       mic.onerror = event => {
         console.log(event.error)
@@ -55,19 +61,37 @@ export default function Speech(props) {
   }
 
   const handleSaveNotes = () => {
-    setSaveNotes([...saveNotes, note])
+
+    //setSaveNotes([...saveNotes, note])
+    props.handleVoice(note)
+
     setNote('')
   }
 
   return (
     <div>
-      {isListening ? <span>listening...</span> : <span>Not listening...</span>}
-      <Button
+
+      {isListening ? <span>Recording</span> : <span />}
+      {/* <Button
         variant="warning"
-        onClick={() => setIsListening(prevState => !prevState)}
+        onClick={() => setIsListening((prevState) => !prevState)}
       >
         Start/Stop
+      </Button> */}
+      <Button
+        variant="outline-danger"
+        onClick={() => setIsListening(prevState => !prevState)}
+        disabled={props.blocked}
+      >
+        <FontAwesomeIcon className="microphone" icon={faMicrophone} />
       </Button>
+      {/* <FontAwesomeIcon
+        className="microphone"
+        icon={faMicrophone}
+        onClick={() => setIsListening((prevState) => !prevState)}
+        disabled={props.blocked}
+      ></FontAwesomeIcon> */}
+
       <Button variant="danger" onClick={handleSaveNotes} disabled={!note}>
         Send
       </Button>

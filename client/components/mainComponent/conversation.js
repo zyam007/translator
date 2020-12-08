@@ -1,7 +1,9 @@
+
 import React, {Component, useState, useEffect} from 'react'
 import {Container, ListGroup, Button} from 'react-bootstrap'
 import './convo.css'
 import {MDBRow, MDBCol, MDBIcon} from 'mdbreact'
+
 // import Speech from './speech'
 
 export default function Conversation(props) {
@@ -79,17 +81,18 @@ export default function Conversation(props) {
                       marginLeft: '10px'
                     }}
                   />
+
                   {newUnread.includes(user.id) ? (
                     <MDBIcon icon="ellipsis-h" style={{paddingLeft: '10px'}} />
                   ) : (
                     <></>
                   )}
+
                 </li>
               )
             })}
         </ul>
       </Container>
-      {/* <Speech userLanguage={props.userLanguage} /> */}
     </div>
   )
 }

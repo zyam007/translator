@@ -14,6 +14,7 @@ const Friendship = db.define('friendship', {
     defaultValue: 'I would like to be your friend.'
   }
 })
+
 Friendship.createFriendship = async (
   senderId,
   receiverId,
@@ -51,6 +52,12 @@ Friendship.prototype.block = async function() {
   this.status = 'blocked'
   await this.save()
 }
+
+Friendship.prototype.unblock = async function() {
+  this.status = 'confirmed'
+  await this.save()
+}
+
 Friendship.prototype.deny = async function() {
   this.status = 'denied'
   await this.save()

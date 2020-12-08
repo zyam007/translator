@@ -4,7 +4,9 @@ import {Container} from 'react-bootstrap'
 import Conversation from './conversation'
 import Messages from './messages'
 import {getConvo} from '../../store/reducers/convo'
+
 import {clearUnread} from '../../store/reducers/message'
+
 export class Main extends Component {
   constructor() {
     super()
@@ -18,10 +20,13 @@ export class Main extends Component {
   }
 
   handleClick(event) {
+    console.log('name is: ', event.target.value)
+
     this.setState({
       selected: event.target.value
     })
   }
+
   componentDidUpdate(prevState) {
     console.log('in com did update')
     if (prevState.selected !== this.state.selected) {
@@ -36,6 +41,7 @@ export class Main extends Component {
       }
     }
   }
+
   render() {
     console.log(
       ' is this the one I am looking for ???',
@@ -47,7 +53,9 @@ export class Main extends Component {
           otherInChat={this.props.otherInChat}
           handleClick={this.handleClick}
           selected={this.state.selected}
+
           newUnread={this.props.newUnread}
+
         />
         {this.state.selected !== '' || undefined ? (
           <Messages selected={this.state.selected} />

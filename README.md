@@ -1,5 +1,7 @@
 Welcome to our Translator Chat!
 
+Our link: https://translatorchitchat.herokuapp.com/
+
 Getting started:
 
 1.  Fork and clone this repo.
