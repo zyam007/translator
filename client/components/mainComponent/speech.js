@@ -1,6 +1,8 @@
+import {faMicrophone} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import React, {useState, useEffect} from 'react'
 import {Button} from 'react-bootstrap'
-
+import './speech.css'
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition
 const mic = new SpeechRecognition()
@@ -62,13 +64,26 @@ export default function Speech(props) {
 
   return (
     <div>
-      {isListening ? <span>listening...</span> : <span>Not listening...</span>}
-      <Button
+      {isListening ? <span>Recording</span> : <span />}
+      {/* <Button
         variant="warning"
-        onClick={() => setIsListening(prevState => !prevState)}
+        onClick={() => setIsListening((prevState) => !prevState)}
       >
         Start/Stop
+      </Button> */}
+      <Button
+        variant="outline-danger"
+        onClick={() => setIsListening(prevState => !prevState)}
+        disabled={props.blocked}
+      >
+        <FontAwesomeIcon className="microphone" icon={faMicrophone} />
       </Button>
+      {/* <FontAwesomeIcon
+        className="microphone"
+        icon={faMicrophone}
+        onClick={() => setIsListening((prevState) => !prevState)}
+        disabled={props.blocked}
+      ></FontAwesomeIcon> */}
       <Button variant="danger" onClick={handleSaveNotes} disabled={!note}>
         Send
       </Button>
