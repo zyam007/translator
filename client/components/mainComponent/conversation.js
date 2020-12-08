@@ -1,6 +1,7 @@
-import React, {Component, useState} from 'react'
+import React, {Component, useState, useEffect} from 'react'
 import {Container, ListGroup, Button} from 'react-bootstrap'
 import './convo.css'
+import {MDBRow, MDBCol, MDBIcon} from 'mdbreact'
 // import Speech from './speech'
 
 export default function Conversation(props) {
@@ -22,6 +23,9 @@ export default function Conversation(props) {
       </div>
     )
   }
+
+  const newUnread = props.newUnread || []
+
   return (
     <div style={{minWidth: '20%'}} className="d-flex flex-column bg-dark">
       <Container
@@ -75,6 +79,11 @@ export default function Conversation(props) {
                       marginLeft: '10px'
                     }}
                   />
+                  {newUnread.includes(user.id) ? (
+                    <MDBIcon icon="ellipsis-h" style={{paddingLeft: '10px'}} />
+                  ) : (
+                    <></>
+                  )}
                 </li>
               )
             })}
