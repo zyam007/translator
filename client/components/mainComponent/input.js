@@ -9,7 +9,11 @@ export default function Input(props) {
   return (
     <div>
       <div className="d-flex flex-column align-items-end">
-        <Speech userLanguage={props.userLanguage} />
+        <Speech
+          userLanguage={props.userLanguage}
+          handleVoice={props.handleVoice}
+          blocked={props.blocked}
+        />
         <Button
           style={{width: '100px'}}
           variant="outline-primary"
@@ -24,6 +28,7 @@ export default function Input(props) {
           style={{width: '100px'}}
           variant="outline-warning"
           onClick={props.toggle}
+          disabled={props.blocked}
         >
           Gifs
         </Button>
@@ -49,6 +54,7 @@ export default function Input(props) {
             variant="secondary"
             type="submit"
             onClick={props.handleSubmit}
+            disabled={props.blocked}
           >
             Send
           </Button>
