@@ -14,6 +14,7 @@ export default function Input(props) {
           handleVoice={props.handleVoice}
           blocked={props.blocked}
         />
+
         <Button
           style={{width: '100px'}}
           variant="outline-primary"

@@ -141,7 +141,9 @@ export class Messages extends Component {
         </div>
       )
     }
+
     const blocked = this.props.blocked || []
+
     const translated = this.props.translateall
 
     return (
