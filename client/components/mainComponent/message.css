@@ -57,7 +57,7 @@ img {
 .mm {
   position: relative;
   /* top: 60px; */
-  left: 0;
+  left: 50px;
   right: 0;
   height: 100%;
   /* transition: left .3s ease-in-out; */
@@ -65,7 +65,8 @@ img {
 }
 
 .mm .mmbigger {
-  left: 0;
+  position: absolute;
+  left: 10px;
 }
 .mm .mmsmaller {
   left: 300px;

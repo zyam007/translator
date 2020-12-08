@@ -160,7 +160,24 @@ form div {
     background-color: #d264b6;
   }
 }
-
+@media screen and (min-width: 601px) {
+  .sidebar-toggle {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: absolute;
+    top: 0%;
+    right: -10px;
+    height: 100%;
+    width: 5%;
+    z-index: 1;
+  }
+}
+@media screen and (max-width: 601px) {
+  .sidebar-toggle {
+    display: flex;
+  }
+}
 /* RESPONSIVE FOR MY PROFILE */
 @media only screen and (max-width: 990px) {
   .btn-update {

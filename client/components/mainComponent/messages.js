@@ -153,20 +153,21 @@ export class Messages extends Component {
         }`}
       >
         <Alert variant="info">{this.props.title}</Alert>
-        <div className="flex-grow-1 overflow-auto">
-          <div className="d-flex flex-column align-items-start justify-content-end ">
+        {/* <div className="flex-grow-1 overflow-auto">
+          <div className="d-flex flex-column align-items-start justify-content-end "> */}
+        <div>
+          <div>
             {translated &&
               translated.translation &&
               translated.translation.map(message => {
                 return (
                   <div
                     key={message.id}
-                    style={{maxWidth: '100%'}}
-                    className={`my-1 d-flex flex-column ${
-                      message.receiverId === this.props.userId
-                        ? 'align-items-start'
-                        : 'align-self-end align-items-end'
-                    }`}
+                    style={{maxWidth: '80%'}}
+                    // className={message.receiverId === this.props.userId
+                    //   ? 'align-items-start'
+                    //   : 'align-self-end align-items-end'
+                    // }
                   >
                     {this.state.showTrans ? (
                       <div
