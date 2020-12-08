@@ -29,7 +29,7 @@ export class Messages extends Component {
     this.toggleShowTrans = this.toggleShowTrans.bind(this)
     this.handleGIPHY = this.handleGIPHY.bind(this)
     this.toggle = this.toggle.bind(this)
-    this.handleVoice = this.handleVoice.bind(this)
+    this.handleVoiceOnChange = this.handleVoiceOnChange.bind(this)
   }
 
   componentDidMount() {
@@ -63,16 +63,14 @@ export class Messages extends Component {
     }
   }
 
-  async handleVoice(voiceMsg) {
-    console.log('in voice')
-    await this.setState({value: voiceMsg})
-    this.props.postAMessage(
-      this.state.value,
-      this.props.userId,
-      this.props.selected
-    )
-    this.setState({
-      value: ''
+  handleVoiceOnChange(voice) {
+    this.setState({value: voice})
+    let bool = false
+    event.target.value !== '' ? (bool = true) : (bool = false)
+    socket.emit('user typing', {
+      typerId: this.props.userId,
+      receiverId: this.props.selected,
+      isTyping: bool
     })
   }
 
@@ -88,15 +86,17 @@ export class Messages extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault()
-    this.props.postAMessage(
-      this.state.value,
-      this.props.userId,
-      this.props.selected
-    )
-    this.setState({
-      value: ''
-    })
+    if (this.state.value.trim() !== '') {
+      event.preventDefault()
+      this.props.postAMessage(
+        this.state.value,
+        this.props.userId,
+        this.props.selected
+      )
+      this.setState({
+        value: ''
+      })
+    }
   }
 
   toggleShowTrans() {
@@ -206,6 +206,7 @@ export class Messages extends Component {
           </div>
         </div>
         <Input
+          handleVoiceOnChange={this.handleVoiceOnChange}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           value={this.state.value}
@@ -214,7 +215,6 @@ export class Messages extends Component {
           toggle={this.toggle}
           toggleShowTrans={this.toggleShowTrans}
           userLanguage={this.props.user.language}
-          handleVoice={this.handleVoice}
           blocked={
             blocked.findIndex(friend => friend.id === this.props.selected) !==
             -1
