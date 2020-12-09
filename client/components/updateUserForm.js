@@ -3,6 +3,7 @@ import {Form, Col, Button, Row} from 'react-bootstrap'
 //import '../../public/App.scss'
 
 export default function updateUserForm(props) {
+  console.log('PROPS UPDATE USER FORM', props)
   return (
     <Form onSubmit={props.handleSubmit}>
       <Form.Group as={Row} controlId="formPlaintextUserName">
@@ -33,6 +34,8 @@ export default function updateUserForm(props) {
           />
         </Col>
       </Form.Group>
+      <label>Upload a new picture</label>
+      <input type="file" name="upload" defaultValue={undefined} />
       <Form.Group controlId="exampleForm.ControlSelect">
         <Form.Label>Change Language</Form.Label>
         <Form.Control as="select" name="language">
