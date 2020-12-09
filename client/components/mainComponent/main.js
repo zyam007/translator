@@ -48,14 +48,12 @@ export class Main extends Component {
       this.props.otherInChat || []
     )
     return (
-      <div className="d-flex" style={{height: '93vh'}}>
+      <div className="d-flex" style={{height: '92vh'}}>
         <Conversation
           otherInChat={this.props.otherInChat}
           handleClick={this.handleClick}
           selected={this.state.selected}
-
           newUnread={this.props.newUnread}
-
         />
         {this.state.selected !== '' || undefined ? (
           <Messages selected={this.state.selected} />

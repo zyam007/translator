@@ -12,6 +12,7 @@
   padding: 10px;
   margin: 10px 0;
   border-radius: 0 25px 25px 0;
+  white-space: pre-wrap;
 }
 /* Darker chat container */
 .messagessender {
@@ -21,6 +22,7 @@
   margin: 10px 0;
   background-color: #b4d0e2;
   border-radius: 25px 0 0 25px;
+  white-space: pre-wrap;
 }
 
 .messagessenderimg,
@@ -51,6 +53,6 @@
   margin-bottom: 20px;
 }
 
-img {
+.img-gif {
   width: 200px;
 }

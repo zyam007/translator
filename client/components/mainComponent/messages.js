@@ -16,6 +16,7 @@ import './message.css'
 export class Messages extends Component {
   constructor(props) {
     super(props)
+    this.lastMsgRef = React.createRef()
     this.state = {
       value: '',
       showTrans: false,
@@ -53,6 +54,9 @@ export class Messages extends Component {
     if (this.props.messages !== prevProps.messages) {
       this.props.translateAll(this.props.messages, this.props.user.language)
     }
+    // if (this.lastMsgRef.current) {
+    //   this.lastMsgRef.current.scrollIntoView()
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,12 +65,14 @@ export class Messages extends Component {
         translate: this.props.translate
       })
     }
+    if (this.lastMsgRef.current) {
+      this.lastMsgRef.current.scrollIntoView()
+    }
   }
 
   handleVoiceOnChange(voice) {
     this.setState({value: voice})
-    let bool = false
-    event.target.value !== '' ? (bool = true) : (bool = false)
+    let bool = true
     socket.emit('user typing', {
       typerId: this.props.userId,
       receiverId: this.props.selected,
@@ -153,9 +159,11 @@ export class Messages extends Component {
           <div className="d-flex flex-column align-items-start justify-content-end ">
             {translated &&
               translated.translation &&
-              translated.translation.map(message => {
+              translated.translation.map((message, index) => {
+                const lastMsg = translated.translation.length - 1 === index
                 return (
                   <div
+                    ref={lastMsg ? this.lastMsgRef : null}
                     key={message.id}
                     style={{maxWidth: '80%'}}
                     className={`my-1 d-flex flex-column ${
@@ -174,7 +182,7 @@ export class Messages extends Component {
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} />
+                          <img src={message.text} className="img-gif" />
                         ) : (
                           message.translation
                         )}
@@ -190,7 +198,7 @@ export class Messages extends Component {
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} />
+                          <img src={message.text} className="img-gif" />
                         ) : (
                           message.text
                         )}
