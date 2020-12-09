@@ -32,8 +32,9 @@ export class MyProfile extends Component {
     const {id} = this.props.user
     const userName = evt.target.userName.value
     const profilePicture = evt.target.profilePicture.value
+    const upload = evt.target.upload.files[0]
     const language = evt.target.language.value
-    this.props.update_User({id, userName, profilePicture, language})
+    this.props.updateUser({id, userName, profilePicture, language, upload})
     this.setState({show: false})
   }
 
@@ -69,7 +70,7 @@ export class MyProfile extends Component {
                 alt="user photo"
                 className="profile-photo"
               />
-              <p>Joined Aug 2020</p>
+              <p>Joined Dec 2020</p>
               <Link to="/friendlist">
                 <Button>Friends</Button>
               </Link>
@@ -107,7 +108,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    update_User: user => dispatch(updateUser(user))
+    updateUser: user => dispatch(updateUser(user))
   }
 }
 
