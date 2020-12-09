@@ -28,7 +28,16 @@ const putUser = user => ({
 export const updateUser = user => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/users`, user)
+      if (user.upload) {
+        const formData = new FormData() //multipart form to upload file
+        formData.append('upload', user.upload)
+        const {data} = await axios.post('/api/upload', formData, {
+          headers: {'content-type': 'multipart/form-data'}
+        })
+        user.upload = null
+        user.profilePicture = data //once we get the profilePicture we can set it on product input
+      }
+      const {data} = await axios.put('/api/users', user)
       dispatch(putUser(data))
     } catch (err) {
       console.log(err)

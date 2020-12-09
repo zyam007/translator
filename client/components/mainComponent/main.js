@@ -20,22 +20,13 @@ export class Main extends Component {
   }
 
   handleClick(event) {
-    console.log('name is: ', event.target.value)
-
     this.setState({
       selected: event.target.value
     })
   }
 
   componentDidUpdate(prevState) {
-    console.log('in com did update')
     if (prevState.selected !== this.state.selected) {
-      console.log(
-        'in main, component did update, does prev prop newunread',
-        this.props.newUnread,
-        'include this.selected?',
-        this.state.selected
-      )
       if (this.props.newUnread.includes(this.state.selected)) {
         this.props.clearUnread(this.state.selected)
       }
@@ -43,19 +34,13 @@ export class Main extends Component {
   }
 
   render() {
-    console.log(
-      ' is this the one I am looking for ???',
-      this.props.otherInChat || []
-    )
     return (
       <div className="d-flex" style={{height: '93vh'}}>
         <Conversation
           otherInChat={this.props.otherInChat}
           handleClick={this.handleClick}
           selected={this.state.selected}
-
           newUnread={this.props.newUnread}
-
         />
         {this.state.selected !== '' || undefined ? (
           <Messages selected={this.state.selected} />
