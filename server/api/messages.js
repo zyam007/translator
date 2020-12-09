@@ -2,15 +2,8 @@ const router = require('express').Router()
 const {User, Message, Friendship, Conversation} = require('../db/models')
 const Sequelize = require('sequelize')
 const {Op} = Sequelize
+const isUser = require('./isUser')
 module.exports = router
-
-const isUser = (req, res, next) => {
-  if (!req.user) {
-    res.sendStatus(401)
-    return
-  }
-  next()
-}
 
 router.get('/:id/:otherId', isUser, async (req, res, next) => {
   try {

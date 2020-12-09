@@ -55,6 +55,7 @@
     "connect-session-sequelize": "^6.0.0",
     "css-loader": "^5.0.1",
     "dotenv": "^8.2.0",
+    "emoji-picker-react": "^3.2.4",
     "express": "^4.16.4",
     "express-session": "^1.15.1",
     "google-translate": "^3.0.0",
