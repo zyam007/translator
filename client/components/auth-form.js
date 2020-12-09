@@ -5,6 +5,9 @@ import {auth} from '../store'
 import {Link} from 'react-router-dom'
 import {Button, Container, Row, Form, Col} from 'react-bootstrap'
 import './auth-form.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faFacebook, faGoogle} from '@fortawesome/free-brands-svg-icons'
+
 /**
  * COMPONENT
  */
@@ -42,9 +45,11 @@ const AuthForm = props => {
               <Link to="/signup">Not a member?</Link>
               <br />
 
-              <a href="/auth/google">{displayName} with Google</a>
-              <a href="/auth/facebook" className="fb connect">
-                {displayName} with Facebook
+              <a href="/auth/google">
+                <FontAwesomeIcon icon={faGoogle} />
+              </a>
+              <a href="/auth/facebook">
+                <FontAwesomeIcon icon={faFacebook} />
               </a>
             </div>
           </Form>
@@ -93,9 +98,11 @@ const AuthForm = props => {
               </Button>
               {error && error.response && <div> {error.response.data} </div>}
               <br />
-              <a href="/auth/google">{displayName} with Google</a>
-              <a href="/auth/facebook" className="fb connect">
-                {displayName} with Facebook
+              <a href="/auth/google">
+                <FontAwesomeIcon icon={faGoogle} />
+              </a>
+              <a href="/auth/facebook">
+                <FontAwesomeIcon icon={faFacebook} />
               </a>
             </div>
           </Form>
