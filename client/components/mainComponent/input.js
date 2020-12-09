@@ -105,6 +105,7 @@ export default function Input(props) {
           value={props.value}
           name="new-message"
           onChange={props.handleChange}
+          onKeyPress={props.onKeyUp}
         />
 
         <InputGroup.Append>

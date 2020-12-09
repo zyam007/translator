@@ -22,7 +22,7 @@ export class Messages extends Component {
       toggleMemes: false,
       translate: {}
     }
-
+    this.onKeyUp = this.onKeyUp.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.translate = this.translate.bind(this)
@@ -53,13 +53,16 @@ export class Messages extends Component {
     if (this.props.messages !== prevProps.messages) {
       this.props.translateAll(this.props.messages, this.props.user.language)
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.translate !== nextProps.translate) {
+    if (this.props.translate !== prevProps.translate) {
       this.setState({
         translate: this.props.translate
       })
+    }
+  }
+
+  onKeyUp(event) {
+    if (event.charCode === 13) {
+      this.handleSubmit(event)
     }
   }
 
@@ -215,6 +218,7 @@ export class Messages extends Component {
             blocked.findIndex(friend => friend.id === this.props.selected) !==
             -1
           }
+          onKeyUp={this.onKeyUp}
         />
       </div>
     )
