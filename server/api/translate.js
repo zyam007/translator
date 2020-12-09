@@ -5,14 +5,10 @@ const Sequelize = require('sequelize')
 const {Op} = Sequelize
 module.exports = router
 
-const adminOrUser = (req, res, next) => {
-  if (
-    !req.user ||
-    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
-  ) {
-    const err = new Error('Unauthorized')
-    err.status = 401
-    return next(err)
+const isUser = (req, res, next) => {
+  if (!req.user) {
+    res.sendStatus(401)
+    return
   }
   next()
 }
@@ -53,7 +49,7 @@ async function translater(text, target) {
   // [END translate_translate_text]
 }
 
-router.post('/', adminOrUser, async (req, res, next) => {
+router.post('/', isUser, async (req, res, next) => {
   try {
     apiId = process.env.API_ID
     let q = req.body.q
@@ -67,7 +63,7 @@ router.post('/', adminOrUser, async (req, res, next) => {
     console.error(error)
   }
 })
-router.post('/all', adminOrUser, async (req, res, next) => {
+router.post('/all', isUser, async (req, res, next) => {
   try {
     apiId = process.env.API_ID
     let arrayOfObj = req.body.messages

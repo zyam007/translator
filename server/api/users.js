@@ -14,7 +14,7 @@ const adminsOnly = (req, res, next) => {
 const adminOrUser = (req, res, next) => {
   if (
     !req.user ||
-    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.userId))
+    (req.user.isAdmin && Number(req.user.id) !== Number(req.params.id))
   ) {
     const err = new Error('Unauthorized')
     err.status = 401
