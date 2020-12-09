@@ -11,3 +11,14 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
+// module.exports = {
+//   router: require('express').Router(),
+
+//   isUser: function (req, res, next) {
+//     if (!req.user) {
+//       res.sendStatus(401)
+//       return
+//     }
+//     next()
+//   }
+// }

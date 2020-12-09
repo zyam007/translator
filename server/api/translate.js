@@ -5,6 +5,14 @@ const Sequelize = require('sequelize')
 const {Op} = Sequelize
 module.exports = router
 
+const isUser = (req, res, next) => {
+  if (!req.user) {
+    res.sendStatus(401)
+    return
+  }
+  next()
+}
+
 const {Translate} = require('@google-cloud/translate').v2
 const projectId = 'translate-chat-297404'
 const translate = new Translate({
@@ -41,7 +49,7 @@ async function translater(text, target) {
   // [END translate_translate_text]
 }
 
-router.post('/', async (req, res, next) => {
+router.post('/', isUser, async (req, res, next) => {
   try {
     apiId = process.env.API_ID
     let q = req.body.q
@@ -55,7 +63,7 @@ router.post('/', async (req, res, next) => {
     console.error(error)
   }
 })
-router.post('/all', async (req, res, next) => {
+router.post('/all', isUser, async (req, res, next) => {
   try {
     apiId = process.env.API_ID
     let arrayOfObj = req.body.messages
