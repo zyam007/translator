@@ -1,7 +1,7 @@
 const router = require('express').Router()
+const index = require('./index.js')
 const {User, Message, Friendship, Conversation} = require('../db/models')
 module.exports = router
-
 const isUser = (req, res, next) => {
   if (!req.user) {
     res.sendStatus(401)
@@ -9,10 +9,10 @@ const isUser = (req, res, next) => {
   }
   next()
 }
-
 router.get('/conversations/:id', isUser, async (req, res, next) => {
   try {
     if (req.user.dataValues.id !== Number(req.params.id)) {
+      // console.log(index)
       res.sendStatus(403)
     } else {
       const user = await User.findByPk(req.params.id)

@@ -14,7 +14,6 @@ const isUser = (req, res, next) => {
 
 router.get('/:id/:otherId', isUser, async (req, res, next) => {
   try {
-    console.log('EIR', req.params.id)
     const convo = await Conversation.findOne({
       where: {
         user1Id: {
