@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Message, Friendship, Conversation} = require('../db/models')
+const isUser = require('./isUser')
 module.exports = router
 
 router.get('/:id', async (req, res, next) => {
