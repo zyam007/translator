@@ -19,7 +19,6 @@ export class NavBar extends React.Component {
           {isLoggedIn ? (
             <Navbar.Brand href="/">
               <img src="logo3.png" alt="Translate" className="logo" />
-              {/* <img src="logo3.png" alt="Translate" className="logo" />{' '} */}
               <MDBIcon
                 icon="angle-double-left"
                 size="lg"

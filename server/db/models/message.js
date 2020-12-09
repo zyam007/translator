@@ -5,7 +5,7 @@ const Conversation = require('./conversation')
 
 const Message = db.define('message', {
   text: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     validate: {
       notEmpty: true
     }
