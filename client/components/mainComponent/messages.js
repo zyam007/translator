@@ -31,7 +31,6 @@ export class Messages extends Component {
       toggleMemes: false,
       translate: {}
     }
-
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.translate = this.translate.bind(this)

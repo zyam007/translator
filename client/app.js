@@ -7,10 +7,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 const App = () => {
   return (
-    <div>
+    <>
       <NavBar />
       <Routes />
-    </div>
+    </>
   )
 }
 

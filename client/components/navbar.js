@@ -27,7 +27,7 @@ export class NavBar extends React.Component {
               <span>Start Chatting!</span>
             </Navbar.Brand>
           ) : (
-            <Navbar.Brand>
+            <Navbar.Brand href="/">
               <img src="logo3.png" alt="Translate" className="logo" />{' '}
             </Navbar.Brand>
           )}
@@ -60,8 +60,8 @@ export class NavBar extends React.Component {
                 </Nav>
               ) : (
                 <Nav>
-                  <Link to="/" className="nav-name">
-                    Home
+                  <Link to="/aboutus" className="nav-name">
+                    About Us
                   </Link>
                 </Nav>
               )}

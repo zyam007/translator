@@ -50,13 +50,7 @@ router.post('/:id/:otherId', isUser, async (req, res, next) => {
         res.json(message)
       } else {
         let text = req.body.text
-        const message = await Message.createMessage(
-          text,
-          id,
-          otherId,
-          bool,
-          URL
-        )
+        const message = await Message.createMessage(text, id, otherId, bool)
         res.json(message)
       }
     }

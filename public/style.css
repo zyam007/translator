@@ -284,10 +284,12 @@ form div {
     content: 'We will melt away the ice of confusion.';
   }
 
-  50% {
+  25% {
     content: 'Мы растопим лед замешательства.';
   }
-
+  50% {
+    content: 'Eliminar las barreras de comunicación.';
+  }
   75% {
     content: '我們將消除交流障碍';
     opacity: 1;

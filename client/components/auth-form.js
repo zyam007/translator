@@ -3,8 +3,11 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Link} from 'react-router-dom'
-import {Button, Container, Row, Form, Col} from 'react-bootstrap'
+import {Button, Container, Row, Form, Col, Card} from 'react-bootstrap'
 import './auth-form.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faFacebook, faGoogle} from '@fortawesome/free-brands-svg-icons'
+
 /**
  * COMPONENT
  */
@@ -12,96 +15,124 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <Container>
-      <div>
-        {props.name === 'login' ? (
-          <Form onSubmit={handleSubmit} name={name}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                name="email"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="password"
-              />
-            </Form.Group>
-            <div>
+    <div className="col d-flex justify-content-center">
+      <Card style={{width: '30rem'}} className="auth">
+        <Card.Img variant="top" src="img/logo.png" className="cardImg" />
+        <Card.Body className="card-block text-center">
+          {props.name === 'login' ? (
+            <Form onSubmit={handleSubmit} name={name}>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                  />
+                </Form.Group>
+              </Row>
               <Button variant="primary" type="submit">
                 {displayName}
               </Button>
               {error && error.response && <div> {error.response.data} </div>}
+
               <br />
-              <Link to="/signup">Not a member?</Link>
+              <Row>
+                <Col className="justify-content-md-center">
+                  <Link to="/signup">Not a member? Sign up Now!</Link>
+                </Col>
+              </Row>
               <br />
-
-              <a href="/auth/google">{displayName} with Google</a>
-              <a href="/auth/facebook" className="fb connect">
-                {displayName} with Facebook
-              </a>
-            </div>
-          </Form>
-        ) : (
-          <Form onSubmit={handleSubmit} name={name}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                name="email"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="password"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicuserName">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="userName"
-                placeholder="Username"
-                name="userName"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicLanguage">
-              <Form.Label>Choose Your Language</Form.Label>
-              <Form.Control as="select" name="language" type="language">
-                <option value="ENG">ENG</option>
-                <option value="SPA">SPA</option>
-                <option value="RUS">RUS</option>
-                <option value="CHI">CHI</option>
-              </Form.Control>
-            </Form.Group>
-
-            <div>
-              <Button variant="primary" type="submit">
-                {displayName}
-              </Button>
-              {error && error.response && <div> {error.response.data} </div>}
-              <br />
-              <a href="/auth/google">{displayName} with Google</a>
-              <a href="/auth/facebook" className="fb connect">
-                {displayName} with Facebook
-              </a>
-            </div>
-          </Form>
-        )}
-      </div>
-    </Container>
+              <Row>
+                <p style={{paddingLeft: '20px'}}>
+                  or you can {displayName} with :{' '}
+                </p>
+              </Row>
+              <Row>
+                <Col md="auto">
+                  <a href="/auth/google">
+                    <FontAwesomeIcon icon={faGoogle} size="2x" />
+                  </a>
+                </Col>
+                <Col md="auto">
+                  <a href="/auth/facebook">
+                    <FontAwesomeIcon icon={faFacebook} size="2x" />
+                  </a>
+                </Col>
+              </Row>
+            </Form>
+          ) : (
+            <Form onSubmit={handleSubmit} name={name}>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicuserName">
+                  <Form.Control
+                    type="userName"
+                    placeholder="Username"
+                    name="userName"
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicLanguage">
+                  <Form.Label>Choose Your Language</Form.Label>
+                  <Form.Control as="select" name="language" type="language">
+                    <option value="ENG">ENG</option>
+                    <option value="SPA">SPA</option>
+                    <option value="RUS">RUS</option>
+                    <option value="CHI">CHI</option>
+                  </Form.Control>
+                </Form.Group>
+              </Row>
+              <div>
+                <Button variant="primary" type="submit">
+                  {displayName}
+                </Button>
+                {error && error.response && <div> {error.response.data} </div>}
+                <br />
+                <Row>
+                  <Col md="auto">
+                    <a href="/auth/google">
+                      <FontAwesomeIcon icon={faGoogle} size="2x" />
+                    </a>
+                  </Col>
+                  <Col md="auto">
+                    <a href="/auth/facebook">
+                      <FontAwesomeIcon icon={faFacebook} size="2x" />
+                    </a>
+                  </Col>
+                </Row>
+              </div>
+            </Form>
+          )}
+        </Card.Body>
+      </Card>
+    </div>
   )
 }
 
