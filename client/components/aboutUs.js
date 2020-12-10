@@ -1,6 +1,7 @@
 import React from 'react'
 import './aboutUs.css'
 import {Button, Container, Row, Form, Col, Card} from 'react-bootstrap'
+import Footer from './footer'
 function AboutUs(props) {
   return (
     <div id="landing-page-app">
@@ -11,7 +12,7 @@ function AboutUs(props) {
               <img
                 src="/img/priscilla-du-preez-gYdjZzXNWlg-unsplash.jpg"
                 alt="people chatting"
-                className="chattingImg"
+                className="chattingImg center"
               />
             </div>
             <div className="text-box1">
@@ -38,12 +39,13 @@ function AboutUs(props) {
               <img
                 src="/img/christian-buehner-J3pLjxl5Z2M-unsplash.jpg"
                 alt="people chatting"
-                className="chattingImg"
+                className="chattingImg center"
               />
             </div>
           </Col>
         </Row>
       </div>
+      <Footer />
     </div>
   )
 }
