@@ -11,3 +11,27 @@ a.fb {
   position: relative;
   align-content: left;
 }
+.card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: 200px;
+}
+.auth {
+  /* background-image: url("https://i.pinimg.com/originals/0a/3a/5f/0a3a5f1552a67821aa4b253a14ec86f3.png"); */
+  background-image: linear-gradient(white, rgb(216, 218, 247));
+  height: 90vh;
+  width: 100vw;
+  padding-right: 0px;
+  margin: 0;
+  padding: 0;
+}
+.cardImg {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 80%;
+  height: 30%;
+  background-color: white;
+  opacity: 0.9;
+  border-radius: 8px;
+}
