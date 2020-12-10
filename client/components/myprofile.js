@@ -40,7 +40,9 @@ export class MyProfile extends Component {
 
   render() {
     const {profilePicture, email, language, userName} = this.props.user
-    let date = this.props.user.createdAt
+    let d = this.props.user.createdAt
+    let date = new Date(d).toDateString().split(' ')
+    date = `Joined ${date[1]} of ${date[3]}`
 
     return (
       <div className="main-profile">
