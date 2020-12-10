@@ -34,7 +34,7 @@ export class Main extends Component {
 
   render() {
     return (
-      <div className="d-flex" style={{height: '92vh'}}>
+      <div className="d-flex" style={{height: '93vh'}}>
         <Conversation
           otherInChat={this.props.otherInChat}
           handleClick={this.handleClick}
