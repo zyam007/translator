@@ -106,6 +106,11 @@ export class Messages extends Component {
       this.setState({
         value: ''
       })
+      socket.emit('user typing', {
+        typerId: this.props.userId,
+        receiverId: this.props.selected,
+        isTyping: false
+      })
     }
   }
 
