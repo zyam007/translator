@@ -17,8 +17,6 @@ const translate = new Translate({
 })
 
 async function translater(text, target) {
-  // const {Translate} = require('@google-cloud/translate').v2
-  // const translate = new Translate()
   const {Translate} = require('@google-cloud/translate').v2
   const projectId = 'translate-chat-297404'
   const translate = new Translate({
@@ -30,16 +28,10 @@ async function translater(text, target) {
   })
   async function translateText() {
     let [translations] = await translate.translate(text, target)
-    // console.log('this is translations', translations)
-    // translations = Array.isArray(translations) ? translations : [translations]
-    // translations.forEach((translation, i) => {
-    //   `${text[i]} => (${target}) ${translation}`
-    // })
     return translations
   }
   let result = await translateText()
   return result
-  // [END translate_translate_text]
 }
 
 router.post('/', isUser, async (req, res, next) => {
@@ -72,8 +64,6 @@ router.post('/all', isUser, async (req, res, next) => {
   }
 })
 async function translaterAll(arrayOfObj, lan) {
-  // const {Translate} = require('@google-cloud/translate').v2
-  // const translate = new Translate()
   const {Translate} = require('@google-cloud/translate').v2
   const projectId = 'translate-chat-297404'
   const translate = new Translate({
@@ -92,5 +82,4 @@ async function translaterAll(arrayOfObj, lan) {
   }
   let result = await translateText()
   return result
-  // [END translate_translate_text]
 }

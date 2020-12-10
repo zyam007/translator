@@ -40,6 +40,7 @@ export class MyProfile extends Component {
 
   render() {
     const {profilePicture, email, language, userName} = this.props.user
+    let date = this.props.user.createdAt
 
     return (
       <div className="main-profile">
@@ -70,7 +71,7 @@ export class MyProfile extends Component {
                 alt="user photo"
                 className="profile-photo"
               />
-              <p>Joined Dec 2020</p>
+              <p>{date}</p>
               <Link to="/friendlist">
                 <Button>Friends</Button>
               </Link>

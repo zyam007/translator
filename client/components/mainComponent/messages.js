@@ -196,9 +196,7 @@ export class Messages extends Component {
                               </Tooltip>
                             }
                           >
-                            <Button variant="secondary">
-                              <img src={message.URL} className="img-gif" />
-                            </Button>
+                            <img src={message.URL} className="img-gif" />
                           </OverlayTrigger>
                         ) : (
                           message.translation
@@ -224,9 +222,7 @@ export class Messages extends Component {
                               </Tooltip>
                             }
                           >
-                            <Button variant="secondary">
-                              <img src={message.URL} className="img-gif" />
-                            </Button>
+                            <img src={message.URL} className="img-gif" />
                           </OverlayTrigger>
                         ) : (
                           message.text
