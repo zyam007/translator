@@ -182,7 +182,8 @@ export class Messages extends Component {
                           'messages' +
                           (message.receiverId === this.props.userId
                             ? 'receiver'
-                            : 'sender')
+                            : 'sender') +
+                          (message.isImage ? 'img' : '')
                         }
                       >
                         {message.isImage ? (
@@ -195,9 +196,7 @@ export class Messages extends Component {
                               </Tooltip>
                             }
                           >
-                            <Button variant="secondary">
-                              <img src={message.URL} className="img-gif" />
-                            </Button>
+                            <img src={message.URL} className="img-gif" />
                           </OverlayTrigger>
                         ) : (
                           message.translation
@@ -223,9 +222,7 @@ export class Messages extends Component {
                               </Tooltip>
                             }
                           >
-                            <Button variant="secondary">
-                              <img src={message.URL} className="img-gif" />
-                            </Button>
+                            <img src={message.URL} className="img-gif" />
                           </OverlayTrigger>
                         ) : (
                           message.text

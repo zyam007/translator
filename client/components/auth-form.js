@@ -54,13 +54,17 @@ const AuthForm = props => {
                 </Form.Group>
               </Row>
               <Row className="justify-content-md-center">
-                <Button variant="primary" type="submit" style={{width: '80%'}}>
+                <Button
+                  variant="secondary"
+                  type="submit"
+                  style={{width: '80%'}}
+                >
                   {displayName}
                 </Button>
 
                 {error && error.response && <div> {error.response.data} </div>}
               </Row>
-              {/* <br /> */}
+
               <Row className="justify-content-md-center">
                 <div>
                   Not a member?{' '}
@@ -92,7 +96,7 @@ const AuthForm = props => {
           ) : (
             <Form onSubmit={handleSubmit} name={name}>
               <Row className="justify-content-md-center">
-                <Form.Group controlId="formBasicEmail">
+                <Form.Group controlId="formBasicEmail" style={{width: '80%'}}>
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
@@ -102,7 +106,10 @@ const AuthForm = props => {
                 </Form.Group>
               </Row>
               <Row className="justify-content-md-center">
-                <Form.Group controlId="formBasicPassword">
+                <Form.Group
+                  controlId="formBasicPassword"
+                  style={{width: '80%'}}
+                >
                   <Form.Control
                     type="password"
                     placeholder="Password"
@@ -112,7 +119,10 @@ const AuthForm = props => {
                 </Form.Group>
               </Row>
               <Row className="justify-content-md-center">
-                <Form.Group controlId="formBasicuserName">
+                <Form.Group
+                  controlId="formBasicuserName"
+                  style={{width: '80%'}}
+                >
                   <Form.Control
                     type="userName"
                     placeholder="Username"
@@ -122,35 +132,54 @@ const AuthForm = props => {
                 </Form.Group>
               </Row>
               <Row className="justify-content-md-center">
-                <Form.Group controlId="formBasicLanguage">
+                <Form.Group
+                  controlId="formBasicLanguage"
+                  style={{width: '80%', marginTop: '-20px'}}
+                >
                   <Form.Label>Choose Your Language</Form.Label>
                   <Form.Control as="select" name="language" type="language">
-                    <option value="ENG">ENG</option>
-                    <option value="SPA">SPA</option>
-                    <option value="RUS">RUS</option>
-                    <option value="CHI">CHI</option>
+                    <option value="ENG">English </option>
+                    <option value="SPA">Spanish</option>
+                    <option value="RUS">Russian</option>
+                    <option value="CHI">Chinese</option>
                   </Form.Control>
                 </Form.Group>
               </Row>
-              <div>
-                <Button variant="primary" type="submit">
+              <Row className="justify-content-md-center">
+                <Button variant="warning" type="submit" style={{width: '80%'}}>
                   {displayName}
                 </Button>
+
                 {error && error.response && <div> {error.response.data} </div>}
-                <br />
-                <Row>
-                  <Col md="auto">
-                    <a href="/auth/google">
-                      <FontAwesomeIcon icon={faGoogle} size="2x" />
-                    </a>
-                  </Col>
-                  <Col md="auto">
-                    <a href="/auth/facebook">
-                      <FontAwesomeIcon icon={faFacebook} size="2x" />
-                    </a>
-                  </Col>
-                </Row>
-              </div>
+              </Row>
+
+              <Row className="justify-content-md-center">
+                <div>
+                  Already a member?{' '}
+                  <Link to="/login">
+                    <span>Log in!</span>{' '}
+                  </Link>
+                </div>
+              </Row>
+
+              <Row className="justify-content-md-center">
+                <div>or you can {displayName} with : </div>
+              </Row>
+              <Row
+                className="justify-content-md-center"
+                style={{marginTop: '-30px'}}
+              >
+                <Col md="auto">
+                  <a href="/auth/google">
+                    <FontAwesomeIcon icon={faGoogle} size="2x" />
+                  </a>
+                </Col>
+                <Col md="auto">
+                  <a href="/auth/facebook">
+                    <FontAwesomeIcon icon={faFacebook} size="2x" />
+                  </a>
+                </Col>
+              </Row>
             </Form>
           )}
         </Card.Body>

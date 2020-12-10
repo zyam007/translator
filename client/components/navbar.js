@@ -17,14 +17,14 @@ export class NavBar extends React.Component {
       <>
         <Navbar collapseOnSelect expand="md" id="navbar">
           {isLoggedIn ? (
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/" style={{fontSize: '1rem'}}>
               <img src="logo3.png" alt="Translate" className="logo" />
-              <MDBIcon
+              {/* <MDBIcon
                 icon="angle-double-left"
                 size="lg"
                 style={{paddingRight: '10px'}}
-              />
-              <span>Start Chatting!</span>
+              /> */}
+              <span className="ml-3 nav-name">Chat Room</span>
             </Navbar.Brand>
           ) : (
             <Navbar.Brand href="/">
