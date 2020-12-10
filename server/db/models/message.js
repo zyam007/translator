@@ -5,10 +5,10 @@ const Conversation = require('./conversation')
 
 const Message = db.define('message', {
   text: {
-    type: Sequelize.TEXT
-    // validate: {
-    //   notEmpty: true
-    // }
+    type: Sequelize.TEXT,
+    validate: {
+      notEmpty: true
+    }
   },
   isImage: {
     type: Sequelize.BOOLEAN,
@@ -16,7 +16,10 @@ const Message = db.define('message', {
   },
   userId: Sequelize.INTEGER,
   receiverId: Sequelize.INTEGER,
-  URL: Sequelize.TEXT
+  URL: {
+    type: Sequelize.TEXT,
+    defaultValue: 'No text'
+  }
 })
 
 Message.createMessage = async (text, senderId, receiverId, bool, URL) => {

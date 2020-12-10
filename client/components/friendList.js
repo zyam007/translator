@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {ListGroup, Button, Tabs, Tab, Badge} from 'react-bootstrap'
+import {ListGroup, Button, Tabs, Tab, Badge, Col} from 'react-bootstrap'
 import {
   fetchUserFriends,
   confirmFriend,
@@ -8,10 +8,6 @@ import {
 } from '../store/reducers/userFriends'
 
 export class FriendList extends Component {
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     this.props.getFriends(this.props.user.id)
   }
@@ -148,7 +144,12 @@ export class FriendList extends Component {
                     style={{display: 'flex'}}
                   >
                     <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <p style={{width: '150px'}}>{friend.userName}</p>
+                    <p style={{width: '200px'}} className="mr-3">
+                      {arr.map(person => {
+                        if (person.senderId === friend.id) return person.intro
+                      })}
+                    </p>
                     <Button
                       variant="outline-success"
                       onClick={() =>

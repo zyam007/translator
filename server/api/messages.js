@@ -30,6 +30,7 @@ router.get('/:id/:otherId', isUser, async (req, res, next) => {
 })
 
 router.post('/:id/:otherId', isUser, async (req, res, next) => {
+  apiId = process.env.API_ID
   let id = Number(req.params.id)
   let otherId = Number(req.params.otherId)
   try {
@@ -61,9 +62,20 @@ router.post('/:id/:otherId', isUser, async (req, res, next) => {
 
 async function gifToText(text) {
   const vision = require('@google-cloud/vision')
-  const client = new vision.ImageAnnotatorClient()
+  const projectId = 'translate-chat-297404'
+  const client = new vision.ImageAnnotatorClient({
+    projectId: projectId,
+    credentials: {
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CLIENT_EMAIL
+    }
+  })
   const [result] = await client.textDetection(text)
-  const detections = result.textAnnotations[0].description
-  const phrase = detections.replace(/\n/g, ' ')
-  return phrase
+  if (!result.textAnnotations[0]) {
+    return 'No text'
+  } else {
+    const detections = result.textAnnotations[0].description
+    const phrase = detections.replace(/\n/g, ' ')
+    return phrase
+  }
 }
