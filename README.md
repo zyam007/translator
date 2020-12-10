@@ -1,6 +1,6 @@
 Welcome to our Translator Chat!
 
-Our link: https://translatorchitchat.herokuapp.com/
+Our link: https://chattypolyglot.herokuapp.com/
 
 Getting started:
 

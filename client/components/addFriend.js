@@ -6,7 +6,8 @@ import {
 } from '../store/reducers/findfriend'
 import {fetchUserFriends} from '../store/reducers/userFriends'
 import {connect} from 'react-redux'
-import {Toast, Button, Container, Row, Col, Alert} from 'react-bootstrap'
+import {Button, Container, Col} from 'react-bootstrap'
+import SearchFriend from './searchFriend'
 
 const defaultState = {
   email: '',
@@ -130,48 +131,3 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(AddFriend)
-
-const SearchFriend = props => {
-  const {userName, email, profilePicture, language, id} = props.user || ''
-  const func = each => {
-    return each.id === id
-  }
-  const array = props.userWithFriends.friends || ''
-  const check = array.some(func)
-  if (props.error) {
-    return (
-      <Alert variat="warning">
-        Sorry, we couldn't find your friend! Try searching another email.
-      </Alert>
-    )
-  } else if (check) {
-    return (
-      <Alert variat="warning">
-        This friend or friend request already exists.
-      </Alert>
-    )
-  } else if (id === props.userId) {
-    return <Alert variat="warning">This is your email.</Alert>
-  } else {
-    return (
-      <div>
-        <div>
-          <h6>We found your friend: {userName}</h6>
-          <img src={profilePicture} className="profile-photo" />
-          <div>Language: {language}</div>
-          <label htmlFor="text">Add a note to introduce yourself</label>
-          <input
-            type="text"
-            name="intro"
-            value={props.intro}
-            onChange={props.handleChange}
-            style={{height: '100px', width: '200px'}}
-          />
-          <Button type="submit" onClick={props.handleAdd}>
-            Send Friend Request
-          </Button>
-        </div>
-      </div>
-    )
-  }
-}
