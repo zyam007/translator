@@ -31,7 +31,6 @@ export class Messages extends Component {
       toggleMemes: false,
       translate: {}
     }
-    this.onKeyUp = this.onKeyUp.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.translate = this.translate.bind(this)
@@ -72,12 +71,6 @@ export class Messages extends Component {
     }
     if (this.lastMsgRef.current) {
       this.lastMsgRef.current.scrollIntoView()
-    }
-  }
-
-  onKeyUp(event) {
-    if (event.charCode === 13) {
-      this.handleSubmit(event)
     }
   }
 
@@ -258,7 +251,6 @@ export class Messages extends Component {
             blocked.findIndex(friend => friend.id === this.props.selected) !==
             -1
           }
-          onKeyUp={this.onKeyUp}
         />
       </div>
     )
