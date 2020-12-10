@@ -182,7 +182,8 @@ export class Messages extends Component {
                           'messages' +
                           (message.receiverId === this.props.userId
                             ? 'receiver'
-                            : 'sender')
+                            : 'sender') +
+                          (message.isImage ? 'img' : '')
                         }
                       >
                         {message.isImage ? (
