@@ -55,9 +55,6 @@ export class Messages extends Component {
     if (this.props.messages !== prevProps.messages) {
       this.props.translateAll(this.props.messages, this.props.user.language)
     }
-    // if (this.lastMsgRef.current) {
-    //   this.lastMsgRef.current.scrollIntoView()
-    // }
   }
 
   componentWillReceiveProps(nextProps) {
