@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {Component} from 'react'
 import {
   getAllMessages,
@@ -9,7 +10,14 @@ import {fetchUserFriends} from '../../store/reducers/userFriends'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
-import {Alert, Button, FormControl, InputGroup} from 'react-bootstrap'
+import {
+  Alert,
+  Button,
+  FormControl,
+  InputGroup,
+  OverlayTrigger,
+  Tooltip
+} from 'react-bootstrap'
 import Input from './input'
 import './message.css'
 
@@ -54,7 +62,10 @@ export class Messages extends Component {
     if (this.props.messages !== prevProps.messages) {
       this.props.translateAll(this.props.messages, this.props.user.language)
     }
-    if (this.props.translate !== prevProps.translate) {
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.translate !== nextProps.translate) {
       this.setState({
         translate: this.props.translate
       })
@@ -182,7 +193,19 @@ export class Messages extends Component {
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} className="img-gif" />
+                          <OverlayTrigger
+                            key="placement"
+                            placement="top"
+                            overlay={
+                              <Tooltip id="tooltip-top">
+                                {message.translation}
+                              </Tooltip>
+                            }
+                          >
+                            <Button variant="secondary">
+                              <img src={message.URL} className="img-gif" />
+                            </Button>
+                          </OverlayTrigger>
                         ) : (
                           message.translation
                         )}
@@ -198,7 +221,19 @@ export class Messages extends Component {
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} className="img-gif" />
+                          <OverlayTrigger
+                            key="placement"
+                            placement="top"
+                            overlay={
+                              <Tooltip id="tooltip-top">
+                                {message.translation}
+                              </Tooltip>
+                            }
+                          >
+                            <Button variant="secondary">
+                              <img src={message.URL} className="img-gif" />
+                            </Button>
+                          </OverlayTrigger>
                         ) : (
                           message.text
                         )}
@@ -241,7 +276,6 @@ const mapState = state => {
     title: state.message.isTyping
       ? 'The other user is typing...'
       : 'Start your conversation',
-
     translateall: state.message.translateAll,
     blocked: state.userFriends.blocked
   }

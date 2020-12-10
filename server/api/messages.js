@@ -36,12 +36,40 @@ router.post('/:id/:otherId', isUser, async (req, res, next) => {
     if (req.user.dataValues.id !== Number(id)) {
       res.sendStatus(403)
     } else {
-      let text = req.body.text
       let bool = req.body.bool
-      const message = await Message.createMessage(text, id, otherId, bool)
-      res.json(message)
+      if (bool) {
+        let URL = req.body.text
+        let text = await gifToText(URL)
+        const message = await Message.createMessage(
+          text,
+          id,
+          otherId,
+          bool,
+          URL
+        )
+        res.json(message)
+      } else {
+        let text = req.body.text
+        const message = await Message.createMessage(
+          text,
+          id,
+          otherId,
+          bool,
+          URL
+        )
+        res.json(message)
+      }
     }
   } catch (err) {
     next(err)
   }
 })
+
+async function gifToText(text) {
+  const vision = require('@google-cloud/vision')
+  const client = new vision.ImageAnnotatorClient()
+  const [result] = await client.textDetection(text)
+  const detections = result.textAnnotations[0].description
+  const phrase = detections.replace(/\n/g, ' ')
+  return phrase
+}

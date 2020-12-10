@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from 'axios'
 import socket from '../../socket'
 
@@ -51,11 +52,6 @@ export const postAMessage = (
   bool = false
 ) => async dispatch => {
   try {
-    console.log('theses all correct post a message', {
-      userId: id,
-      senderId: otherId,
-      bool: bool
-    })
     const res = await axios.post(`/api/messages/${id}/${otherId}`, {
       text: text,
       bool: bool
@@ -71,7 +67,6 @@ export const translateOne = (text, lan, messageId) => async dispatch => {
     dispatch(resetLoading())
     let res = await axios.post('/api/translate', {q: text, lan: lan})
     let translated = {messageId: messageId, text: res.data.translation}
-    //console.log('in translateOne', translated)
     dispatch(transone(translated))
   } catch (err) {
     console.error(err.message, err.response)
