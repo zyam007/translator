@@ -7,7 +7,6 @@ module.exports = router
 router.get('/conversations/:id', isUser, async (req, res, next) => {
   try {
     if (req.user.dataValues.id !== Number(req.params.id)) {
-      // console.log(index)
       res.sendStatus(403)
     } else {
       const user = await User.findByPk(req.params.id)
