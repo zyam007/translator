@@ -40,6 +40,9 @@ export class MyProfile extends Component {
 
   render() {
     const {profilePicture, email, language, userName} = this.props.user
+    let d = this.props.user.createdAt
+    let date = new Date(d).toDateString().split(' ')
+    date = `Joined ${date[1]} of ${date[3]}`
 
     return (
       <div className="main-profile">
@@ -70,7 +73,7 @@ export class MyProfile extends Component {
                 alt="user photo"
                 className="profile-photo"
               />
-              <p>Joined Dec 2020</p>
+              <p>{date}</p>
               <Link to="/friendlist">
                 <Button>Friends</Button>
               </Link>
