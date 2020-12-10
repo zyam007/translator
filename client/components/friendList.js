@@ -145,7 +145,7 @@ export class FriendList extends Component {
                   >
                     <img src={friend.profilePicture} className="friends-img" />
                     <p style={{width: '150px'}}>{friend.userName}</p>
-                    <p style={{width: '200px'}}>
+                    <p style={{width: '200px'}} className="mr-3">
                       {arr.map(person => {
                         if (person.senderId === friend.id) return person.intro
                       })}
