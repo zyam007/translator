@@ -5,7 +5,7 @@ function AboutUs(props) {
   return (
     <div id="landing-page-app">
       <div className="landing-base" style={{opacity: 5}}>
-        <Row>
+        <Row style={{marginLeft: '0', marginRight: '0'}}>
           <Col>
             <div className="intro-title">
               <img
