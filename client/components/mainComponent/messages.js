@@ -16,7 +16,10 @@ import {
   FormControl,
   InputGroup,
   OverlayTrigger,
-  Tooltip
+  Tooltip,
+  Overlay,
+  Popover,
+  PopoverTitle
 } from 'react-bootstrap'
 import Input from './input'
 import './message.css'

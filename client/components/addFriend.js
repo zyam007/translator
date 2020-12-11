@@ -6,7 +6,7 @@ import {
 } from '../store/reducers/findfriend'
 import {fetchUserFriends} from '../store/reducers/userFriends'
 import {connect} from 'react-redux'
-import {Button, Container, Col} from 'react-bootstrap'
+import {Button, Container, Col, Row, Form, Card} from 'react-bootstrap'
 import SearchFriend from './searchFriend'
 
 const defaultState = {
@@ -69,43 +69,42 @@ class AddFriend extends Component {
 
   render() {
     return (
-      <Container>
-        <Col />
-        <Col>
-          <form id="findFriend">
-            <div>
-              <h5>
-                <label htmlFor="email">Search by Email</label>
-              </h5>
-              <input
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-              <Button type="submit" onClick={this.handleSearch}>
-                Search
-              </Button>
-              {this.props.error !== 'pending' ? (
-                <Container>
-                  <SearchFriend
-                    email={this.state.email}
-                    handleChange={this.handleChange}
-                    handleAdd={this.handleAdd}
-                    intro={this.state.intro}
-                    user={this.props.findFriend}
-                    error={this.props.error}
-                    userId={this.props.userId}
-                    userWithFriends={this.props.userWithFriends}
-                  />
-                </Container>
-              ) : (
-                <div />
-              )}
-            </div>
-          </form>
-        </Col>
-        <Col />
+      <Container
+        className="col d-flex justify-content-center"
+        style={{marginTop: '20px'}}
+      >
+        <form id="findFriend">
+          <div>
+            <Card.Title>
+              <label htmlFor="email">Search by Email</label>
+            </Card.Title>
+            <input
+              type="text"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <Button type="submit" onClick={this.handleSearch}>
+              Search
+            </Button>
+            {this.props.error !== 'pending' ? (
+              <Card style={{width: '30rem'}} className="auth">
+                <SearchFriend
+                  email={this.state.email}
+                  handleChange={this.handleChange}
+                  handleAdd={this.handleAdd}
+                  intro={this.state.intro}
+                  user={this.props.findFriend}
+                  error={this.props.error}
+                  userId={this.props.userId}
+                  userWithFriends={this.props.userWithFriends}
+                />
+              </Card>
+            ) : (
+              <div />
+            )}
+          </div>
+        </form>
       </Container>
     )
   }
