@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Alert} from 'react-bootstrap'
+import {Button, Alert, Row} from 'react-bootstrap'
 
 const SearchFriend = props => {
   const {userName, profilePicture, language, id} = props.user || ''
@@ -24,12 +24,20 @@ const SearchFriend = props => {
     return <Alert variat="warning">This is your email.</Alert>
   } else {
     return (
-      <div>
-        <div>
+      <div className="justify-content-center">
+        <Row className="col d-flex justify-content-center">
           <h6>We found your friend: {userName}</h6>
+        </Row>
+        <Row className="col d-flex justify-content-center">
           <img src={profilePicture} className="profile-photo" />
-          <div>Language: {language}</div>
+        </Row>
+        <Row className="col d-flex justify-content-center">
+          <h6>He/She speaks {language}</h6>
+        </Row>
+        <Row className="col d-flex justify-content-center">
           <label htmlFor="text">Add a note to introduce yourself</label>
+        </Row>
+        <Row className="col d-flex justify-content-center">
           <input
             type="text"
             name="intro"
@@ -37,10 +45,12 @@ const SearchFriend = props => {
             onChange={props.handleChange}
             style={{height: '100px', width: '200px'}}
           />
+        </Row>
+        <Row className="col d-flex justify-content-center">
           <Button type="submit" onClick={props.handleAdd}>
             Send Friend Request
           </Button>
-        </div>
+        </Row>
       </div>
     )
   }
