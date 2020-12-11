@@ -36,14 +36,18 @@ export default function updateUserForm(props) {
       </Form.Group>
       <label>Upload a new picture</label>
       <input type="file" name="upload" defaultValue={undefined} />
-      <Form.Group controlId="exampleForm.ControlSelect">
-        <Form.Label>Change Language</Form.Label>
-        <Form.Control as="select" name="language">
-          <option>ENG</option>
-          <option>SPA</option>
-          <option>CHI</option>
-          <option>RUS</option>
-        </Form.Control>
+      <Form.Group as={Row} controlId="exampleForm.ControlSelect">
+        <Form.Label column sm="3">
+          Change Language
+        </Form.Label>
+        <Col sm="5">
+          <Form.Control as="select" name="language">
+            <option>ENG</option>
+            <option>SPA</option>
+            <option>CHI</option>
+            <option>RUS</option>
+          </Form.Control>
+        </Col>
       </Form.Group>
       <Button type="submit" className="btn-saveUpdates">
         Save Changes
