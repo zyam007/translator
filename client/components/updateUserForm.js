@@ -34,8 +34,16 @@ export default function updateUserForm(props) {
           />
         </Col>
       </Form.Group>
-      <label>Upload a new picture</label>
-      <input type="file" name="upload" defaultValue={undefined} />
+      <Form.Group as={Row}>
+        <Form.File
+          id="exampleFormControlFile1"
+          type="file"
+          name="upload"
+          label="Upload a new picture"
+          column
+          sm="3"
+        />
+      </Form.Group>
       <Form.Group as={Row} controlId="exampleForm.ControlSelect">
         <Form.Label column sm="3">
           Change Language
