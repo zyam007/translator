@@ -5,7 +5,7 @@ import Footer from './footer'
 function AboutUs(props) {
   return (
     <div id="landing-page-app">
-      <div className="landing-base" style={{height: '80vh', opacity: 5}}>
+      <div className="landing-base" style={{height: '77vh', opacity: 5}}>
         <Row style={{marginLeft: '0', marginRight: '0'}}>
           <Col>
             <div className="intro-title">

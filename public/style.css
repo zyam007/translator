@@ -37,6 +37,7 @@ form div {
   align-items: center;
   justify-content: space-between;
   margin: 0;
+  margin-top: auto;
   background-color: #d264b6;
   animation-name: example;
   animation-duration: 10s;
