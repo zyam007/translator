@@ -137,6 +137,7 @@ export class FriendList extends Component {
           >
             <ListGroup>
               {newRequests.map(friend => {
+                console.log('hi')
                 return (
                   <ListGroup.Item
                     key={friend.id}
