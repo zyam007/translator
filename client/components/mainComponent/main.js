@@ -4,7 +4,6 @@ import {Container} from 'react-bootstrap'
 import Conversation from './conversation'
 import Messages from './messages'
 import {getConvo} from '../../store/reducers/convo'
-
 import {clearUnread} from '../../store/reducers/message'
 
 export class Main extends Component {

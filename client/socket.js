@@ -5,6 +5,7 @@ const socket = io(window.location.origin)
 import {addOneToFrequest} from './store/reducers/userFriends'
 import {isTyping} from './store/reducers/message'
 import {newUnread} from './store/reducers/message'
+import addNotification from 'react-push-notification'
 
 socket.on('connect', () => {
   console.log('Connected!')
@@ -20,6 +21,14 @@ socket.on('connect', () => {
       ) {
         store.dispatch(newUnread(message.userId))
       }
+      //push notification
+      addNotification({
+        title: 'New Message from your Chatty App',
+        message: `${message.text}`,
+        theme: 'light',
+        duration: 8000,
+        native: true // when using native, your OS will handle theming.
+      })
     }
   })
   socket.on('new-friend', data => {
