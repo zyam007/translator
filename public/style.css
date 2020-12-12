@@ -33,16 +33,12 @@ form div {
 
 /* NAVBAR START */
 #footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 0;
   margin-top: auto;
   background-color: #d264b6;
   animation-name: example;
   animation-duration: 10s;
   animation-iteration-count: infinite;
-  /* position: relative; */
 }
 #navbar {
   display: flex;
@@ -260,21 +256,8 @@ form div {
     opacity: 1;
   }
 }
-/* .main-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#app-title {
-  width: max-content;
-  text-align: center;
-  margin: auto;
-} */
 
 #animate {
-  /* display: flex; */
-  /* justify-content: center; */
   color: blueviolet;
 }
 
@@ -283,12 +266,6 @@ form div {
   animation: animate infinite 10s;
   padding-left: 10px;
 }
-
-/* .btn-login-signup {
-  display: flex;
-
-  justify-content: center;
-} */
 
 @keyframes animate {
   0% {
