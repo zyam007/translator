@@ -29,12 +29,15 @@ export class FriendList extends Component {
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
-                    style={{display: 'flex'}}
+                    className="friends-list d-flex align-items-center"
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
                     <Button
+                      className="mr-4"
                       variant="outline-danger"
                       size="sm"
                       onClick={() =>
@@ -63,11 +66,14 @@ export class FriendList extends Component {
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
+                    className="friends-list d-flex align-items-center"
                     style={{display: 'flex'}}
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
                     <Button
                       variant="outline-danger"
                       size="sm"
@@ -82,6 +88,7 @@ export class FriendList extends Component {
                       unBlock
                     </Button>
                     <Button
+                      className="ml-1"
                       variant="danger"
                       size="sm"
                       onClick={() =>

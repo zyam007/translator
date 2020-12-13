@@ -131,11 +131,11 @@ form div {
 /* MY PROFILE CSS END */
 
 /* FRIENDS LIST */
-.friends-list {
+/* .friends-list {
   display: flex;
   flex-direction: row;
   justify-content: start;
-}
+} */
 .friends-img {
   width: 40px;
   height: 40px;
