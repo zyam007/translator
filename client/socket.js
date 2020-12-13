@@ -35,13 +35,11 @@ socket.on('connect', () => {
   })
   socket.on('active', id => {
     if (id) {
-      console.log('is active ? data is', id)
       store.dispatch(markActive(Number(id)))
     }
   })
   socket.on('inActive', id => {
     if (id) {
-      console.log('is inactive  ? data is', id)
       store.dispatch(markInactive(Number(id)))
     }
   })

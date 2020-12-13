@@ -11,11 +11,9 @@ module.exports = io => {
     })
     socket.on('active', data => {
       socket.broadcast.emit('active', data.id)
-      console.log('server side active', data.id)
     })
     socket.on('inActive', data => {
       socket.broadcast.emit('inActive', data.id)
-      console.log('server side inactive', data.id)
     })
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)

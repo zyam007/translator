@@ -20,7 +20,6 @@ export const getConvo = id => async dispatch => {
   try {
     const {data} = await axios.get(`/api/user/conversations/${id}`)
     dispatch(getConversations(data.conversations))
-    console.log(data.friends)
     dispatch(getOtherInConvo(data.friends))
   } catch (err) {
     console.error(err)
