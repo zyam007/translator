@@ -71,7 +71,15 @@ export default function Conversation(props) {
                   onClick={userSelected}
                   style={{cursor: 'pointer'}}
                 >
-                  <img src={user.profilePicture} className="img" />
+                  <img
+                    src={user.profilePicture}
+                    className="img"
+                    style={{
+                      border: props.active.includes(user.id)
+                        ? '3px solid green'
+                        : ''
+                    }}
+                  />
                   {user.userName}
                   <img
                     src={`/img/flags/${user.language}.png`}
@@ -86,8 +94,13 @@ export default function Conversation(props) {
                   ) : (
                     <></>
                   )}
-                  <ColoredCircle
+                  {/* <ColoredCircle
                     color={props.active.includes(user.id) ? 'green' : 'red'}
+                  /> */}
+                  <span
+                    className={
+                      'user' + (props.active.includes(user.id) ? 'on' : 'off')
+                    }
                   />
                 </li>
               )
