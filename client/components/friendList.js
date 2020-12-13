@@ -88,7 +88,7 @@ export class FriendList extends Component {
                       unBlock
                     </Button>
                     <Button
-                      className="ml-1"
+                      className="ml-2"
                       variant="danger"
                       size="sm"
                       onClick={() =>
