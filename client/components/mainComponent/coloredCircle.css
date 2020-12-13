@@ -1,0 +1,28 @@
+.colored-circle-green {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: -2px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: black;
+  height: 20px;
+  width: 20px;
+  color: green;
+  background-color: green;
+}
+.colored-circle-red {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: -2px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: black;
+  height: 20px;
+  width: 20px;
+  color: red;
+  background-color: red;
+}
