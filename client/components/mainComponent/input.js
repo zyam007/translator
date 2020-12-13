@@ -19,6 +19,7 @@ export default function Input(props) {
   if (props.userLanguage === 'CHI') mic.lang = 'zh-cn'
   if (props.userLanguage === 'SPA') mic.lang = 'es'
   if (props.userLanguage === 'ENG') mic.lang = 'en'
+  if (props.userLanguage === 'FIL') mic.lang = 'tl'
 
   const [isListening, setIsListening] = useState(false)
   const [note, setNote] = useState(null)
@@ -58,11 +59,6 @@ export default function Input(props) {
       }
     }
   }
-  // const [chosenEmoji, setChosenEmoji] = useState(null)
-  // const onEmojiClick = (event, emojiObject) => {
-  //   setChosenEmoji(emojiObject)
-  //   console.log(chosenEmoji)
-  // }
 
   return (
     <div>

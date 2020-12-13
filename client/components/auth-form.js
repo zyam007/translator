@@ -142,6 +142,7 @@ const AuthForm = props => {
                     <option value="SPA">Spanish</option>
                     <option value="RUS">Russian</option>
                     <option value="CHI">Chinese</option>
+                    <option value="FIL">Filipino</option>
                   </Form.Control>
                 </Form.Group>
               </Row>

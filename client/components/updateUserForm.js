@@ -3,7 +3,6 @@ import {Form, Col, Button, Row} from 'react-bootstrap'
 //import '../../public/App.scss'
 
 export default function updateUserForm(props) {
-  console.log('PROPS UPDATE USER FORM', props)
   return (
     <Form onSubmit={props.handleSubmit}>
       <Form.Group as={Row} controlId="formPlaintextUserName">
@@ -52,8 +51,9 @@ export default function updateUserForm(props) {
           <Form.Control as="select" name="language">
             <option>ENG</option>
             <option>SPA</option>
-            <option>CHI</option>
             <option>RUS</option>
+            <option>CHI</option>
+            <option>FIL</option>
           </Form.Control>
         </Col>
       </Form.Group>

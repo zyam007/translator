@@ -60,7 +60,7 @@ async function seed() {
   const message4 = await Message.createMessage('I like', user1.id, user4.id)
   const message5 = await Message.createMessage('I ok', user4.id, user1.id)
   const message6 = await Message.createMessage(
-    'Are you hungy?',
+    'Are you hungry?',
     user2.id,
     user4.id
   )

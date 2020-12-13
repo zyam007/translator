@@ -272,14 +272,17 @@ form div {
     content: 'We will melt away the ice of confusion.';
   }
 
-  25% {
+  20% {
     content: 'Мы растопим лед замешательства.';
   }
-  50% {
+  40% {
     content: 'Eliminar las barreras de comunicación.';
   }
-  75% {
+  60% {
     content: '我們將消除交流障碍';
+  }
+  80% {
+    content: 'Tutulungan ka naming maunawaan.';
     opacity: 1;
   }
 }
