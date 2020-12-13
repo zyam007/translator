@@ -1,9 +1,8 @@
-
 import React, {Component, useState, useEffect} from 'react'
 import {Container, ListGroup, Button} from 'react-bootstrap'
 import './convo.css'
 import {MDBRow, MDBCol, MDBIcon} from 'mdbreact'
-
+import ColoredCircle from './coloredCircle'
 // import Speech from './speech'
 
 export default function Conversation(props) {
@@ -87,7 +86,9 @@ export default function Conversation(props) {
                   ) : (
                     <></>
                   )}
-
+                  <ColoredCircle
+                    color={props.active.includes(user.id) ? 'green' : 'red'}
+                  />
                 </li>
               )
             })}
