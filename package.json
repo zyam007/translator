@@ -73,6 +73,7 @@
     "react": "^16.8.6",
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-icons": "^1.1.0",
+    "react-color": "^2.19.3",
     "react-cookies": "^0.1.1",
     "react-dom": "^16.8.6",
     "react-fontawesome": "^1.7.1",

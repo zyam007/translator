@@ -6,6 +6,7 @@ const GAPI = process.env.GAPI || 'missing API for giphy'
 // import Picker from 'emoji-picker-react'
 import {faMicrophone} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {SketchPicker} from 'react-color'
 import './input.css'
 
 const SpeechRecognition =
@@ -66,8 +67,29 @@ export default function Input(props) {
 
   return (
     <div>
-      <div className="d-flex flex-column align-items-end">
+      <div
+        className="d-flex flex-column align-items-end"
+        style={{backgroundColor: `${props.background}`}}
+      >
         {/* <Picker onEmojiClick={onEmojiClick} /> */}
+        <br />
+        <Button
+          style={{width: '100px'}}
+          variant="outline-danger"
+          onClick={props.toggle2}
+          disabled={props.blocked}
+          className="mx-2"
+        >
+          Color
+        </Button>
+        {props.toggleColor ? (
+          <SketchPicker
+            color={props.background}
+            onChangeComplete={props.handleChangeColor}
+          />
+        ) : (
+          <div />
+        )}
         <Button
           style={{width: '100px'}}
           variant="outline-success"
