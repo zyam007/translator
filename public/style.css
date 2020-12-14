@@ -137,8 +137,10 @@ form div {
   justify-content: start;
 } */
 .friends-img {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
+  /* width: 20%;
+  height: 20%; */
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid #d264b6;
@@ -282,4 +284,20 @@ form div {
     content: '我們將消除交流障碍';
     opacity: 1;
   }
+}
+
+@media only screen and (max-width: 500px) {
+  #new-rq-btns {
+    flex-direction: column;
+  }
+  .intro-msg {
+    font-size: 10px;
+  }
+  .friends-img {
+    width: 40px;
+    height: 40px;
+  }
+  /* .btn-accept {
+
+  } */
 }

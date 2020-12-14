@@ -49,7 +49,7 @@ export class NavBar extends React.Component {
                         alt=""
                         className="profile-img nav"
                       />
-                      <span>{userName}</span>
+                      <span className="ml-1">{userName}</span>
                     </Link>
                   </NavItem>
                   <NavItem>

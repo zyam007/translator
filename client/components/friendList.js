@@ -20,8 +20,8 @@ export class FriendList extends Component {
     const requested = this.props.userWithFriends.requested || []
     const blocked = this.props.userWithFriends.blocked || []
     return (
-      <>
-        <h3>Your Friends</h3>
+      <div className="mt-3">
+        <h3 className="ml-5">Your Friends</h3>
         <Tabs defaultActiveKey="friends" id="uncontrolled-tab-example">
           <Tab eventKey="friends" title="Friends">
             <ListGroup>
@@ -108,11 +108,13 @@ export class FriendList extends Component {
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
-                    style={{display: 'flex'}}
+                    className="friends-list d-flex align-items-center"
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
                     <Button
                       variant="dark"
                       size="sm"
@@ -144,48 +146,56 @@ export class FriendList extends Component {
           >
             <ListGroup>
               {newRequests.map(friend => {
-                console.log('hi')
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
-                    style={{display: 'flex'}}
+                    className="friends-list d-flex align-items-center"
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '150px'}}>{friend.userName}</p>
-                    <p style={{width: '200px'}} className="mr-3">
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
+                    <span
+                      style={{width: '200px', fontSize: '12px'}}
+                      className="mr-3 intro-msg"
+                    >
                       {arr.map(person => {
                         if (person.senderId === friend.id) return person.intro
                       })}
-                    </p>
-                    <Button
-                      variant="outline-success"
-                      onClick={() =>
-                        this.props.requestUpdate(
-                          this.props.user.id,
-                          friend.id,
-                          'accept'
-                        )
-                      }
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      variant="dark"
-                      size="sm"
-                      onClick={() =>
-                        this.props.delete(this.props.user.id, friend.id)
-                      }
-                    >
-                      Deny
-                    </Button>
+                    </span>
+                    <div className="d-flex" id="new-rq-btns">
+                      <Button
+                        className="mr-2 btn-accept"
+                        variant="outline-success"
+                        onClick={() =>
+                          this.props.requestUpdate(
+                            this.props.user.id,
+                            friend.id,
+                            'accept'
+                          )
+                        }
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        className="mr-2"
+                        variant="dark"
+                        size="sm"
+                        onClick={() =>
+                          this.props.delete(this.props.user.id, friend.id)
+                        }
+                      >
+                        Deny
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 )
               })}
             </ListGroup>
           </Tab>
         </Tabs>
-      </>
+      </div>
     )
   }
 }
