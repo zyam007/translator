@@ -45,7 +45,7 @@ const User = db.define('user', {
       'HIN',
       'ARA',
       'KOR',
-      'JAP'
+      'ja'
     ),
     defaultValue: 'ENG'
   },

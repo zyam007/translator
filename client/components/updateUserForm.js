@@ -55,7 +55,7 @@ export default function updateUserForm(props) {
             <option value="FIL">Filipino</option>
             <option value="FRE">French</option>
             <option value="HIN">Hindi</option>
-            <option value="JAP">Japanese</option>
+            <option value="ja">Japanese</option>
             <option value="KOR">Korean</option>
             <option value="RUS">Russian</option>
             <option value="SPA">Spanish</option>

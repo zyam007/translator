@@ -26,7 +26,7 @@ export default function Input(props) {
   if (props.userLanguage === 'HIN') mic.lang = 'hi'
   if (props.userLanguage === 'ARA') mic.lang = 'ar'
   if (props.userLanguage === 'KOR') mic.lang = 'ko'
-  if (props.userLanguage === 'JAP') mic.lang = 'ja'
+  if (props.userLanguage === 'ja') mic.lang = 'ja'
 
   const [isListening, setIsListening] = useState(false)
 

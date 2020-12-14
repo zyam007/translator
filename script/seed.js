@@ -48,7 +48,7 @@ async function seed() {
     email: 'hiro@email.com',
     password: '123456',
     userName: 'Hiro',
-    language: 'JAP',
+    language: 'ja',
     profilePicture: '/img/tran-pp7.jpg'
   })
   let user7 = await User.create({
