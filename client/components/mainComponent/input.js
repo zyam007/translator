@@ -5,9 +5,10 @@ import Picker from 'react-giphy-component'
 require('../../../secrets')
 import {Button, InputGroup, FormControl, Form} from 'react-bootstrap'
 const GAPI = process.env.GAPI || 'missing API for giphy'
-// import Picker from 'emoji-picker-react'
+
 import {faMicrophone} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {TwitterPicker} from 'react-color'
 import './input.css'
 
 const SpeechRecognition =
@@ -70,22 +71,46 @@ export default function Input(props) {
 
   return (
     <div>
-      <div className="d-flex flex-column align-items-end">
-        {/* <Picker onEmojiClick={onEmojiClick} /> */}
-        <Button
-          style={{width: '100px'}}
-          variant="outline-success"
-          onClick={props.toggle}
-          disabled={props.blocked}
-          className="mx-2"
-        >
-          <img src="gif.png" style={{width: '22px'}} />
-        </Button>
-        {props.toggleMemes ? (
-          <Picker onSelected={props.handleGIPHY} apiKey={GAPI} />
-        ) : (
-          <div />
-        )}
+      <div
+        className="d-flex flex-row"
+        style={{backgroundColor: `${props.background}`}}
+      >
+        <hr />
+        <div className="d-flex flex-column align-self-start mr-auto">
+          <Button
+            style={{width: '100px'}}
+            variant="secondary"
+            onClick={props.toggle2}
+            disabled={props.blocked}
+            className="mx-2"
+          >
+            <img src="color-palette.png" style={{width: '22px'}} />
+          </Button>
+          {props.toggleColor ? (
+            <TwitterPicker
+              color={props.background}
+              onChangeComplete={props.handleChangeColor}
+            />
+          ) : (
+            <div />
+          )}
+        </div>
+        <div className="d-flex flex-column align-self-end ml-auto">
+          <Button
+            style={{width: '100px'}}
+            variant="secondary"
+            onClick={props.toggle}
+            disabled={props.blocked}
+            className="mx-2"
+          >
+            <img src="gif.png" style={{width: '22px'}} />
+          </Button>
+          {props.toggleMemes ? (
+            <Picker onSelected={props.handleGIPHY} apiKey={GAPI} />
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
       <InputGroup className="m-2 pr-3">
         <InputGroup.Prepend>

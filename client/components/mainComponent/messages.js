@@ -33,7 +33,9 @@ export class Messages extends Component {
       value: '',
       showTrans: false,
       toggleMemes: false,
-      translate: {}
+      translate: {},
+      toggleColor: false,
+      background: '#ffffff'
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -42,6 +44,8 @@ export class Messages extends Component {
     this.handleGIPHY = this.handleGIPHY.bind(this)
     this.toggle = this.toggle.bind(this)
     this.handleVoiceOnChange = this.handleVoiceOnChange.bind(this)
+    this.toggle2 = this.toggle2.bind(this)
+    this.handleChangeColor = this.handleChangeColor.bind(this)
   }
 
   componentDidMount() {
@@ -128,6 +132,9 @@ export class Messages extends Component {
   toggle() {
     this.setState(prevState => ({toggleMemes: !prevState.toggleMemes}))
   }
+  toggle2() {
+    this.setState(prevState => ({toggleColor: !prevState.toggleColor}))
+  }
   // switch to the store
   async translate(text, lan, messageId) {
     try {
@@ -151,6 +158,10 @@ export class Messages extends Component {
     this.toggle()
   }
 
+  handleChangeColor = color => {
+    this.setState({background: color.hex})
+  }
+
   render() {
     if (this.props.loading) {
       return <LoadingView />
@@ -162,8 +173,13 @@ export class Messages extends Component {
 
     return (
       <div className="d-flex flex-column flex-grow-1">
-        <Alert variant="info">{this.props.title}</Alert>
-        <div className="flex-grow-1 overflow-auto">
+        <Alert className="mb-0" variant="info">
+          {this.props.title}
+        </Alert>
+        <div
+          className="flex-grow-1 overflow-auto"
+          style={{backgroundColor: `${this.state.background}`}}
+        >
           <div className="d-flex flex-column align-items-start justify-content-end ">
             {translated &&
               translated.translation &&
@@ -245,7 +261,11 @@ export class Messages extends Component {
           value={this.state.value}
           handleGIPHY={this.handleGIPHY}
           toggleMemes={this.state.toggleMemes}
+          toggleColor={this.state.toggleColor}
+          background={this.state.background}
           toggle={this.toggle}
+          toggle2={this.toggle2}
+          handleChangeColor={this.handleChangeColor}
           toggleShowTrans={this.toggleShowTrans}
           userLanguage={this.props.user.language}
           blocked={
