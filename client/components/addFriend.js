@@ -6,14 +6,15 @@ import {
 } from '../store/reducers/findfriend'
 import {fetchUserFriends} from '../store/reducers/userFriends'
 import {connect} from 'react-redux'
-import {Button, Container, Col, Row, Form, Card} from 'react-bootstrap'
+import {Button, Container, Card, Modal} from 'react-bootstrap'
 import SearchFriend from './searchFriend'
 
 const defaultState = {
   email: '',
   intro: '',
   search: false,
-  error: null
+  error: null,
+  modal: false
 }
 
 class AddFriend extends Component {
@@ -23,6 +24,7 @@ class AddFriend extends Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
+    this.handleModalClose = this.handleModalClose.bind(this)
   }
   componentDidMount() {
     this.props.getFriends(this.props.userId)
@@ -60,11 +62,15 @@ class AddFriend extends Component {
         this.props.findFriend.id,
         this.state.intro
       )
-      alert('Your friend request was sent')
-      this.setState(defaultState)
+      // alert('Your friend request was sent')
+      this.setState({modal: true})
     } catch (error) {
       console.log(error)
     }
+  }
+
+  handleModalClose() {
+    this.setState(defaultState)
   }
 
   render() {
@@ -73,6 +79,11 @@ class AddFriend extends Component {
         className="col d-flex justify-content-center"
         style={{marginTop: '20px'}}
       >
+        <Modal show={this.state.modal} onHide={this.handleModalClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Your friend request was sent</Modal.Title>
+          </Modal.Header>
+        </Modal>
         <form id="findFriend">
           <div>
             <Card.Title>
