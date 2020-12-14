@@ -45,7 +45,7 @@ socket.on('connect', () => {
   })
   socket.on('new-friend', data => {
     let state = store.getState()
-    if (data.receiver.id === state.user.user.id) {
+    if (data.receiver.id === state.user.id) {
       store.dispatch(addOneToFrequest(data.sender))
     }
   })
