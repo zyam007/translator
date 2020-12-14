@@ -39,10 +39,7 @@ router.post('/', isUser, async (req, res, next) => {
     apiId = process.env.API_ID
     let q = req.body.q
     let lan = req.body.lan
-    // console.dir(req.body)
     let result = await translater(q, lan)
-    // console.log(result)
-    // res.set('Content-Type', 'text/html')
     res.json({translation: result})
   } catch (error) {
     console.error(error)
@@ -53,11 +50,7 @@ router.post('/all', isUser, async (req, res, next) => {
     apiId = process.env.API_ID
     let arrayOfObj = req.body.messages
     let lan = req.body.language
-    // console.dir(req.body.messages)
-    // console.dir(req.body.language)
     let resultArray = await translaterAll(arrayOfObj, lan)
-    // console.log(resultArray)
-    // res.set('Content-Type', 'text/html')
     res.json({translation: resultArray})
   } catch (error) {
     console.error(error)

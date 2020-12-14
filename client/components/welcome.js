@@ -23,7 +23,7 @@ export class Welcome extends React.Component {
           </div>
         ) : (
           <div className="main-banner">
-            <h1 id="app-title">Chat Made Easy</h1>
+            <h1 id="app-title">Chatty Polyglot</h1>
             <p id="animate">
               <span className="text-change" />
             </p>

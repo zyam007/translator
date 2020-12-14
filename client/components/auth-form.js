@@ -139,9 +139,15 @@ const AuthForm = props => {
                   <Form.Label>Choose Your Language</Form.Label>
                   <Form.Control as="select" name="language" type="language">
                     <option value="ENG">English </option>
-                    <option value="SPA">Spanish</option>
-                    <option value="RUS">Russian</option>
+                    <option value="ARA">Arabic</option>
                     <option value="CHI">Chinese</option>
+                    <option value="FIL">Filipino</option>
+                    <option value="FRE">French</option>
+                    <option value="HIN">Hindi</option>
+                    <option value="ja">Japanese</option>
+                    <option value="KOR">Korean</option>
+                    <option value="RUS">Russian</option>
+                    <option value="SPA">Spanish</option>
                   </Form.Control>
                 </Form.Group>
               </Row>
