@@ -7,23 +7,30 @@ module.exports = router
 
 router.get('/:id/:otherId', isUser, async (req, res, next) => {
   try {
-    const convo = await Conversation.findOne({
-      where: {
-        user1Id: {
-          [Op.or]: [req.params.id, req.params.otherId]
-        },
-        user2Id: {
-          [Op.or]: [req.params.otherId, req.params.id]
+    if (
+      req.user.dataValues.id !== Number(req.params.id) &&
+      req.user.dataValues.id !== Number(req.params.otherId)
+    ) {
+      res.sendStatus(403)
+    } else {
+      const convo = await Conversation.findOne({
+        where: {
+          user1Id: {
+            [Op.or]: [req.params.id, req.params.otherId]
+          },
+          user2Id: {
+            [Op.or]: [req.params.otherId, req.params.id]
+          }
         }
-      }
-    })
-    const messages = await Message.findAll({
-      where: {
-        conversationId: convo.id
-      },
-      order: [['createdAt', 'ASC']]
-    })
-    res.json(messages)
+      })
+      const messages = await Message.findAll({
+        where: {
+          conversationId: convo.id
+        },
+        order: [['createdAt', 'ASC']]
+      })
+      res.json(messages)
+    }
   } catch (err) {
     next(err)
   }

@@ -9,7 +9,6 @@ import {connect} from 'react-redux'
 
 const App = props => {
   const isVisible = usePageVisibility()
-  console.log(props)
   if (isVisible && props.isLoggedIn) {
     socket.emit('active', props.user)
   } else if (!isVisible) {

@@ -3,7 +3,6 @@ import {Form, Col, Button, Row} from 'react-bootstrap'
 //import '../../public/App.scss'
 
 export default function updateUserForm(props) {
-  console.log('PROPS UPDATE USER FORM', props)
   return (
     <Form onSubmit={props.handleSubmit}>
       <Form.Group as={Row} controlId="formPlaintextUserName">
@@ -34,16 +33,34 @@ export default function updateUserForm(props) {
           />
         </Col>
       </Form.Group>
-      <label>Upload a new picture</label>
-      <input type="file" name="upload" defaultValue={undefined} />
-      <Form.Group controlId="exampleForm.ControlSelect">
-        <Form.Label>Change Language</Form.Label>
-        <Form.Control as="select" name="language">
-          <option>ENG</option>
-          <option>SPA</option>
-          <option>CHI</option>
-          <option>RUS</option>
-        </Form.Control>
+      <Form.Group as={Row}>
+        <Form.File
+          id="exampleFormControlFile1"
+          type="file"
+          name="upload"
+          label="Upload a new picture"
+          column
+          sm="3"
+        />
+      </Form.Group>
+      <Form.Group as={Row} controlId="exampleForm.ControlSelect">
+        <Form.Label column sm="3">
+          Change Language
+        </Form.Label>
+        <Col sm="5">
+          <Form.Control as="select" name="language" type="language">
+            <option value="ENG">English </option>
+            <option value="ARA">Arabic</option>
+            <option value="CHI">Chinese</option>
+            <option value="FIL">Filipino</option>
+            <option value="FRE">French</option>
+            <option value="HIN">Hindi</option>
+            <option value="ja">Japanese</option>
+            <option value="KOR">Korean</option>
+            <option value="RUS">Russian</option>
+            <option value="SPA">Spanish</option>
+          </Form.Control>
+        </Col>
       </Form.Group>
       <Button type="submit" className="btn-saveUpdates">
         Save Changes

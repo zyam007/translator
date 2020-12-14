@@ -1,26 +1,31 @@
 import React from 'react'
 import './aboutUs.css'
-import {Button, Container, Row, Form, Col, Card} from 'react-bootstrap'
+import {Row, Col} from 'react-bootstrap'
 import Footer from './footer'
+
 function AboutUs(props) {
   return (
     <div id="landing-page-app">
-      <div className="landing-base" style={{height: '80vh', opacity: 5}}>
-        <Row style={{marginLeft: '0', marginRight: '0'}}>
+      <div className="landing-base mt-5" style={{height: '80vh', opacity: 5}}>
+        <Row
+          className="mr-5 ml-5"
+          id="about-us-row"
+          style={{marginLeft: '0', marginRight: '0'}}
+        >
           <Col>
-            <div className="intro-title">
+            <div className="intro-title mb-5">
               <img
-                src="/img/priscilla-du-preez-gYdjZzXNWlg-unsplash.jpg"
+                src="/img/maps.jpg"
                 alt="people chatting"
                 className="chattingImg center"
               />
             </div>
             <div className="text-box1">
               <div className="content text-center">
-                <h1>A New Way to Communicate</h1>
+                <h3>A New Way to Communicate</h3>
                 <p>
-                  "Chatty-Polyglot allows you to communicate with your friends
-                  that speaks different languages so much easier! "
+                  Chatty Polyglot is the easiest way to communicate with your
+                  friends that speak different languages!
                 </p>
               </div>
             </div>
@@ -28,18 +33,19 @@ function AboutUs(props) {
           <Col>
             <div className="text-box2">
               <div className="content text-center">
-                <h1>Messages, Memes, Audios -- All in one app!</h1>
+                <h3>Translate Messages, GIFs, and Speech - All in one app!</h3>
                 <p>
-                  "Chatty-Polyglot has made it so easy for me to talk to people
-                  from different countries! ---Anonymous User"
+                  "Chatty Polyglot has made it so simple for me to talk to
+                  people from different countries!" -Anonymous User
                 </p>
               </div>
             </div>
-            <div>
+            <div className="mt-5">
               <img
-                src="/img/christian-buehner-J3pLjxl5Z2M-unsplash.jpg"
+                src="/img/friends.jpg"
                 alt="people chatting"
                 className="chattingImg center"
+                style={{float: 'right'}}
               />
             </div>
           </Col>
