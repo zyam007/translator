@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Form, Col, Button, Row} from 'react-bootstrap'
-//import '../../public/App.scss'
 
 export default function updateUserForm(props) {
-  console.log('PROPS UPDATE USER FORM', props)
+  // console.log('PROPS UPDATE USER FORM', props)
+  const [userLang, setUserLang] = useState(props.language)
+  const changeLang = event => {
+    setUserLang(event.target.value)
+  }
   return (
     <Form onSubmit={props.handleSubmit}>
       <Form.Group as={Row} controlId="formPlaintextUserName">
@@ -49,7 +52,12 @@ export default function updateUserForm(props) {
           Change Language
         </Form.Label>
         <Col sm="5">
-          <Form.Control as="select" name="language">
+          <Form.Control
+            as="select"
+            name="language"
+            value={userLang}
+            onChange={changeLang}
+          >
             <option>ENG</option>
             <option>SPA</option>
             <option>CHI</option>

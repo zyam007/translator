@@ -42,8 +42,13 @@ export class MyProfile extends Component {
 
     return (
       <div className="main-profile">
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton className="align-self-center">
             <Modal.Title>Update Your Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
