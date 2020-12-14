@@ -18,9 +18,9 @@ export class Main extends Component {
     this.props.getConvo(this.props.userId)
   }
 
-  handleClick(event) {
+  handleClick(userId) {
     this.setState({
-      selected: event.target.value
+      selected: userId
     })
   }
 

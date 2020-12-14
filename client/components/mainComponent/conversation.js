@@ -2,8 +2,6 @@ import React, {Component, useState, useEffect} from 'react'
 import {Container, ListGroup, Button} from 'react-bootstrap'
 import './convo.css'
 import {MDBRow, MDBCol, MDBIcon} from 'mdbreact'
-import ColoredCircle from './coloredCircle'
-// import Speech from './speech'
 
 export default function Conversation(props) {
   const [search, setSearch] = useState('')
@@ -12,9 +10,9 @@ export default function Conversation(props) {
     setSearch(event.target.value.substr(0, 20))
   }
 
-  const userSelected = event => {
+  const userSelected = userId => {
     setSearch('')
-    props.handleClick(event)
+    props.handleClick(userId)
   }
 
   if (props.otherInChat === []) {
@@ -71,40 +69,42 @@ export default function Conversation(props) {
                     props.selected === user.id ? 'highlight' : 'convo bg-dark'
                   }
                   value={user.id}
-                  onClick={userSelected}
+                  onClick={() => userSelected(user.id)}
                   style={{cursor: 'pointer'}}
                 >
-                  <img
-                    src={user.profilePicture}
-                    className="img"
-                    style={{
-                      border: props.active.includes(user.id)
-                        ? '3px solid green'
-                        : ''
-                    }}
-                  />
-                  {user.userName}
-                  <img
-                    src={`/img/flags/${user.language}.png`}
-                    style={{
-                      width: '20px',
-                      marginLeft: '10px'
-                    }}
-                  />
-
-                  {newUnread.includes(user.id) ? (
-                    <MDBIcon icon="ellipsis-h" style={{paddingLeft: '10px'}} />
-                  ) : (
-                    <></>
-                  )}
-                  {/* <ColoredCircle
-                    color={props.active.includes(user.id) ? 'green' : 'red'}
-                  /> */}
-                  <span
-                    className={
-                      'user' + (props.active.includes(user.id) ? 'on' : 'off')
-                    }
-                  />
+                  <div
+                    className="d-flex align-items-center listingFriends"
+                    onClick={() => userSelected(user.id)}
+                  >
+                    <img src={user.profilePicture} className="friendImg" />
+                    <span className="align-self-center friendName">
+                      {user.userName}
+                    </span>
+                    <img
+                      className="align-self-center"
+                      src={`/img/flags/${user.language}.png`}
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        marginLeft: '10px'
+                      }}
+                    />
+                    {newUnread.includes(user.id) ? (
+                      <MDBIcon
+                        icon="ellipsis-h"
+                        style={{paddingLeft: '10px'}}
+                        className="align-self-center"
+                      />
+                    ) : (
+                      <></>
+                    )}
+                    <span
+                      className={
+                        'align-self-center ml-auto user' +
+                        (props.active.includes(user.id) ? 'on' : 'off')
+                      }
+                    />
+                  </div>
                 </li>
               )
             })}
