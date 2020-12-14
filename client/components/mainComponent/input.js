@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, {useState, useEffect} from 'react'
 import Picker from 'react-giphy-component'
 require('../../../secrets')
@@ -20,8 +22,14 @@ export default function Input(props) {
   if (props.userLanguage === 'SPA') mic.lang = 'es'
   if (props.userLanguage === 'ENG') mic.lang = 'en'
   if (props.userLanguage === 'FIL') mic.lang = 'tl'
+  if (props.userLanguage === 'FRE') mic.lang = 'fr'
+  if (props.userLanguage === 'HIN') mic.lang = 'hi'
+  if (props.userLanguage === 'ARA') mic.lang = 'ar'
+  if (props.userLanguage === 'KOR') mic.lang = 'ko'
+  if (props.userLanguage === 'JAP') mic.lang = 'ja'
 
   const [isListening, setIsListening] = useState(false)
+
   const [note, setNote] = useState(null)
 
   useEffect(

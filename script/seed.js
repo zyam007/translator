@@ -1,5 +1,5 @@
 'use strict'
-
+/* eslint-disable */
 const db = require('../server/db')
 const {User, Friendship, Conversation, Message} = require('../server/db/models')
 
@@ -8,15 +8,16 @@ async function seed() {
   console.log('db synced!')
 
   let user1 = await User.create({
-    email: 'cody@email.com',
+    email: 'josephine@amos.com',
     password: '123456',
-    profilePicture: '/img/tran-pp1.jpg',
-    userName: 'Cody'
+    profilePicture: '/img/tran-pp5.jpg',
+    userName: 'Josephine',
+    isAdmin: true
   })
   let user2 = await User.create({
     email: 'murphy@email.com',
     password: '123456',
-    profilePicture: '/img/tran-pp2.jpg',
+    profilePicture: '/img/tran-pp1.jpg',
     userName: 'Murphy',
     language: 'SPA'
   })
@@ -24,7 +25,7 @@ async function seed() {
     email: 'yanna@email.com',
     password: '123456',
     userName: 'Yanna',
-    profilePicture: '/img/tran-pp3.jpeg',
+    profilePicture: '/img/tran-pp3.jpg',
     language: 'RUS',
     isAdmin: true
   })
@@ -32,37 +33,83 @@ async function seed() {
     email: 'jenna@email.com',
     password: '123456',
     userName: 'Jenna',
-    profilePicture: '/img/tran-pp4.jpeg',
+    profilePicture: '/img/tran-pp4.jpg',
     language: 'CHI',
     isAdmin: true
   })
   let user5 = await User.create({
-    email: 'josephine@email.com',
+    email: 'cody@email.com',
     password: '123456',
-    userName: 'Josephine',
-    profilePicture: '/img/tran-pp5.jpg',
-    isAdmin: true
+    userName: 'Cody',
+    language: 'ENG',
+    profilePicture: '/img/tran-pp2.jpg'
   })
   let user6 = await User.create({
-    email: 'bob@email.com',
+    email: 'hiro@email.com',
     password: '123456',
-    userName: 'Bob',
+    userName: 'Hiro',
+    language: 'JAP',
+    profilePicture: '/img/tran-pp7.jpg'
+  })
+  let user7 = await User.create({
+    email: 'nikka@email.com',
+    password: '123456',
+    userName: 'Nikka',
+    language: 'FRE',
+    profilePicture: '/img/tran-pp8.jpg'
+  })
+  let user8 = await User.create({
+    email: 'ramsey@email.com',
+    password: '123456',
+    userName: 'Ramsey',
+    language: 'ARA',
+    profilePicture: '/img/tran-pp9.jpg'
+  })
+  let user9 = await User.create({
+    email: 'eun@email.com',
+    password: '123456',
+    userName: 'Eun',
+    language: 'KOR',
+    profilePicture: '/img/tran-pp10.jpg'
+  })
+  let user10 = await User.create({
+    email: 'ravi@email.com',
+    password: '123456',
+    userName: 'Ravi',
+    language: 'HIN',
     profilePicture: '/img/tran-pp6.jpg'
   })
 
-  const message1 = await Message.createMessage('I like', user1.id, user2.id)
+  const message1 = await Message.createMessage(
+    'Good morning',
+    user1.id,
+    user2.id
+  )
   const message2 = await Message.createMessage(
-    'i dont like',
-    user2.id,
+    'Good afternoon',
+    user3.id,
     user1.id
   )
-  const message3 = await Message.createMessage('I like', user1.id, user2.id)
-  const message4 = await Message.createMessage('I like', user1.id, user4.id)
-  const message5 = await Message.createMessage('I ok', user4.id, user1.id)
+  const message3 = await Message.createMessage('Good night', user1.id, user4.id)
+  const message4 = await Message.createMessage(
+    'How are you?',
+    user1.id,
+    user5.id
+  )
+  const message5 = await Message.createMessage(
+    'Are you free?',
+    user6.id,
+    user1.id
+  )
   const message6 = await Message.createMessage(
     'Are you hungry?',
-    user2.id,
-    user4.id
+    user7.id,
+    user1.id
+  )
+  const message7 = await Message.createMessage(
+    'Did you take notes?',
+    user8.id,
+    user1.id
   )
 
   const friendship1 = await Friendship.createFriendship(
@@ -70,43 +117,48 @@ async function seed() {
     2,
     'I would like to be your friend.'
   )
-  const friendship10 = await Friendship.createFriendship(5, 1, 'Add me!')
   const friendship2 = await Friendship.createFriendship(
-    2,
     3,
+    1,
     'I want to be more than your friend.'
   )
   const friendship3 = await Friendship.createFriendship(
     1,
-    3,
+    4,
     'Be my friend please!'
   )
   const friendship4 = await Friendship.createFriendship(
+    5,
     1,
-    4,
     'Will you be my friend?'
   )
   const friendship5 = await Friendship.createFriendship(
-    2,
-    4,
+    6,
+    1,
     'Please add me :)'
   )
   const friendship6 = await Friendship.createFriendship(
-    5,
-    2,
-    'Remember me from Spanish class?'
+    7,
+    1,
+    'We met at the meeting'
+  )
+  const friendship7 = await Friendship.createFriendship(
+    8,
+    1,
+    'I was in your Spanish class'
+  )
+  const friendship9 = await Friendship.createFriendship(
+    9,
+    1,
+    'Remember me from math class?'
   )
   await friendship1.confirm()
-  await friendship4.confirm()
-  await friendship10.confirm()
-  await friendship5.confirm()
   await friendship2.confirm()
-  await friendship10.initiateChat()
-  await friendship2.initiateChat()
-  // await friendship2.deny()
-  // await user1.getConvos()
-  // await user1.findFriend()
-  // console.log(`seeded ${users.length} users`)
+  await friendship3.confirm()
+  await friendship4.confirm()
+  await friendship5.confirm()
+  await friendship6.confirm()
+  await friendship7.confirm()
   console.log(`seeded successfully`)
 }
 

@@ -33,10 +33,10 @@ function AboutUs(props) {
           <Col>
             <div className="text-box2">
               <div className="content text-center">
-                <h3>Messages, Memes, Audios - All in one app!</h3>
+                <h3>Translate Messages, GIFs, and Speech - All in one app!</h3>
                 <p>
-                  "Chatty Polyglot has made it so easy for me to talk to people
-                  from different countries!" -Anonymous User
+                  "Chatty Polyglot has made it so simple for me to talk to
+                  people from different countries!" -Anonymous User
                 </p>
               </div>
             </div>
