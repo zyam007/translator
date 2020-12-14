@@ -273,15 +273,32 @@ form div {
   0% {
     content: 'We will melt away the ice of confusion.';
   }
-
-  25% {
+  10% {
     content: 'Мы растопим лед замешательства.';
   }
-  50% {
+  20% {
     content: 'Eliminar las barreras de comunicación.';
   }
-  75% {
+  30% {
     content: '我們將消除交流障碍';
+  }
+  40% {
+    content: 'Tutulungan ka namin na maunawaan.';
+  }
+  50% {
+    content: 'हम आपको संवाद करने में मदद करेंगे';
+  }
+  60% {
+    content: 'Nous vous aiderons à communiquer.';
+  }
+  70% {
+    content: '우리는 당신의 의사 소통을 도울 것입니다';
+  }
+  80% {
+    content: 'سوف نساعدك على التواصل';
+  }
+  90% {
+    content: '私たちはあなたがコミュニケーションするのを手伝います';
     opacity: 1;
   }
 }
