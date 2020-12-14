@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Alert, Row} from 'react-bootstrap'
+import {Button, Alert, Row, FormControl} from 'react-bootstrap'
 
 const SearchFriend = props => {
   const {userName, profilePicture, language, id} = props.user || ''
@@ -26,19 +26,18 @@ const SearchFriend = props => {
     return (
       <div className="justify-content-center">
         <Row className="col d-flex justify-content-center">
-          <h6>We found your friend: {userName}</h6>
+          <h5>We found your friend: {userName}</h5>
         </Row>
         <Row className="col d-flex justify-content-center">
           <img src={profilePicture} className="profile-photo" />
         </Row>
         <Row className="col d-flex justify-content-center">
-          <h6>He/She speaks {language}</h6>
+          <p>They speak {language}</p>
         </Row>
         <Row className="col d-flex justify-content-center">
-          <label htmlFor="text">Add a note to introduce yourself</label>
-        </Row>
-        <Row className="col d-flex justify-content-center">
-          <input
+          <FormControl
+            placeholder="Add a note to introduce yourself ..."
+            as="textarea"
             type="text"
             name="intro"
             value={props.intro}

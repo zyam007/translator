@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../../history'
-
+import socket from '../../socket'
+import store from '../index'
 /**
  * ACTION TYPES
  */
@@ -83,8 +84,11 @@ export const auth = (
 
 export const logout = () => async dispatch => {
   try {
+    let state = store.getState()
+    socket.emit('inActive', state.user)
     await axios.post('/auth/logout')
     dispatch(removeUser())
+
     history.push('/login')
   } catch (err) {
     console.error(err)

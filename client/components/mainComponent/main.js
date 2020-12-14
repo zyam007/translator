@@ -18,9 +18,9 @@ export class Main extends Component {
     this.props.getConvo(this.props.userId)
   }
 
-  handleClick(event) {
+  handleClick(userId) {
     this.setState({
-      selected: event.target.value
+      selected: userId
     })
   }
 
@@ -40,6 +40,7 @@ export class Main extends Component {
           handleClick={this.handleClick}
           selected={this.state.selected}
           newUnread={this.props.newUnread}
+          active={this.props.active}
         />
         {this.state.selected !== '' || undefined ? (
           <Messages selected={this.state.selected} />
@@ -56,7 +57,8 @@ const mapState = state => {
     conversations: state.convo.conversations,
     otherInChat: state.convo.otherIC,
     userId: state.user.id,
-    newUnread: state.message.newUnread
+    newUnread: state.message.newUnread,
+    active: state.convo.active
   }
 }
 
