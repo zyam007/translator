@@ -9,6 +9,12 @@ module.exports = io => {
     socket.on('user typing', data => {
       socket.broadcast.emit('user typing', data)
     })
+    socket.on('active', data => {
+      socket.broadcast.emit('active', data.id)
+    })
+    socket.on('inActive', data => {
+      socket.broadcast.emit('inActive', data.id)
+    })
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
     })

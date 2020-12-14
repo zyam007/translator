@@ -10,6 +10,7 @@ import {fetchUserFriends} from '../../store/reducers/userFriends'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
+import LoadingView from '../loadingView'
 import {
   Alert,
   Button,
@@ -152,12 +153,7 @@ export class Messages extends Component {
 
   render() {
     if (this.props.loading) {
-      return (
-        <div>
-          <p>Loading messages...Please wait</p>
-          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-        </div>
-      )
+      return <LoadingView />
     }
 
     const blocked = this.props.blocked || []
