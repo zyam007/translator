@@ -28,7 +28,10 @@ export default function Conversation(props) {
   const newUnread = props.newUnread || []
 
   return (
-    <div style={{minWidth: '20%'}} className="d-flex flex-column bg-dark">
+    <div
+      style={{minWidth: '25%', maxWidth: '25%'}}
+      className="d-flex flex-column bg-dark"
+    >
       <Container
         className="border-right overflow-auto flex-grow-1"
         style={{

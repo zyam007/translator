@@ -32,7 +32,7 @@ const SearchFriend = props => {
           <img src={profilePicture} className="profile-photo" />
         </Row>
         <Row className="col d-flex justify-content-center">
-          <h7>They speak {language}</h7>
+          <p>They speak {language}</p>
         </Row>
         <Row className="col d-flex justify-content-center">
           <FormControl

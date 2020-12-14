@@ -131,14 +131,16 @@ form div {
 /* MY PROFILE CSS END */
 
 /* FRIENDS LIST */
-.friends-list {
+/* .friends-list {
   display: flex;
   flex-direction: row;
   justify-content: start;
-}
+} */
 .friends-img {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
+  /* width: 20%;
+  height: 20%; */
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid #d264b6;
@@ -263,7 +265,7 @@ form div {
 
 .text-change::before {
   content: 'We will melt away the ice of confusion.';
-  animation: animate infinite 10s;
+  animation: animate infinite 25s;
   padding-left: 10px;
 }
 
@@ -299,4 +301,20 @@ form div {
     content: '私たちはあなたがコミュニケーションするのを手伝います';
     opacity: 1;
   }
+}
+
+@media only screen and (max-width: 500px) {
+  #new-rq-btns {
+    flex-direction: column;
+  }
+  .intro-msg {
+    font-size: 10px;
+  }
+  .friends-img {
+    width: 40px;
+    height: 40px;
+  }
+  /* .btn-accept {
+
+  } */
 }
