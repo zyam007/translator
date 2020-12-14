@@ -76,7 +76,7 @@ export default function Input(props) {
         style={{backgroundColor: `${props.background}`}}
       >
         <hr />
-        <div className="d-flex flex-column align-self-start mr-auto">
+        <div className="d-flex flex-column align-self-end mr-auto">
           <Button
             style={{width: '100px'}}
             variant="secondary"
