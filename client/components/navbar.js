@@ -17,18 +17,17 @@ export class NavBar extends React.Component {
       <>
         <Navbar collapseOnSelect expand="md" id="navbar">
           {isLoggedIn ? (
-            <Navbar.Brand href="/">
-              <img src="logo3.png" alt="Translate" className="logo" />{' '}
-              {/* <img src="logo3.png" alt="Translate" className="logo" />{' '} */}
-              <MDBIcon
+            <Navbar.Brand href="/" style={{fontSize: '1rem'}}>
+              <img src="logo3.png" alt="Translate" className="logo" />
+              {/* <MDBIcon
                 icon="angle-double-left"
                 size="lg"
                 style={{paddingRight: '10px'}}
-              />
-              Start Chatting!
+              /> */}
+              <span className="ml-3 nav-name">Chat Room</span>
             </Navbar.Brand>
           ) : (
-            <Navbar.Brand>
+            <Navbar.Brand href="/">
               <img src="logo3.png" alt="Translate" className="logo" />{' '}
             </Navbar.Brand>
           )}
@@ -50,7 +49,7 @@ export class NavBar extends React.Component {
                         alt=""
                         className="profile-img nav"
                       />
-                      <span>{userName}</span>
+                      <span className="ml-1">{userName}</span>
                     </Link>
                   </NavItem>
                   <NavItem>
@@ -61,8 +60,8 @@ export class NavBar extends React.Component {
                 </Nav>
               ) : (
                 <Nav>
-                  <Link to="/" className="nav-name">
-                    Home
+                  <Link to="/aboutus" className="nav-name">
+                    About Us
                   </Link>
                 </Nav>
               )}

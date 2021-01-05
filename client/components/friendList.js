@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {ListGroup, Button, Tabs, Tab, Badge} from 'react-bootstrap'
+import {ListGroup, Button, Tabs, Tab, Badge, Col} from 'react-bootstrap'
 import {
   fetchUserFriends,
   confirmFriend,
@@ -8,10 +8,6 @@ import {
 } from '../store/reducers/userFriends'
 
 export class FriendList extends Component {
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     this.props.getFriends(this.props.user.id)
   }
@@ -24,8 +20,8 @@ export class FriendList extends Component {
     const requested = this.props.userWithFriends.requested || []
     const blocked = this.props.userWithFriends.blocked || []
     return (
-      <>
-        <h3>Your Friends</h3>
+      <div className="mt-3">
+        <h3 className="ml-5">Your Friends</h3>
         <Tabs defaultActiveKey="friends" id="uncontrolled-tab-example">
           <Tab eventKey="friends" title="Friends">
             <ListGroup>
@@ -33,12 +29,15 @@ export class FriendList extends Component {
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
-                    style={{display: 'flex'}}
+                    className="friends-list d-flex align-items-center"
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
                     <Button
+                      className="mr-4"
                       variant="outline-danger"
                       size="sm"
                       onClick={() =>
@@ -67,11 +66,14 @@ export class FriendList extends Component {
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
+                    className="friends-list d-flex align-items-center"
                     style={{display: 'flex'}}
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
                     <Button
                       variant="outline-danger"
                       size="sm"
@@ -86,6 +88,7 @@ export class FriendList extends Component {
                       unBlock
                     </Button>
                     <Button
+                      className="ml-2"
                       variant="danger"
                       size="sm"
                       onClick={() =>
@@ -105,11 +108,13 @@ export class FriendList extends Component {
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
-                    style={{display: 'flex'}}
+                    className="friends-list d-flex align-items-center"
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
                     <Button
                       variant="dark"
                       size="sm"
@@ -144,39 +149,53 @@ export class FriendList extends Component {
                 return (
                   <ListGroup.Item
                     key={friend.id}
-                    className="friends-list"
-                    style={{display: 'flex'}}
+                    className="friends-list d-flex align-items-center"
                   >
-                    <img src={friend.profilePicture} className="friends-img" />
-                    <p style={{width: '200px'}}>{friend.userName}</p>
-                    <Button
-                      variant="outline-success"
-                      onClick={() =>
-                        this.props.requestUpdate(
-                          this.props.user.id,
-                          friend.id,
-                          'accept'
-                        )
-                      }
+                    <img
+                      src={friend.profilePicture}
+                      className="friends-img mr-2"
+                    />
+                    <span style={{width: '150px'}}>{friend.userName}</span>
+                    <span
+                      style={{width: '200px', fontSize: '12px'}}
+                      className="mr-3 intro-msg"
                     >
-                      Accept
-                    </Button>
-                    <Button
-                      variant="dark"
-                      size="sm"
-                      onClick={() =>
-                        this.props.delete(this.props.user.id, friend.id)
-                      }
-                    >
-                      Deny
-                    </Button>
+                      {arr.map(person => {
+                        if (person.senderId === friend.id) return person.intro
+                      })}
+                    </span>
+                    <div className="d-flex" id="new-rq-btns">
+                      <Button
+                        className="mr-2 btn-accept"
+                        variant="outline-success"
+                        onClick={() =>
+                          this.props.requestUpdate(
+                            this.props.user.id,
+                            friend.id,
+                            'accept'
+                          )
+                        }
+                      >
+                        Accept
+                      </Button>
+                      <Button
+                        className="mr-2"
+                        variant="dark"
+                        size="sm"
+                        onClick={() =>
+                          this.props.delete(this.props.user.id, friend.id)
+                        }
+                      >
+                        Deny
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 )
               })}
             </ListGroup>
           </Tab>
         </Tabs>
-      </>
+      </div>
     )
   }
 }

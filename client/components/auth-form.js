@@ -3,8 +3,11 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Link} from 'react-router-dom'
-import {Button, Container, Row, Form, Col} from 'react-bootstrap'
+import {Button, Container, Row, Form, Col, Card} from 'react-bootstrap'
 import './auth-form.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faFacebook, faGoogle} from '@fortawesome/free-brands-svg-icons'
+
 /**
  * COMPONENT
  */
@@ -12,96 +15,182 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <Container>
-      <div>
-        {props.name === 'login' ? (
-          <Form onSubmit={handleSubmit} name={name}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                name="email"
-              />
-            </Form.Group>
+    <div
+      className="col d-flex justify-content-center"
+      style={{marginTop: '20px'}}
+    >
+      <Card style={{width: '30rem'}} className="auth">
+        <Card.Body className="card-block text-center">
+          <Card.Img
+            variant="top"
+            src="/logo3.png"
+            alt="no logo"
+            style={{width: '20%', marginRight: 'auto', marginLeft: 'auto'}}
+          />
+          <Card.Title>Chatty Polyglot</Card.Title>
+          {props.name === 'login' ? (
+            <Form onSubmit={handleSubmit} name={name}>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicEmail" style={{width: '80%'}}>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                    required
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group
+                  controlId="formBasicPassword"
+                  style={{width: '80%'}}
+                >
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    required
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Button
+                  variant="secondary"
+                  type="submit"
+                  style={{width: '80%'}}
+                >
+                  {displayName}
+                </Button>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="password"
-              />
-            </Form.Group>
-            <div>
-              <Button variant="primary" type="submit">
-                {displayName}
-              </Button>
-              {error && error.response && <div> {error.response.data} </div>}
-              <br />
-              <Link to="/signup">Not a member?</Link>
-              <br />
+                {error && error.response && <div> {error.response.data} </div>}
+              </Row>
 
-              <a href="/auth/google">{displayName} with Google</a>
-              <a href="/auth/facebook" className="fb connect">
-                {displayName} with Facebook
-              </a>
-            </div>
-          </Form>
-        ) : (
-          <Form onSubmit={handleSubmit} name={name}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                name="email"
-              />
-            </Form.Group>
+              <Row className="justify-content-md-center">
+                <div>
+                  Not a member?{' '}
+                  <Link to="/signup">
+                    <span>Sign up Now!</span>{' '}
+                  </Link>
+                </div>
+              </Row>
 
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="password"
-              />
-            </Form.Group>
+              <Row className="justify-content-md-center">
+                <div>or you can {displayName} with : </div>
+              </Row>
+              <Row
+                className="justify-content-md-center"
+                style={{marginTop: '-30px'}}
+              >
+                <Col md="auto">
+                  <a href="/auth/google">
+                    <FontAwesomeIcon icon={faGoogle} size="2x" />
+                  </a>
+                </Col>
+                <Col md="auto">
+                  <a href="/auth/facebook">
+                    <FontAwesomeIcon icon={faFacebook} size="2x" />
+                  </a>
+                </Col>
+              </Row>
+            </Form>
+          ) : (
+            <Form onSubmit={handleSubmit} name={name}>
+              <Row className="justify-content-md-center">
+                <Form.Group controlId="formBasicEmail" style={{width: '80%'}}>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    name="email"
+                    required
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group
+                  controlId="formBasicPassword"
+                  style={{width: '80%'}}
+                >
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    required
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group
+                  controlId="formBasicuserName"
+                  style={{width: '80%'}}
+                >
+                  <Form.Control
+                    type="userName"
+                    placeholder="Username"
+                    name="userName"
+                    required
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Form.Group
+                  controlId="formBasicLanguage"
+                  style={{width: '80%', marginTop: '-20px'}}
+                >
+                  <Form.Label>Choose Your Language</Form.Label>
+                  <Form.Control as="select" name="language" type="language">
+                    <option value="ENG">English </option>
+                    <option value="ARA">Arabic</option>
+                    <option value="CHI">Chinese</option>
+                    <option value="FIL">Filipino</option>
+                    <option value="FRE">French</option>
+                    <option value="HIN">Hindi</option>
+                    <option value="ja">Japanese</option>
+                    <option value="KOR">Korean</option>
+                    <option value="RUS">Russian</option>
+                    <option value="SPA">Spanish</option>
+                  </Form.Control>
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-md-center">
+                <Button variant="warning" type="submit" style={{width: '80%'}}>
+                  {displayName}
+                </Button>
 
-            <Form.Group controlId="formBasicuserName">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="userName"
-                placeholder="Username"
-                name="userName"
-              />
-            </Form.Group>
+                {error && error.response && <div> {error.response.data} </div>}
+              </Row>
 
-            <Form.Group controlId="formBasicLanguage">
-              <Form.Label>Choose Your Language</Form.Label>
-              <Form.Control as="select" name="language" type="language">
-                <option value="ENG">ENG</option>
-                <option value="SPA">SPA</option>
-                <option value="RUS">RUS</option>
-                <option value="CHI">CHI</option>
-              </Form.Control>
-            </Form.Group>
+              <Row className="justify-content-md-center">
+                <div>
+                  Already a member?{' '}
+                  <Link to="/login">
+                    <span>Log in!</span>{' '}
+                  </Link>
+                </div>
+              </Row>
 
-            <div>
-              <Button variant="primary" type="submit">
-                {displayName}
-              </Button>
-              {error && error.response && <div> {error.response.data} </div>}
-              <br />
-              <a href="/auth/google">{displayName} with Google</a>
-              <a href="/auth/facebook" className="fb connect">
-                {displayName} with Facebook
-              </a>
-            </div>
-          </Form>
-        )}
-      </div>
-    </Container>
+              <Row className="justify-content-md-center">
+                <div>or you can {displayName} with : </div>
+              </Row>
+              <Row
+                className="justify-content-md-center"
+                style={{marginTop: '-30px'}}
+              >
+                <Col md="auto">
+                  <a href="/auth/google">
+                    <FontAwesomeIcon icon={faGoogle} size="2x" />
+                  </a>
+                </Col>
+                <Col md="auto">
+                  <a href="/auth/facebook">
+                    <FontAwesomeIcon icon={faFacebook} size="2x" />
+                  </a>
+                </Col>
+              </Row>
+            </Form>
+          )}
+        </Card.Body>
+      </Card>
+    </div>
   )
 }
 

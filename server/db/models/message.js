@@ -5,7 +5,7 @@ const Conversation = require('./conversation')
 
 const Message = db.define('message', {
   text: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     validate: {
       notEmpty: true
     }
@@ -15,15 +15,20 @@ const Message = db.define('message', {
     defaultValue: false
   },
   userId: Sequelize.INTEGER,
-  receiverId: Sequelize.INTEGER
+  receiverId: Sequelize.INTEGER,
+  URL: {
+    type: Sequelize.TEXT,
+    defaultValue: 'No text'
+  }
 })
 
-Message.createMessage = async (text, senderId, receiverId, bool) => {
+Message.createMessage = async (text, senderId, receiverId, bool, URL) => {
   const message = await Message.create({
     text,
     userId: senderId,
     receiverId: receiverId,
-    isImage: bool
+    isImage: bool,
+    URL
   })
   const conversation1 = await Conversation.findOrCreateConversation(
     senderId,

@@ -6,13 +6,15 @@ import {
 } from '../store/reducers/findfriend'
 import {fetchUserFriends} from '../store/reducers/userFriends'
 import {connect} from 'react-redux'
-import {Toast, Button, Container, Row, Col, Alert} from 'react-bootstrap'
+import {Button, Container, Card, Modal} from 'react-bootstrap'
+import SearchFriend from './searchFriend'
 
 const defaultState = {
   email: '',
   intro: '',
   search: false,
-  error: null
+  error: null,
+  modal: false
 }
 
 class AddFriend extends Component {
@@ -22,6 +24,7 @@ class AddFriend extends Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
+    this.handleModalClose = this.handleModalClose.bind(this)
   }
   componentDidMount() {
     this.props.getFriends(this.props.userId)
@@ -59,52 +62,60 @@ class AddFriend extends Component {
         this.props.findFriend.id,
         this.state.intro
       )
-      alert('Your friend request was sent')
-      this.setState(defaultState)
+      // alert('Your friend request was sent')
+      this.setState({modal: true})
     } catch (error) {
       console.log(error)
     }
   }
 
+  handleModalClose() {
+    this.setState(defaultState)
+  }
+
   render() {
     return (
-      <Container>
-        <Col />
-        <Col>
-          <form id="findFriend">
-            <div>
-              <h5>
-                <label htmlFor="email">Search by Email</label>
-              </h5>
-              <input
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-              <Button type="submit" onClick={this.handleSearch}>
-                Search
-              </Button>
-              {this.props.error !== 'pending' ? (
-                <Container>
-                  <SearchFriend
-                    email={this.state.email}
-                    handleChange={this.handleChange}
-                    handleAdd={this.handleAdd}
-                    intro={this.state.intro}
-                    user={this.props.findFriend}
-                    error={this.props.error}
-                    userId={this.props.userId}
-                    userWithFriends={this.props.userWithFriends}
-                  />
-                </Container>
-              ) : (
-                <div />
-              )}
-            </div>
-          </form>
-        </Col>
-        <Col />
+      <Container
+        className="col d-flex justify-content-center"
+        style={{marginTop: '20px'}}
+      >
+        <Modal show={this.state.modal} onHide={this.handleModalClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Your friend request was sent</Modal.Title>
+          </Modal.Header>
+        </Modal>
+        <form id="findFriend">
+          <div>
+            <Card.Title>
+              <label htmlFor="email">Search by Email</label>
+            </Card.Title>
+            <input
+              type="text"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <Button type="submit" onClick={this.handleSearch}>
+              Search
+            </Button>
+            {this.props.error !== 'pending' ? (
+              <Card style={{width: '30rem'}} className="auth">
+                <SearchFriend
+                  email={this.state.email}
+                  handleChange={this.handleChange}
+                  handleAdd={this.handleAdd}
+                  intro={this.state.intro}
+                  user={this.props.findFriend}
+                  error={this.props.error}
+                  userId={this.props.userId}
+                  userWithFriends={this.props.userWithFriends}
+                />
+              </Card>
+            ) : (
+              <div />
+            )}
+          </div>
+        </form>
       </Container>
     )
   }
@@ -130,48 +141,3 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(AddFriend)
-
-const SearchFriend = props => {
-  const {userName, email, profilePicture, language, id} = props.user || ''
-  const func = each => {
-    return each.id === id
-  }
-  const array = props.userWithFriends.friends || ''
-  const check = array.some(func)
-  if (props.error) {
-    return (
-      <Alert variat="warning">
-        Sorry, we couldn't find your friend! Try searching another email.
-      </Alert>
-    )
-  } else if (check) {
-    return (
-      <Alert variat="warning">
-        This friend or friend request already exists.
-      </Alert>
-    )
-  } else if (id === props.userId) {
-    return <Alert variat="warning">This is your email.</Alert>
-  } else {
-    return (
-      <div>
-        <div>
-          <h6>We found your friend: {userName}</h6>
-          <img src={profilePicture} className="profile-photo" />
-          <div>Language: {language}</div>
-          <label htmlFor="text">Add a note to introduce yourself</label>
-          <input
-            type="text"
-            name="intro"
-            value={props.intro}
-            onChange={props.handleChange}
-            style={{height: '100px', width: '200px'}}
-          />
-          <Button type="submit" onClick={props.handleAdd}>
-            Send Friend Request
-          </Button>
-        </div>
-      </div>
-    )
-  }
-}

@@ -3,16 +3,19 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {Router} from 'react-router-dom'
 import history from './history'
-import store from './store'
+import store, {persistor} from './store'
 import App from './app'
-
-// establishes socket connection
-// import './socket'
+import {Notifications} from 'react-push-notification'
+import {PersistGate} from 'redux-persist/lib/integration/react'
+import {LoadingView} from '../client/components/index'
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <Notifications />
+      <PersistGate loading={<LoadingView />} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Router>
   </Provider>,
   document.getElementById('app')

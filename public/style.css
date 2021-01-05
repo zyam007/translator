@@ -17,8 +17,8 @@ label {
 }
 
 .logo {
-  width: 10%;
-  height: 10%;
+  width: 30px;
+  height: 30px;
 }
 
 nav a {
@@ -32,7 +32,14 @@ form div {
 }
 
 /* NAVBAR START */
-
+#footer {
+  margin: 0;
+  margin-top: auto;
+  background-color: #d264b6;
+  animation-name: example;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
 #navbar {
   display: flex;
   align-items: center;
@@ -124,14 +131,16 @@ form div {
 /* MY PROFILE CSS END */
 
 /* FRIENDS LIST */
-.friends-list {
+/* .friends-list {
   display: flex;
   flex-direction: row;
   justify-content: start;
-}
+} */
 .friends-img {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
+  /* width: 20%;
+  height: 20%; */
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid #d264b6;
@@ -172,8 +181,17 @@ form div {
   .profile-info {
     margin-top: 30px;
   }
-  .img {
+  .friendImg {
     display: none;
+  }
+  .friendName {
+    margin-left: 5px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .listingFriends {
+    flex-direction: column;
   }
 }
 
@@ -249,47 +267,63 @@ form div {
     opacity: 1;
   }
 }
-/* .main-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#app-title {
-  width: max-content;
-  text-align: center;
-  margin: auto;
-} */
 
 #animate {
-  /* display: flex; */
-  /* justify-content: center; */
   color: blueviolet;
 }
 
 .text-change::before {
   content: 'We will melt away the ice of confusion.';
-  animation: animate infinite 10s;
+  animation: animate infinite 25s;
   padding-left: 10px;
 }
-
-/* .btn-login-signup {
-  display: flex;
-
-  justify-content: center;
-} */
 
 @keyframes animate {
   0% {
     content: 'We will melt away the ice of confusion.';
   }
-
-  50% {
+  10% {
     content: 'Мы растопим лед замешательства.';
   }
-
-  75% {
+  20% {
+    content: 'Eliminar las barreras de comunicación.';
+  }
+  30% {
     content: '我們將消除交流障碍';
+  }
+  40% {
+    content: 'Tutulungan ka namin na maunawaan.';
+  }
+  50% {
+    content: 'हम आपको संवाद करने में मदद करेंगे';
+  }
+  60% {
+    content: 'Nous vous aiderons à communiquer.';
+  }
+  70% {
+    content: '우리는 당신의 의사 소통을 도울 것입니다';
+  }
+  80% {
+    content: 'سوف نساعدك على التواصل';
+  }
+  90% {
+    content: '私たちはあなたがコミュニケーションするのを手伝います';
     opacity: 1;
   }
+}
+
+@media only screen and (max-width: 500px) {
+  #new-rq-btns {
+    flex-direction: column;
+  }
+  .intro-msg {
+    font-size: 10px;
+  }
+  .friends-img {
+    width: 40px;
+    height: 40px;
+  }
+  /* .btn-accept {
+
+  } */
 }

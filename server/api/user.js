@@ -1,26 +1,32 @@
 const router = require('express').Router()
+const index = require('./index.js')
 const {User, Message, Friendship, Conversation} = require('../db/models')
+const isUser = require('./isUser')
 module.exports = router
 
-router.get('/conversations/:id', async (req, res, next) => {
+router.get('/conversations/:id', isUser, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
-    const conversationsFriends = await user.getConvos()
-    let friendsList = conversationsFriends.friends
-    let friends = []
-    let fuser
-    for (let i = 0; i < friendsList.length; i++) {
-      fuser = await User.findByPk(friendsList[i])
-      friends.push(fuser)
+    if (req.user.dataValues.id !== Number(req.params.id)) {
+      res.sendStatus(403)
+    } else {
+      const user = await User.findByPk(req.params.id)
+      const conversationsFriends = await user.getConvos()
+      let friendsList = conversationsFriends.friends
+      let friends = []
+      let fuser
+      for (let i = 0; i < friendsList.length; i++) {
+        fuser = await User.findByPk(friendsList[i])
+        friends.push(fuser)
+      }
+      conversationsFriends.friends = friends
+      res.json(conversationsFriends)
     }
-    conversationsFriends.friends = friends
-    res.json(conversationsFriends)
   } catch (err) {
     next(err)
   }
 })
 
-router.get('/:email', async (req, res, next) => {
+router.get('/:email', isUser, async (req, res, next) => {
   try {
     const findUser = await User.findOne({
       where: {
@@ -34,21 +40,26 @@ router.get('/:email', async (req, res, next) => {
   }
 })
 
-router.post('/addFriend', async (req, res, next) => {
+router.post('/addFriend', isUser, async (req, res, next) => {
   try {
-    const friendship = await Friendship.createFriendship(
-      req.body.senderId,
-      req.body.receiverId,
-      req.body.intro
-    )
-    const sender = await User.findByPk(friendship.senderId)
-    const receiver = await User.findByPk(friendship.receiverId)
-    let result = {
-      friendship,
-      sender,
-      receiver
+    // console.dir(req.user)
+    if (req.user.dataValues.id !== Number(req.body.senderId)) {
+      res.sendStatus(403)
+    } else {
+      const friendship = await Friendship.createFriendship(
+        req.body.senderId,
+        req.body.receiverId,
+        req.body.intro
+      )
+      const sender = await User.findByPk(friendship.senderId)
+      const receiver = await User.findByPk(friendship.receiverId)
+      let result = {
+        friendship,
+        sender,
+        receiver
+      }
+      res.json(result)
     }
-    res.json(result)
   } catch (err) {
     next(err)
   }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {Component} from 'react'
 import {
   getAllMessages,
@@ -9,20 +10,33 @@ import {fetchUserFriends} from '../../store/reducers/userFriends'
 import {connect} from 'react-redux'
 import Loader from 'react-loader-spinner'
 import socket from '../../socket'
-import {Alert, Button, FormControl, InputGroup} from 'react-bootstrap'
+import LoadingView from '../loadingView'
+import {
+  Alert,
+  Button,
+  FormControl,
+  InputGroup,
+  OverlayTrigger,
+  Tooltip,
+  Overlay,
+  Popover,
+  PopoverTitle
+} from 'react-bootstrap'
 import Input from './input'
 import './message.css'
 
 export class Messages extends Component {
   constructor(props) {
     super(props)
+    this.lastMsgRef = React.createRef()
     this.state = {
       value: '',
       showTrans: false,
       toggleMemes: false,
-      translate: {}
+      translate: {},
+      toggleColor: false,
+      background: '#ffffff'
     }
-
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.translate = this.translate.bind(this)
@@ -30,6 +44,8 @@ export class Messages extends Component {
     this.handleGIPHY = this.handleGIPHY.bind(this)
     this.toggle = this.toggle.bind(this)
     this.handleVoiceOnChange = this.handleVoiceOnChange.bind(this)
+    this.toggle2 = this.toggle2.bind(this)
+    this.handleChangeColor = this.handleChangeColor.bind(this)
   }
 
   componentDidMount() {
@@ -61,12 +77,14 @@ export class Messages extends Component {
         translate: this.props.translate
       })
     }
+    if (this.lastMsgRef.current) {
+      this.lastMsgRef.current.scrollIntoView()
+    }
   }
 
   handleVoiceOnChange(voice) {
     this.setState({value: voice})
-    let bool = false
-    event.target.value !== '' ? (bool = true) : (bool = false)
+    let bool = true
     socket.emit('user typing', {
       typerId: this.props.userId,
       receiverId: this.props.selected,
@@ -96,6 +114,11 @@ export class Messages extends Component {
       this.setState({
         value: ''
       })
+      socket.emit('user typing', {
+        typerId: this.props.userId,
+        receiverId: this.props.selected,
+        isTyping: false
+      })
     }
   }
 
@@ -108,6 +131,9 @@ export class Messages extends Component {
 
   toggle() {
     this.setState(prevState => ({toggleMemes: !prevState.toggleMemes}))
+  }
+  toggle2() {
+    this.setState(prevState => ({toggleColor: !prevState.toggleColor}))
   }
   // switch to the store
   async translate(text, lan, messageId) {
@@ -132,14 +158,13 @@ export class Messages extends Component {
     this.toggle()
   }
 
+  handleChangeColor = color => {
+    this.setState({background: color.hex})
+  }
+
   render() {
     if (this.props.loading) {
-      return (
-        <div>
-          <p>Loading messages...Please wait</p>
-          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-        </div>
-      )
+      return <LoadingView />
     }
 
     const blocked = this.props.blocked || []
@@ -148,14 +173,21 @@ export class Messages extends Component {
 
     return (
       <div className="d-flex flex-column flex-grow-1">
-        <Alert variant="info">{this.props.title}</Alert>
-        <div className="flex-grow-1 overflow-auto">
+        <Alert className="mb-0" variant="info">
+          {this.props.title}
+        </Alert>
+        <div
+          className="flex-grow-1 overflow-auto"
+          style={{backgroundColor: `${this.state.background}`}}
+        >
           <div className="d-flex flex-column align-items-start justify-content-end ">
             {translated &&
               translated.translation &&
-              translated.translation.map(message => {
+              translated.translation.map((message, index) => {
+                const lastMsg = translated.translation.length - 1 === index
                 return (
                   <div
+                    ref={lastMsg ? this.lastMsgRef : null}
                     key={message.id}
                     style={{maxWidth: '80%'}}
                     className={`my-1 d-flex flex-column ${
@@ -170,11 +202,22 @@ export class Messages extends Component {
                           'messages' +
                           (message.receiverId === this.props.userId
                             ? 'receiver'
-                            : 'sender')
+                            : 'sender') +
+                          (message.isImage ? 'img' : '')
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} />
+                          <OverlayTrigger
+                            key="placement"
+                            placement="top"
+                            overlay={
+                              <Tooltip id="tooltip-top">
+                                {message.translation}
+                              </Tooltip>
+                            }
+                          >
+                            <img src={message.URL} className="img-gif" />
+                          </OverlayTrigger>
                         ) : (
                           message.translation
                         )}
@@ -190,7 +233,17 @@ export class Messages extends Component {
                         }
                       >
                         {message.isImage ? (
-                          <img src={message.text} />
+                          <OverlayTrigger
+                            key="placement"
+                            placement="top"
+                            overlay={
+                              <Tooltip id="tooltip-top">
+                                {message.translation}
+                              </Tooltip>
+                            }
+                          >
+                            <img src={message.URL} className="img-gif" />
+                          </OverlayTrigger>
                         ) : (
                           message.text
                         )}
@@ -208,7 +261,11 @@ export class Messages extends Component {
           value={this.state.value}
           handleGIPHY={this.handleGIPHY}
           toggleMemes={this.state.toggleMemes}
+          toggleColor={this.state.toggleColor}
+          background={this.state.background}
           toggle={this.toggle}
+          toggle2={this.toggle2}
+          handleChangeColor={this.handleChangeColor}
           toggleShowTrans={this.toggleShowTrans}
           userLanguage={this.props.user.language}
           blocked={
@@ -232,7 +289,6 @@ const mapState = state => {
     title: state.message.isTyping
       ? 'The other user is typing...'
       : 'Start your conversation',
-
     translateall: state.message.translateAll,
     blocked: state.userFriends.blocked
   }

@@ -1,0 +1,20 @@
+.linkedIn:link {
+  color: black;
+}
+.linkedIn:visited {
+  color: black;
+}
+
+.linkedIn:hover {
+  color: rgb(173, 184, 30);
+}
+
+.linkedIn:active {
+  color: white;
+}
+
+@media screen and (max-width: 380px) {
+  #footer {
+    flex-direction: column;
+  }
+}

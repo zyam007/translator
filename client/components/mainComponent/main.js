@@ -4,7 +4,6 @@ import {Container} from 'react-bootstrap'
 import Conversation from './conversation'
 import Messages from './messages'
 import {getConvo} from '../../store/reducers/convo'
-
 import {clearUnread} from '../../store/reducers/message'
 
 export class Main extends Component {
@@ -19,23 +18,14 @@ export class Main extends Component {
     this.props.getConvo(this.props.userId)
   }
 
-  handleClick(event) {
-    console.log('name is: ', event.target.value)
-
+  handleClick(userId) {
     this.setState({
-      selected: event.target.value
+      selected: userId
     })
   }
 
   componentDidUpdate(prevState) {
-    console.log('in com did update')
     if (prevState.selected !== this.state.selected) {
-      console.log(
-        'in main, component did update, does prev prop newunread',
-        this.props.newUnread,
-        'include this.selected?',
-        this.state.selected
-      )
       if (this.props.newUnread.includes(this.state.selected)) {
         this.props.clearUnread(this.state.selected)
       }
@@ -43,19 +33,14 @@ export class Main extends Component {
   }
 
   render() {
-    console.log(
-      ' is this the one I am looking for ???',
-      this.props.otherInChat || []
-    )
     return (
       <div className="d-flex" style={{height: '93vh'}}>
         <Conversation
           otherInChat={this.props.otherInChat}
           handleClick={this.handleClick}
           selected={this.state.selected}
-
           newUnread={this.props.newUnread}
-
+          active={this.props.active}
         />
         {this.state.selected !== '' || undefined ? (
           <Messages selected={this.state.selected} />
@@ -72,7 +57,8 @@ const mapState = state => {
     conversations: state.convo.conversations,
     otherInChat: state.convo.otherIC,
     userId: state.user.id,
-    newUnread: state.message.newUnread
+    newUnread: state.message.newUnread,
+    active: state.convo.active
   }
 }
 
