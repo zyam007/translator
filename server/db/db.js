@@ -6,6 +6,11 @@ console.log(databaseName)
 const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
   {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: true
+    },
     logging: false
   }
 )
